@@ -1,0 +1,15 @@
+@prefix ucon: <http://example.org/ucon#> .
+@prefix eventLog: <http://example.org/eventLog#> .
+@prefix pmt: <http://example.org/pmt#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Definizione della policy per Automated Discovery con Heuristic Miner
+ucon:Policy_AutoDisc_Heuristic a ucon:Authorization ;
+    ucon:object_id [
+        eventLog:fileName "event_log.xes"^^xsd:string ;
+        eventLog:format "XES"
+    ] ;
+    ucon:allowedActions [
+        pmt:techniqueType pmt:AutomatedDiscovery ;
+        pmt:algorithm pmt:AlphaMiner
+    ] .
