@@ -1,6 +1,7 @@
 import rdflib
 import hashlib
 import os
+import shutil
 
 
 def parse_turtle_policy(policy_path):
@@ -16,6 +17,7 @@ def parse_turtle_policy(policy_path):
 
 def extract_policy_structure(policies):
     structure = []
+    allowed_algorithms = set()
     for s, p, o in policies:
         if isinstance(s, rdflib.BNode) or isinstance(o, rdflib.BNode):
             continue  # Ignora completamente i Blank Nodes
@@ -23,61 +25,38 @@ def extract_policy_structure(policies):
                  rdflib.URIRef("http://example.org/ucon#object_id"),
                  rdflib.URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")]:
             structure.append((s, p, o))  # Mantiene solo triplette rilevanti
+        if p == rdflib.URIRef("http://example.org/ucon#allowedActions"):
+            allowed_algorithms.add(o.split("#")[-1])  # Estrae il nome dell'algoritmo
 
     structure.sort()  # Assicura ordine stabile per hashing
-    return structure
+    return structure, allowed_algorithms
 
-
-'''
-def extract_policy_structure(policies):
-    structure = []
-    bnode_map = {}  # Mappa per stabilizzare i BNodes
-
-    def stable_bnode_id(bnode):
-        """Genera un ID stabile per un Blank Node basato sui suoi collegamenti"""
-        if bnode not in bnode_map:
-            linked_triples = sorted([(p, o) for subj, p, o in policies if subj == bnode or o == bnode])
-            bnode_hash = hashlib.sha256(str(linked_triples).encode()).hexdigest()
-            bnode_map[bnode] = rdflib.URIRef(f"urn:blank:{bnode_hash[:12]}")  # Usa primi 12 caratteri per stabilità
-        return bnode_map[bnode]
-
-    normalized_policies = []
-    for s, p, o in policies:
-        if isinstance(s, rdflib.BNode):
-            s = stable_bnode_id(s)
-        if isinstance(o, rdflib.BNode):
-            o = stable_bnode_id(o)
-        if not isinstance(o, rdflib.Literal):  # Manteniamo solo la struttura
-            normalized_policies.append((s, p, o))
-
-    normalized_policies.sort()  # Assicura ordine stabile per hashing
-    return normalized_policies
-'''
 
 def generate_policy_id(structure):
-    print(structure)
-    structure_str = str(structure)  # Stringa consistente
+    structure_str = str(sorted(structure))  # Ensure consistent ordering
     return hashlib.sha256(structure_str.encode()).hexdigest()
 
-def generate_go_ta(policy_id, policies):
-    ta_dir = f"generated_tas/{policy_id}"
+
+def generate_go_ta(policy_id, policies, allowed_algorithms):
+    ta_dir = f"generated_tas/{policy_id}/AutomatedDiscovery/HeuristicMiner"
     os.makedirs(ta_dir, exist_ok=True)
-    module = "main"
+
     go_mod = f"""
-    module {module}
+    module main
 
     go 1.22.3
     """
 
-    with open(os.path.join(ta_dir, "go.mod"), "w") as f:
+    with open(os.path.join(f"generated_tas/{policy_id}", "go.mod"), "w") as f:
         f.write(go_mod)
 
     go_code = f"""
-    package {module}
+    package main
 
     import (
         "fmt"
         "log"
+        "./AutomatedDiscovery/HeuristicMiner"
     )
 
     type Policy struct {{
@@ -91,31 +70,44 @@ def generate_go_ta(policy_id, policies):
         fmt.Println("Policy enforced successfully.")
     }}
 
-    func heuristicMiner(logFile string) {{
-        fmt.Println("Running Heuristic Miner on", logFile)
-        // Placeholder: Replace with actual Heuristic Miner logic
-    }}
-
-    func main() {{
-        enforcePolicy("{policy_id}")
-        heuristicMiner("event_log.xes")
-    }}
     """
 
-    with open(os.path.join(ta_dir, "main.go"), "w") as f:
+    for algo in allowed_algorithms:
+        go_code += f"""
+        func {algo}(logFile string) {{
+            fmt.Println("Executing {algo} on", logFile)
+            HeuristicMiner.Run(logFile) // Call the external implementation
+        }}
+        """
+
+    go_code += f"""
+    func main() {{
+        enforcePolicy("{policy_id}")
+    """
+
+    for algo in allowed_algorithms:
+        go_code += f"\n        {algo}(\"event_log.xes\")"
+
+    go_code += "\n    }"
+
+    with open(os.path.join(f"generated_tas/{policy_id}", "main.go"), "w") as f:
         f.write(go_code)
+
+    heuristic_miner_src = "heuristicMiner.go"  # Percorso del file originale
+    heuristic_miner_dst = os.path.join(ta_dir, "heuristicMiner.go")
+    shutil.copy(heuristic_miner_src, heuristic_miner_dst)  # Copia il file
 
     print(f"Generated TA environment: {ta_dir}")
 
 
 def main(policy_path):
     policies = parse_turtle_policy(policy_path)
-    structure = extract_policy_structure(policies)
+    structure, allowed_algorithms = extract_policy_structure(policies)
     policy_id = generate_policy_id(structure)
 
     existing_tas = os.listdir("generated_tas") if os.path.exists("generated_tas") else []
     if policy_id not in existing_tas:
-        generate_go_ta(policy_id, policies)
+        generate_go_ta(policy_id, policies, allowed_algorithms)
     else:
         print("TA already exists. Skipping generation.")
 
