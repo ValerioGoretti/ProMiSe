@@ -18,29 +18,28 @@ def parse_turtle_policy(policy_path):
 def extract_policy_structure(policies):
     structure = []
     allowed_algorithms = set()
+    algorithm_nodes = set()  # Lista separata per i nodi contenenti algoritmi
 
-    # Mappiamo i Blank Nodes associati a ucon:allowedActions
-    action_nodes = set()
     for s, p, o in policies:
         if p == rdflib.URIRef("http://example.org/ucon#allowedActions") and isinstance(o, rdflib.BNode):
-            action_nodes.add(o)  # Salviamo i Blank Nodes che contengono le azioni consentite
-        else:
-            if isinstance(s, rdflib.BNode) or isinstance(o, rdflib.BNode):
-                continue  # Ignora gli altri Blank Nodes non utili
+            algorithm_nodes.add(o)  # Salviamo i Blank Nodes che contengono algoritmi
+
+        if isinstance(s, rdflib.BNode) or isinstance(o, rdflib.BNode):
+            continue  # Ignora completamente i Blank Nodes per la struttura
 
         if p in [rdflib.URIRef("http://example.org/ucon#allowedActions"),
                  rdflib.URIRef("http://example.org/ucon#object_id"),
                  rdflib.URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")]:
             structure.append((s, p, o))  # Mantiene solo triplette rilevanti
 
-    # Cerchiamo pmt:algorithm dentro i Blank Nodes individuati
+    # Estrarre gli algoritmi dai nodi identificati
     for s, p, o in policies:
-        if s in action_nodes and p == rdflib.URIRef("http://example.org/pmt#algorithm"):
-            allowed_algorithms.add(o.split("#")[-1])  # Estrai il nome dell'algoritmo
+        if s in algorithm_nodes and p == rdflib.URIRef("http://example.org/pmt#algorithm"):
+            allowed_algorithms.add(o.split("#")[-1])  # Nome dell'algoritmo
 
     structure.sort()  # Assicura ordine stabile per hashing
-    print("Policy structure:", structure)
-    print("Allowed algorithms:", allowed_algorithms)
+    structure.append(tuple(sorted(allowed_algorithms)))  # Aggiunge gli algoritmi per differenziare le TA
+
     return structure, allowed_algorithms
 
 
@@ -151,16 +150,17 @@ def clean_generated_tas():
 
 if __name__ == "__main__":
     while True:
+        print("\n --------- MENU ---------\n")
         print("Select an option:")
         print("1. Generate Trusted Application (TA) based on policy.")
         print("2. Clean generated TA directories.")
         print("3. Exit.")
-
-        choice = input("Enter your choice: ")
+        print("\n")
+        choice = input("> Enter your choice: ")
 
         if choice == "1":
-            policy_file = "policy3.ttl"  # Example policy file
-            print(f"Parsing policy: {policy_file}")
+            policy_file = input("Enter the policy filename: ")
+            #policy_file = "policy3.ttl"  # Example policy file
             main(policy_file)
         elif choice == "2":
             clean_generated_tas()
