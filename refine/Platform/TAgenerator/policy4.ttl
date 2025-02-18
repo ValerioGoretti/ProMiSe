@@ -1,0 +1,36 @@
+@prefix ucon: <http://example.org/ucon#> .
+@prefix eventLog: <http://example.org/eventLog#> .
+@prefix pmt: <http://example.org/pmt#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Definizione della policy con controlli di accesso ed eliminazione log dopo la scadenza
+ucon:Policy_AutoDisc a ucon:Authorization ;
+    ucon:object_id [
+        eventLog:fileName "event_log.xes"^^xsd:string ;
+        eventLog:format "XES" ;
+        ucon:logExpiration "2025-12-31T23:59:59Z"^^xsd:dateTime
+    ] ;
+
+    # Controllo su chi può accedere al log
+    ucon:logAccess [
+        ucon:allowedUsers "pubk1", "pubk2"
+    ] ;
+
+    # Controllo su chi può eseguire gli algoritmi permessi
+    ucon:executionAccess [
+        ucon:allowedUsers "pubk1", "pubk2"
+    ] ;
+
+    # Controllo su chi può accedere ai risultati
+    ucon:outputAccess [
+        ucon:allowedUsers "pubk1", "pubk2"
+    ] ;
+
+    # Definizione delle azioni permesse
+    ucon:allowedActions [
+        pmt:techniqueType pmt:AutomatedDiscovery ;
+        pmt:algorithm pmt:HeuristicMiner
+    ], [
+        pmt:techniqueType pmt:AutomatedDiscovery ;
+        pmt:algorithm pmt:AlphaMiner
+    ] .
