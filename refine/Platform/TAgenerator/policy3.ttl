@@ -3,7 +3,7 @@
 @prefix pmt: <http://example.org/pmt#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-# Definizione della policy per Automated Discovery con Heuristic Miner e Alpha Miner
+# Defining the policy for Automated Discovery with Heuristic Miner and Alpha Miner
 ucon:Policy_AutoDisc a ucon:Authorization ;
     ucon:object_id [
         eventLog:fileName "event_log.xes"^^xsd:string ;

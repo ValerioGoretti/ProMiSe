@@ -18,27 +18,27 @@ def parse_turtle_policy(policy_path):
 def extract_policy_structure(policies):
     structure = []
     allowed_algorithms = set()
-    algorithm_nodes = set()  # Lista separata per i nodi contenenti algoritmi
+    algorithm_nodes = set()  # List for algorithm nodes
 
     for s, p, o in policies:
         if p == rdflib.URIRef("http://example.org/ucon#allowedActions") and isinstance(o, rdflib.BNode):
-            algorithm_nodes.add(o)  # Salviamo i Blank Nodes che contengono algoritmi
+            algorithm_nodes.add(o)  # Saving Blank Nodes Containing Algorithms
 
         if isinstance(s, rdflib.BNode) or isinstance(o, rdflib.BNode):
-            continue  # Ignora completamente i Blank Nodes per la struttura
+            continue  # Ignore other Blank Nodes for the structure
 
         if p in [rdflib.URIRef("http://example.org/ucon#allowedActions"),
                  rdflib.URIRef("http://example.org/ucon#object_id"),
                  rdflib.URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")]:
-            structure.append((s, p, o))  # Mantiene solo triplette rilevanti
+            structure.append((s, p, o))  # Only relevant triplets
 
-    # Estrarre gli algoritmi dai nodi identificati
+    # Extracting algorithms from identified nodes
     for s, p, o in policies:
         if s in algorithm_nodes and p == rdflib.URIRef("http://example.org/pmt#algorithm"):
-            allowed_algorithms.add(o.split("#")[-1])  # Nome dell'algoritmo
+            allowed_algorithms.add(o.split("#")[-1])  # Algorithm name
 
     structure.sort()  # Assicura ordine stabile per hashing
-    structure.append(tuple(sorted(allowed_algorithms)))  # Aggiunge gli algoritmi per differenziare le TA
+    structure.append(tuple(sorted(allowed_algorithms)))  # Adding the name of the algorithm to the structure
 
     return structure, allowed_algorithms
 
@@ -102,8 +102,8 @@ def generate_go_ta(policy_id, policies, allowed_algorithms):
         f.write(go_code)
 
     algorithm_sources = {
-        "HeuristicMiner": "heuristicMiner.go",
-        "AlphaMiner": "alphaMiner.go"
+        "HeuristicMiner": "algorithmRepository/heuristicMiner.go",
+        "AlphaMiner": "algorithmRepository/alphaMiner.go"
     }
 
     for algo in allowed_algorithms:
@@ -143,9 +143,10 @@ def clean_generated_tas():
             ta_folder_path = os.path.join(folder, ta_folder)
             if os.path.isdir(ta_folder_path):
                 shutil.rmtree(ta_folder_path)
-                print(f"Cleaned up {ta_folder_path}.")
+                print(f"Clean {ta_folder_path}.")
     else:
-        print(f"No TA directories found to clean.")
+        print(f"No TA dir"
+              f"ectories found to clean.")
 
 
 if __name__ == "__main__":
