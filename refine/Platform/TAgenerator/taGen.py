@@ -18,88 +18,117 @@ def parse_turtle_policy(policy_path):
 def extract_policy_structure(policies):
     structure = []
     allowed_algorithms = set()
-    algorithm_nodes = set()  # List for algorithm nodes
+    algorithm_nodes = set()
+    log_expiration = None
+    log_access = set()
+    execution_access = set()
+    output_access = set()
+    log_file = None
 
     for s, p, o in policies:
+        #print(s, p, o)
         if p == rdflib.URIRef("http://example.org/ucon#allowedActions") and isinstance(o, rdflib.BNode):
-            algorithm_nodes.add(o)  # Saving Blank Nodes Containing Algorithms
+            algorithm_nodes.add(o)
+
+        if p == rdflib.URIRef("http://example.org/eventLog#fileName"):
+            log_file = str(o)
 
         if isinstance(s, rdflib.BNode) or isinstance(o, rdflib.BNode):
-            continue  # Ignore other Blank Nodes for the structure
+            continue
 
         if p in [rdflib.URIRef("http://example.org/ucon#allowedActions"),
                  rdflib.URIRef("http://example.org/ucon#object_id"),
                  rdflib.URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")]:
-            structure.append((s, p, o))  # Only relevant triplets
+            structure.append((str(s), str(p), str(o)))  # Convert URIRefs to strings
 
-    # Extracting algorithms from identified nodes
+        if p == rdflib.URIRef("http://example.org/ucon#logExpiration"):
+            log_expiration = str(o)
+
+        if p == rdflib.URIRef("http://example.org/ucon#logAccess"):
+            log_access.update(o.split(","))
+
+        if p == rdflib.URIRef("http://example.org/ucon#executionAccess"):
+            execution_access.update(o.split(","))
+
+        if p == rdflib.URIRef("http://example.org/ucon#outputAccess"):
+            output_access.update(o.split(","))
+
+
     for s, p, o in policies:
         if s in algorithm_nodes and p == rdflib.URIRef("http://example.org/pmt#algorithm"):
-            allowed_algorithms.add(o.split("#")[-1])  # Algorithm name
+            allowed_algorithms.add(o.split("#")[-1])
 
-    structure.sort()  # Assicura ordine stabile per hashing
-    structure.append(tuple(sorted(allowed_algorithms)))  # Adding the name of the algorithm to the structure
+    # Convert all components to tuples for consistent sorting
+    final_structure = structure + [tuple(sorted(allowed_algorithms))]  # Convert allowed_algorithms to tuple
 
-    return structure, allowed_algorithms
+    return final_structure, allowed_algorithms, log_expiration, log_access, execution_access, output_access, log_file
 
 
 def generate_policy_id(structure):
-    structure_str = str(sorted(structure))  # Ensure consistent ordering
+    # Now structure contains only tuples which can be sorted
+    structure_str = str(sorted(structure))
     return hashlib.sha256(structure_str.encode()).hexdigest()
 
 
-def generate_go_ta(policy_id, policies, allowed_algorithms):
+def generate_go_ta(policy_id, allowed_algorithms, log_expiration, log_access, execution_access, output_access,
+                   log_file):
     ta_dir = f"generated_tas/{policy_id}/AutomatedDiscovery"
-    os.makedirs(ta_dir, exist_ok=True)
+    data_dir = os.path.join(f"generated_tas/{policy_id}", "data")
+    os.makedirs(data_dir, exist_ok=True)
 
-    go_mod = f"""
-    module main
+    print(log_file)
+    if os.path.exists(log_file):
+        shutil.copy(log_file, os.path.join(data_dir, os.path.basename(log_file)))
+        print(f"File copied in: {os.path.join(data_dir, os.path.basename(log_file))}")
+    else:
+        print(f"File {log_file} not found.")
 
-    go 1.22.3
-    """
+    go_mod = """module main
+
+go 1.22.3"""
 
     with open(os.path.join(f"generated_tas/{policy_id}", "go.mod"), "w") as f:
         f.write(go_mod)
 
     go_code = "package main\n\n"
-    go_code += "import (\n    \"fmt\"\n    \"log\"\n"
-    for algo in allowed_algorithms:
-        go_code += f"    \"./AutomatedDiscovery/{algo}\"\n"
-    go_code += ")\n\n"
+    go_code += "import (\n    \"fmt\"\n    \"log\"\n    \"os\"\n    \"time\"\n)\n\n"
 
     go_code += f"""
-    type Policy struct {{
-        ID string
-    }}
+var logAccess = {list(log_access)}
+var executionAccess = {list(execution_access)}
+var outputAccess = {list(output_access)}
 
-    func enforcePolicy(policyID string) {{
-        if policyID != "{policy_id}" {{
-            log.Fatal("Policy mismatch. Access denied.")
+func checkAccess(user string, accessList []string) bool {{
+    for _, allowed := range accessList {{
+        if user == allowed {{
+            return true
         }}
-        fmt.Println("Policy enforced successfully.")
     }}
-    """
+    return false
+}}
 
-    for algo in allowed_algorithms:
-        go_code += f"""
-        func {algo}(logFile string) {{
-            fmt.Println("Executing {algo} on", logFile)
-            {algo}.Run(logFile) // Call the external implementation
-        }}
-        """
+func enforcePolicy(policyID string) {{
+    if policyID != \"{policy_id}\" {{
+        log.Fatal(\"Policy mismatch. Access denied.\")
+    }}
+    fmt.Println(\"Policy enforced successfully.\")
+}}
 
-    go_code += f"""
-    func main() {{
-        enforcePolicy("{policy_id}")
-    """
+func checkAndDeleteLog(logFile string) {{
+    expiration := \"{log_expiration}\"
+    layout := \"2006-01-02T15:04:05Z\"
+    expTime, err := time.Parse(layout, expiration)
+    if err != nil {{
+        log.Fatal(\"Error parsing expiration date:\", err)
+    }}
+    if time.Now().After(expTime) {{
+        fmt.Println(\"Log expired. Deleting file:\", logFile)
+        os.Remove(logFile)
+    }}
+}}"""
 
-    for algo in allowed_algorithms:
-        go_code += f"\n        {algo}(\"event_log.xes\")"
-
-    go_code += "\n    }"
-
-    with open(os.path.join(f"generated_tas/{policy_id}", "main.go"), "w") as f:
-        f.write(go_code)
+    if os.path.exists(log_file):
+        shutil.copy(log_file, os.path.join(data_dir, f"{log_file}"))
 
     algorithm_sources = {
         "HeuristicMiner": "algorithmRepository/heuristicMiner.go",
@@ -109,29 +138,54 @@ def generate_go_ta(policy_id, policies, allowed_algorithms):
     for algo in allowed_algorithms:
         algo_dir = os.path.join(ta_dir, algo)
         os.makedirs(algo_dir, exist_ok=True)
-
         if algo in algorithm_sources:
-            src_path = os.path.abspath(algorithm_sources[algo])
-
+            src_path = algorithm_sources[algo]
             if os.path.exists(src_path):
-                print(f"Copying {src_path} to {algo_dir}")
-                shutil.copy2(src_path, os.path.join(algo_dir, f"{algo}.go"))
+                shutil.copy(src_path, os.path.join(algo_dir, f"{algo}.go"))
             else:
-                print(f"Error: {src_path} not found! Skipping copy.")
+                print(f"Warning: {src_path} not found. Skipping copy for {algo}.")
+
+    go_code += f"""
+func main() {{
+    enforcePolicy(\"{policy_id}\")
+    user := \"pubk1\"
+    logFile := \"data/{os.path.basename(log_file) if log_file else 'event_log.xes'}\"
+
+    if !checkAccess(user, logAccess) {{
+        log.Fatal(\"Access denied: user cannot access log.\")
+    }}
+
+    checkAndDeleteLog(logFile)
+
+    for _, algo := range {list(allowed_algorithms)} {{
+        if !checkAccess(user, executionAccess) {{
+            log.Fatal(\"Execution denied: user cannot run \" + algo + \".\")
+        }}
+        fmt.Println(\"Executing \" + algo + \" on\", logFile)
+    }}
+
+    if !checkAccess(user, outputAccess) {{
+        log.Fatal(\"Access denied: user cannot access output.\")
+    }}
+    fmt.Println(\"User authorized to access output.\")
+}}"""
+
+    with open(os.path.join(f"generated_tas/{policy_id}", "main.go"), "w") as f:
+        f.write(go_code)
 
     print(f"Generated TA environment: {ta_dir}")
 
 
 def main(policy_path):
     policies = parse_turtle_policy(policy_path)
-    structure, allowed_algorithms = extract_policy_structure(policies)
+    structure, allowed_algorithms, log_expiration, log_access, execution_access, output_access, log_file = extract_policy_structure(
+        policies)
     policy_id = generate_policy_id(structure)
-
 
     existing_tas = os.listdir("generated_tas") if os.path.exists("generated_tas") else []
     print("Allowed algorithms:", allowed_algorithms)
     if policy_id not in existing_tas:
-        generate_go_ta(policy_id, policies, allowed_algorithms)
+        generate_go_ta(policy_id, allowed_algorithms, log_expiration, log_access, execution_access, output_access, log_file)
     else:
         print("TA already exists. Skipping generation.")
 
@@ -150,6 +204,8 @@ def clean_generated_tas():
 
 
 if __name__ == "__main__":
+    main("policy5.ttl")
+    exit(0)
     while True:
         print("\n --------- MENU ---------\n")
         print("Select an option:")
