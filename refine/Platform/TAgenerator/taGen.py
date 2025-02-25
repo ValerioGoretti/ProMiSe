@@ -128,9 +128,9 @@ def generate_go_ta(policy_id, allowed_algorithms, log_expiration, log_access, ex
     else:
         file_mappings = []
 
-    # Add new mapping if file was processed
-    if hashed_filename and content_hash and log_file:
-        new_mapping = f"{os.path.basename(log_file)},{hashed_filename},{content_hash}"
+    # Add new mapping if file was processed - simplified to only store original filename and hash
+    if content_hash and log_file:
+        new_mapping = f"{os.path.basename(log_file)},{content_hash}"
         if new_mapping not in file_mappings:
             file_mappings.append(new_mapping)
             # Write updated mapping
@@ -196,7 +196,10 @@ func checkAndDeleteLog(logFile string) {{
             else:
                 print(f"Warning: {src_path} not found. Skipping copy for {algo}.")
 
-    log_filename = hashed_filename if hashed_filename else (os.path.basename(log_file) if log_file else 'event_log.xes')
+    # Get file extension for constructing the log filename in Go code
+    _, file_extension = os.path.splitext(log_file) if log_file else (".xes",)
+    log_filename = f"{content_hash}{file_extension}" if content_hash else (
+        os.path.basename(log_file) if log_file else 'event_log.xes')
 
     go_code += f"""
 func main() {{
@@ -240,7 +243,7 @@ def update_existing_ta(policy_id, log_file):
     # Store log file with content hash
     hashed_filename, content_hash = store_log_file(log_file, data_dir)
 
-    # Update mapping file
+    # Update mapping file with simplified format
     mapping_file = os.path.join(data_dir, "file_mapping.txt")
     if os.path.exists(mapping_file):
         with open(mapping_file, "r") as f:
@@ -248,14 +251,14 @@ def update_existing_ta(policy_id, log_file):
     else:
         file_mappings = []
 
-    if hashed_filename and content_hash and log_file:
-        new_mapping = f"{os.path.basename(log_file)},{hashed_filename},{content_hash}"
+    if content_hash and log_file:
+        new_mapping = f"{os.path.basename(log_file)},{content_hash}"
         if new_mapping not in file_mappings:
             file_mappings.append(new_mapping)
             # Write updated mapping
             with open(mapping_file, "w") as f:
                 f.write("\n".join(file_mappings))
-            print(f"Updated TA {policy_id} with new log file: {hashed_filename}")
+            print(f"Updated TA {policy_id} with new log file: {os.path.basename(log_file)} (hash: {content_hash})")
             return True
 
     return False

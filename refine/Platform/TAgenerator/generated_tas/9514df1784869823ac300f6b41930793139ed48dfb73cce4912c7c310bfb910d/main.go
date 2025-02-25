@@ -43,7 +43,7 @@ func checkAndDeleteLog(logFile string) {
 func main() {
     enforcePolicy("9514df1784869823ac300f6b41930793139ed48dfb73cce4912c7c310bfb910d")
     user := "pubk1"
-    logFile := "data/event_log.xes"
+    logFile := "data/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.xes"
 
     if !checkAccess(user, logAccess) {
         log.Fatal("Access denied: user cannot access log.")
