@@ -28,12 +28,22 @@ def extract_policy_structure(policies):
     output_access = set()
     log_file = None
 
+    # Extract dynamic configuration values
+    dynamic_config = {
+        "log_expiration": None,
+        "log_access": [],
+        "execution_access": [],
+        "output_access": [],
+        "log_file": None
+    }
+
     for s, p, o in policies:
         if p == rdflib.URIRef("http://example.org/ucon#allowedActions") and isinstance(o, rdflib.BNode):
             algorithm_nodes.add(o)
 
         if p == rdflib.URIRef("http://example.org/eventLog#fileName"):
             log_file = str(o)
+            dynamic_config["log_file"] = str(o)
 
         if isinstance(s, rdflib.BNode) or isinstance(o, rdflib.BNode):
             continue
@@ -45,24 +55,32 @@ def extract_policy_structure(policies):
 
         if p == rdflib.URIRef("http://example.org/ucon#logExpiration"):
             log_expiration = str(o)
+            dynamic_config["log_expiration"] = str(o)
 
         if p == rdflib.URIRef("http://example.org/ucon#logAccess"):
-            log_access.update(o.split(","))
+            access_users = [user.strip() for user in o.split(",")]
+            log_access.update(access_users)
+            dynamic_config["log_access"] = access_users
 
         if p == rdflib.URIRef("http://example.org/ucon#executionAccess"):
-            execution_access.update(o.split(","))
+            exec_users = [user.strip() for user in o.split(",")]
+            execution_access.update(exec_users)
+            dynamic_config["execution_access"] = exec_users
 
         if p == rdflib.URIRef("http://example.org/ucon#outputAccess"):
-            output_access.update(o.split(","))
+            out_users = [user.strip() for user in o.split(",")]
+            output_access.update(out_users)
+            dynamic_config["output_access"] = out_users
 
     for s, p, o in policies:
         if s in algorithm_nodes and p == rdflib.URIRef("http://example.org/pmt#algorithm"):
-            allowed_algorithms.add(o.split("#")[-1])
+            algo = o.split("#")[-1]
+            allowed_algorithms.add(algo)
 
     # Convert all components to tuples for consistent sorting
     final_structure = structure + [tuple(sorted(allowed_algorithms))]  # Convert allowed_algorithms to tuple
 
-    return final_structure, allowed_algorithms, log_expiration, log_access, execution_access, output_access, log_file
+    return final_structure, allowed_algorithms, dynamic_config
 
 
 def generate_policy_id(structure):
@@ -194,19 +212,77 @@ def update_file_mapping(data_dir, log_file, content_hash, policy_id):
     return False
 
 
-def generate_go_ta(policy_id, allowed_algorithms, log_expiration, log_access, execution_access, output_access,
-                   log_file):
+def save_policy_config(policy_id, dynamic_config, original_policy_path):
+    """Save the dynamic configuration values to a JSON file"""
+    config_dir = os.path.join(f"generated_tas/{policy_id}", "config")
+    os.makedirs(config_dir, exist_ok=True)
+
+    # Add source policy path to configuration
+    config_with_source = dynamic_config.copy()
+    config_with_source["source_policy"] = original_policy_path
+    config_with_source["last_updated"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    # Create the policy configuration file
+    config_file = os.path.join(config_dir, "policy_config.json")
+
+    # Check if config already exists and merge if it does
+    if os.path.exists(config_file):
+        try:
+            with open(config_file, "r") as f:
+                existing_config = json.load(f)
+
+            # Add this policy to the policies array
+            if "policies" not in existing_config:
+                existing_config["policies"] = []
+
+            # Check if this policy source already exists
+            policy_exists = False
+            for i, policy in enumerate(existing_config["policies"]):
+                if policy.get("source_policy") == original_policy_path:
+                    # Update existing policy
+                    existing_config["policies"][i] = config_with_source
+                    policy_exists = True
+                    break
+
+            if not policy_exists:
+                existing_config["policies"].append(config_with_source)
+
+            with open(config_file, "w") as f:
+                json.dump(existing_config, f, indent=4)
+        except Exception as e:
+            print(f"Error updating existing config: {e}")
+            # If error, overwrite with new config
+            with open(config_file, "w") as f:
+                json.dump({"policies": [config_with_source]}, f, indent=4)
+    else:
+        # Create new config file
+        with open(config_file, "w") as f:
+            json.dump({"policies": [config_with_source]}, f, indent=4)
+
+    print(f"Saved policy configuration to {config_file}")
+    return config_file
+
+
+def generate_go_ta(policy_id, allowed_algorithms, dynamic_config, original_policy_path):
     ta_dir = f"generated_tas/{policy_id}/AutomatedDiscovery"
     data_dir = os.path.join(f"generated_tas/{policy_id}", "data")
     os.makedirs(ta_dir, exist_ok=True)
     os.makedirs(data_dir, exist_ok=True)
 
-    # Store log file with content hash as name
-    hashed_filename, content_hash = store_log_file(log_file, data_dir, policy_id)
+    # Save dynamic configuration
+    config_file = save_policy_config(policy_id, dynamic_config, original_policy_path)
 
-    # Update the JSON mapping file
-    if content_hash and log_file:
-        update_file_mapping(data_dir, log_file, content_hash, policy_id)
+    # Store log file with content hash as name if it exists
+    log_file = dynamic_config.get("log_file")
+    hashed_filename = None
+    content_hash = None
+
+    if log_file and os.path.exists(log_file):
+        hashed_filename, content_hash = store_log_file(log_file, data_dir, policy_id)
+
+        # Update the JSON mapping file
+        if content_hash:
+            update_file_mapping(data_dir, log_file, content_hash, policy_id)
 
     go_mod = """module main
 
@@ -215,45 +291,96 @@ go 1.22.3"""
     with open(os.path.join(f"generated_tas/{policy_id}", "go.mod"), "w") as f:
         f.write(go_mod)
 
-    go_code = "package main\n\n"
-    go_code += "import (\n    \"fmt\"\n    \"log\"\n    \"os\"\n    \"time\"\n    \"path/filepath\"\n    \"strings\"\n)\n\n"
+    # The Go code with properly escaped format specifiers
+    go_code = """package main
 
-    go_code += f"""
-var logAccess = {list(log_access)}
-var executionAccess = {list(execution_access)}
-var outputAccess = {list(output_access)}
+import (
+    "encoding/json"
+    "fmt"
+    "io/ioutil"
+    "log"
+    "os"
+    "path/filepath"
+    "strings"
+    "time"
+)
+
+// PolicyConfig holds the dynamic configuration values
+type PolicyConfig struct {
+    Policies []struct {
+        LogExpiration   string   `json:"log_expiration"`
+        LogAccess       []string `json:"log_access"`
+        ExecutionAccess []string `json:"execution_access"`
+        OutputAccess    []string `json:"output_access"`
+        LogFile         string   `json:"log_file"`
+        SourcePolicy    string   `json:"source_policy"`
+        LastUpdated     string   `json:"last_updated"`
+    } `json:"policies"`
+}
+
+// loadPolicyConfig loads the policy configuration from the JSON file
+func loadPolicyConfig() (PolicyConfig, error) {
+    var config PolicyConfig
+    configFile := "config/policy_config.json"
+
+    data, err := ioutil.ReadFile(configFile)
+    if err != nil {
+        return config, fmt.Errorf("error reading config file: %%v", err)
+    }
+
+    err = json.Unmarshal(data, &config)
+    if err != nil {
+        return config, fmt.Errorf("error parsing config file: %%v", err)
+    }
+
+    if len(config.Policies) == 0 {
+        return config, fmt.Errorf("no policies found in config")
+    }
+
+    return config, nil
+}
+
+// findPolicyBySource finds a policy in the config by its source file
+func findPolicyBySource(config PolicyConfig, sourcePolicy string) (int, bool) {
+    for i, policy := range config.Policies {
+        if policy.SourcePolicy == sourcePolicy {
+            return i, true
+        }
+    }
+    return 0, false
+}
 
 // logFileAccess records an access event to the usage log for a specific file only
-func logFileAccess(fileHash string, operation string, actioner string) error {{
+func logFileAccess(fileHash string, operation string, actioner string) error {
     timestamp := time.Now().Format("2006-01-02 15:04:05")
     logDir := filepath.Join("data", "usage_logs")
 
     // Create the directory if it doesn't exist
-    if err := os.MkdirAll(logDir, 0755); err != nil {{
+    if err := os.MkdirAll(logDir, 0755); err != nil {
         return err
-    }}
+    }
 
     // Each file has its own dedicated log file based on its hash
     logFile := filepath.Join(logDir, fileHash + "_usage.log")
-    logEntry := fmt.Sprintf("%s %s %s\\n", operation, actioner, timestamp)
+    logEntry := fmt.Sprintf("%%s %%s %%s\\n", operation, actioner, timestamp)
 
     // Append to the specific file's log
     f, err := os.OpenFile(logFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-    if err != nil {{
+    if err != nil {
         return err
-    }}
+    }
     defer f.Close()
 
-    if _, err := f.WriteString(logEntry); err != nil {{
+    if _, err := f.WriteString(logEntry); err != nil {
         return err
-    }}
+    }
 
-    fmt.Printf("Logged '%s' operation by '%s' for file with hash '%s'\\n", operation, actioner, fileHash)
+    fmt.Printf("Logged '%%s' operation by '%%s' for file with hash '%%s'\\n", operation, actioner, fileHash)
     return nil
-}}
+}
 
 // extractHashFromFilename extracts the hash portion from a filename
-func extractHashFromFilename(filename string) string {{
+func extractHashFromFilename(filename string) string {
     // Get just the filename without path
     base := filepath.Base(filename)
 
@@ -261,37 +388,36 @@ func extractHashFromFilename(filename string) string {{
     dotIndex := strings.Index(base, ".")
 
     // If there's no dot, return the whole name
-    if dotIndex == -1 {{
+    if dotIndex == -1 {
         return base
-    }}
+    }
 
     // Return just the hash part
     return base[:dotIndex]
-}}
+}
 
-func checkAccess(user string, accessList []string) bool {{
-    for _, allowed := range accessList {{
-        if user == allowed {{
+func checkAccess(user string, accessList []string) bool {
+    for _, allowed := range accessList {
+        if user == allowed {
             return true
-        }}
-    }}
+        }
+    }
     return false
-}}
+}
 
-func enforcePolicy(policyID string) {{
-    if policyID != \"{policy_id}\" {{
-        log.Fatal(\"Policy mismatch. Access denied.\")
-    }}
-    fmt.Println(\"Policy enforced successfully.\")
-}}
+func enforcePolicy(policyID string) {
+    if policyID != "%s" {
+        log.Fatal("Policy mismatch. Access denied.")
+    }
+    fmt.Println("Policy enforced successfully.")
+}
 
-func checkAndDeleteLog(logFile string, user string) {{
-    expiration := \"{log_expiration}\"
-    layout := \"2006-01-02T15:04:05Z\"
-    expTime, err := time.Parse(layout, expiration)
-    if err != nil {{
-        log.Fatal(\"Error parsing expiration date:\", err)
-    }}
+func checkAndDeleteLog(logFile string, user string, logExpiration string) {
+    layout := "2006-01-02T15:04:05Z"
+    expTime, err := time.Parse(layout, logExpiration)
+    if err != nil {
+        log.Fatal("Error parsing expiration date:", err)
+    }
 
     // Extract the hash from the filename for logging
     fileHash := extractHashFromFilename(logFile)
@@ -299,18 +425,95 @@ func checkAndDeleteLog(logFile string, user string) {{
     // Log that we checked this specific file
     logFileAccess(fileHash, "CHECK", user)
 
-    if time.Now().After(expTime) {{
-        fmt.Println(\"Log expired. Deleting file:\", logFile)
+    if time.Now().After(expTime) {
+        fmt.Println("Log expired. Deleting file:", logFile)
 
         // Log the deletion attempt for this specific file
         logFileAccess(fileHash, "DELETE", user)
 
         err := os.Remove(logFile)
-        if err != nil {{
-            log.Printf("Error deleting file: %v", err)
-        }}
-    }}
-}}"""
+        if err != nil {
+            log.Printf("Error deleting file: %%v", err)
+        }
+    }
+}
+
+func processLogFile(logFile string, fileHash string, user string, policy int, config PolicyConfig) {
+    // Get dynamic values for this policy
+    logAccess := config.Policies[policy].LogAccess
+    executionAccess := config.Policies[policy].ExecutionAccess
+    outputAccess := config.Policies[policy].OutputAccess
+    logExpiration := config.Policies[policy].LogExpiration
+
+    // Only proceed if user has access to this specific log file
+    if !checkAccess(user, logAccess) {
+        log.Fatal("Access denied: user cannot access log: " + logFile)
+    }
+
+    // Log the access to this specific file only
+    logFileAccess(fileHash, "ACCESS", user)
+
+    // Check expiration for this specific file
+    checkAndDeleteLog(logFile, user, logExpiration)
+
+    // Execute algorithms on this specific file
+    for _, algo := range []string{%s} {
+        if !checkAccess(user, executionAccess) {
+            log.Fatal("Execution denied: user cannot run " + algo + ".")
+        }
+        fmt.Println("Executing " + algo + " on", logFile)
+
+        // Log the execution for this specific file only
+        logFileAccess(fileHash, "EXECUTE_" + algo, user)
+    }
+
+    // Check output access for this specific file
+    if !checkAccess(user, outputAccess) {
+        log.Fatal("Access denied: user cannot access output for " + logFile)
+    }
+
+    // Log the output access for this specific file only
+    logFileAccess(fileHash, "OUTPUT", user)
+
+    fmt.Println("User authorized to access output for: " + logFile)
+}
+
+func main() {
+    enforcePolicy("%s")
+    user := "pubk1" // This could be passed as an argument or environment variable
+
+    // Load dynamic policy configuration
+    config, err := loadPolicyConfig()
+    if err != nil {
+        log.Fatalf("Failed to load policy config: %%v", err)
+    }
+
+    // Get all files in the data directory
+    dataDir := "data"
+    files, err := ioutil.ReadDir(dataDir)
+    if err != nil {
+        log.Fatalf("Error reading data directory: %%v", err)
+    }
+
+    // Process all log files, checking policy for each
+    for _, file := range files {
+        if file.IsDir() || strings.HasPrefix(file.Name(), ".") {
+            continue // Skip directories and hidden files
+        }
+
+        logFilePath := filepath.Join(dataDir, file.Name())
+        fileHash := extractHashFromFilename(file.Name())
+
+        fmt.Printf("Processing file: %%s (hash: %%s)\\n", logFilePath, fileHash)
+
+        // For each file, try to find a policy that applies
+        // For now, we'll use the first policy, but this could be enhanced
+        if len(config.Policies) > 0 {
+            processLogFile(logFilePath, fileHash, user, 0, config)
+        }
+    }
+}
+""" % (policy_id, ", ".join([f'"{algo}"' for algo in allowed_algorithms]), policy_id)
 
     algorithm_sources = {
         "HeuristicMiner": "algorithmRepository/heuristicMiner.go",
@@ -327,66 +530,6 @@ func checkAndDeleteLog(logFile string, user string) {{
             else:
                 print(f"Warning: {src_path} not found. Skipping copy for {algo}.")
 
-    # Get file extension for constructing the log filename in Go code
-    _, file_extension = os.path.splitext(log_file) if log_file else (".xes",)
-    log_filename = f"{content_hash}{file_extension}" if content_hash else (
-        os.path.basename(log_file) if log_file else 'event_log.xes')
-
-    go_code += f"""
-func processLogFile(logFile string, fileHash string, user string) {{
-    // Only proceed if user has access to this specific log file
-    if !checkAccess(user, logAccess) {{
-        log.Fatal(\"Access denied: user cannot access log: \" + logFile)
-    }}
-
-    // Log the access to this specific file only
-    logFileAccess(fileHash, "ACCESS", user)
-
-    // Check expiration for this specific file
-    checkAndDeleteLog(logFile, user)
-
-    // Execute algorithms on this specific file
-    for _, algo := range {list(allowed_algorithms)} {{
-        if !checkAccess(user, executionAccess) {{
-            log.Fatal(\"Execution denied: user cannot run \" + algo + \".\")
-        }}
-        fmt.Println(\"Executing \" + algo + \" on\", logFile)
-
-        // Log the execution for this specific file only
-        logFileAccess(fileHash, "EXECUTE_" + algo, user)
-    }}
-
-    // Check output access for this specific file
-    if !checkAccess(user, outputAccess) {{
-        log.Fatal(\"Access denied: user cannot access output for \" + logFile)
-    }}
-
-    // Log the output access for this specific file only
-    logFileAccess(fileHash, "OUTPUT", user)
-
-    fmt.Println(\"User authorized to access output for: \" + logFile)
-}}
-
-func main() {{
-    enforcePolicy(\"{policy_id}\")
-    user := \"pubk1\"
-
-    // First log file (from the policy)
-    logFile1 := \"data/{log_filename}\"
-    fileHash1 := \"{content_hash}\"
-
-    // Process the first log file independently
-    processLogFile(logFile1, fileHash1, user)
-
-    // This is where you would process additional log files if present
-    // Each file would be processed independently, with its own usage log
-
-    // Example if you had a second file:
-    // logFile2 := "data/second_log_file.xes" 
-    // fileHash2 := extractHashFromFilename(logFile2)
-    // processLogFile(logFile2, fileHash2, user)
-}}"""
-
     with open(os.path.join(f"generated_tas/{policy_id}", "main.go"), "w") as f:
         f.write(go_code)
 
@@ -394,77 +537,35 @@ func main() {{
     return True
 
 
-def update_existing_ta(policy_id, log_file):
-    """Update an existing TA with a new log file"""
+def update_existing_ta(policy_id, log_file, dynamic_config, original_policy_path):
+    """Update an existing TA with a new log file and/or policy configuration"""
     data_dir = os.path.join(f"generated_tas/{policy_id}", "data")
     if not os.path.exists(data_dir):
         print(f"Data directory for policy {policy_id} does not exist.")
         return False
 
-    # Store log file with content hash
-    hashed_filename, content_hash = store_log_file(log_file, data_dir, policy_id)
+    # Update policy configuration
+    save_policy_config(policy_id, dynamic_config, original_policy_path)
 
-    # Update the JSON mapping file
-    if content_hash and log_file:
-        updated = update_file_mapping(data_dir, log_file, content_hash, policy_id)
-        if updated:
-            print(f"Updated TA {policy_id} with new log file: {os.path.basename(log_file)} (hash: {content_hash})")
+    # If there's a log file, store it
+    if log_file and os.path.exists(log_file):
+        # Store log file with content hash
+        hashed_filename, content_hash = store_log_file(log_file, data_dir, policy_id)
 
-            # Update the Go code to include this new log file
-            update_go_code_for_new_file(policy_id, log_file, content_hash)
+        # Update the JSON mapping file
+        if content_hash:
+            updated = update_file_mapping(data_dir, log_file, content_hash, policy_id)
+            if updated:
+                print(f"Updated TA {policy_id} with new log file: {os.path.basename(log_file)} (hash: {content_hash})")
+                return True
 
-            return True
-
-    return False
-
-
-def update_go_code_for_new_file(policy_id, log_file, content_hash):
-    """Update the Go code to process an additional log file"""
-    # Path to the main.go file
-    go_file_path = os.path.join(f"generated_tas/{policy_id}", "main.go")
-
-    if not os.path.exists(go_file_path):
-        print(f"Cannot update Go code: {go_file_path} does not exist.")
-        return False
-
-    # Read existing Go code
-    with open(go_file_path, "r") as f:
-        go_code = f.read()
-
-    # Find the main function end
-    main_end_idx = go_code.rfind("}")
-
-    if main_end_idx == -1:
-        print("Cannot update Go code: main function end not found.")
-        return False
-
-    # Get file extension
-    _, file_extension = os.path.splitext(log_file)
-    log_filename = f"{content_hash}{file_extension}"
-
-    # Create code for the new file
-    new_file_code = f"""
-    // Process additional log file
-    logFileAdditional := "data/{log_filename}"
-    fileHashAdditional := "{content_hash}"
-    processLogFile(logFileAdditional, fileHashAdditional, user)
-"""
-
-    # Insert the new code before the main function end
-    updated_go_code = go_code[:main_end_idx] + new_file_code + go_code[main_end_idx:]
-
-    # Write the updated Go code
-    with open(go_file_path, "w") as f:
-        f.write(updated_go_code)
-
-    print(f"Updated Go code to include new log file: {log_filename}")
+    print(f"Updated TA {policy_id} with new policy configuration")
     return True
 
 
 def main(policy_path):
     policies = parse_turtle_policy(policy_path)
-    structure, allowed_algorithms, log_expiration, log_access, execution_access, output_access, log_file = extract_policy_structure(
-        policies)
+    structure, allowed_algorithms, dynamic_config = extract_policy_structure(policies)
     policy_id = generate_policy_id(structure)
 
     existing_tas = os.listdir("generated_tas") if os.path.exists("generated_tas") else []
@@ -472,18 +573,10 @@ def main(policy_path):
 
     if policy_id not in existing_tas:
         print(f"Creating new TA with ID: {policy_id}")
-        generate_go_ta(policy_id, allowed_algorithms, log_expiration, log_access, execution_access, output_access,
-                       log_file)
+        generate_go_ta(policy_id, allowed_algorithms, dynamic_config, policy_path)
     else:
-        print(f"TA with ID {policy_id} already exists.")
-        if log_file and os.path.exists(log_file):
-            updated = update_existing_ta(policy_id, log_file)
-            if updated:
-                print(f"Added new log file to existing TA {policy_id}")
-            else:
-                print(f"No changes made to existing TA {policy_id}")
-        else:
-            print("No log file to update.")
+        print(f"TA with ID {policy_id} already exists. Updating configuration.")
+        update_existing_ta(policy_id, dynamic_config.get("log_file"), dynamic_config, policy_path)
 
 
 def clean_generated_tas():

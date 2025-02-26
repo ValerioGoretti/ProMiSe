@@ -1,18 +1,60 @@
 package main
 
 import (
+    "encoding/json"
     "fmt"
+    "io/ioutil"
     "log"
     "os"
-    "time"
     "path/filepath"
     "strings"
+    "time"
 )
 
+// PolicyConfig holds the dynamic configuration values
+type PolicyConfig struct {
+    Policies []struct {
+        LogExpiration   string   `json:"log_expiration"`
+        LogAccess       []string `json:"log_access"`
+        ExecutionAccess []string `json:"execution_access"`
+        OutputAccess    []string `json:"output_access"`
+        LogFile         string   `json:"log_file"`
+        SourcePolicy    string   `json:"source_policy"`
+        LastUpdated     string   `json:"last_updated"`
+    } `json:"policies"`
+}
 
-var logAccess = []
-var executionAccess = []
-var outputAccess = []
+// loadPolicyConfig loads the policy configuration from the JSON file
+func loadPolicyConfig() (PolicyConfig, error) {
+    var config PolicyConfig
+    configFile := "config/policy_config.json"
+
+    data, err := ioutil.ReadFile(configFile)
+    if err != nil {
+        return config, fmt.Errorf("error reading config file: %v", err)
+    }
+
+    err = json.Unmarshal(data, &config)
+    if err != nil {
+        return config, fmt.Errorf("error parsing config file: %v", err)
+    }
+
+    if len(config.Policies) == 0 {
+        return config, fmt.Errorf("no policies found in config")
+    }
+
+    return config, nil
+}
+
+// findPolicyBySource finds a policy in the config by its source file
+func findPolicyBySource(config PolicyConfig, sourcePolicy string) (int, bool) {
+    for i, policy := range config.Policies {
+        if policy.SourcePolicy == sourcePolicy {
+            return i, true
+        }
+    }
+    return 0, false
+}
 
 // logFileAccess records an access event to the usage log for a specific file only
 func logFileAccess(fileHash string, operation string, actioner string) error {
@@ -76,10 +118,9 @@ func enforcePolicy(policyID string) {
     fmt.Println("Policy enforced successfully.")
 }
 
-func checkAndDeleteLog(logFile string, user string) {
-    expiration := "None"
+func checkAndDeleteLog(logFile string, user string, logExpiration string) {
     layout := "2006-01-02T15:04:05Z"
-    expTime, err := time.Parse(layout, expiration)
+    expTime, err := time.Parse(layout, logExpiration)
     if err != nil {
         log.Fatal("Error parsing expiration date:", err)
     }
@@ -102,7 +143,14 @@ func checkAndDeleteLog(logFile string, user string) {
         }
     }
 }
-func processLogFile(logFile string, fileHash string, user string) {
+
+func processLogFile(logFile string, fileHash string, user string, policy int, config PolicyConfig) {
+    // Get dynamic values for this policy
+    logAccess := config.Policies[policy].LogAccess
+    executionAccess := config.Policies[policy].ExecutionAccess
+    outputAccess := config.Policies[policy].OutputAccess
+    logExpiration := config.Policies[policy].LogExpiration
+
     // Only proceed if user has access to this specific log file
     if !checkAccess(user, logAccess) {
         log.Fatal("Access denied: user cannot access log: " + logFile)
@@ -112,10 +160,10 @@ func processLogFile(logFile string, fileHash string, user string) {
     logFileAccess(fileHash, "ACCESS", user)
 
     // Check expiration for this specific file
-    checkAndDeleteLog(logFile, user)
+    checkAndDeleteLog(logFile, user, logExpiration)
 
     // Execute algorithms on this specific file
-    for _, algo := range ['AlphaMiner', 'HeuristicMiner'] {
+    for _, algo := range []string{"AlphaMiner", "HeuristicMiner"} {
         if !checkAccess(user, executionAccess) {
             log.Fatal("Execution denied: user cannot run " + algo + ".")
         }
@@ -138,25 +186,36 @@ func processLogFile(logFile string, fileHash string, user string) {
 
 func main() {
     enforcePolicy("9514df1784869823ac300f6b41930793139ed48dfb73cce4912c7c310bfb910d")
-    user := "pubk1"
+    user := "pubk1" // This could be passed as an argument or environment variable
 
-    // First log file (from the policy)
-    logFile1 := "data/8b7490bd9e567112d36eaf362269ad689cb3dab2aadd948de96733e09cb94bc6.xes"
-    fileHash1 := "8b7490bd9e567112d36eaf362269ad689cb3dab2aadd948de96733e09cb94bc6"
+    // Load dynamic policy configuration
+    config, err := loadPolicyConfig()
+    if err != nil {
+        log.Fatalf("Failed to load policy config: %v", err)
+    }
 
-    // Process the first log file independently
-    processLogFile(logFile1, fileHash1, user)
+    // Get all files in the data directory
+    dataDir := "data"
+    files, err := ioutil.ReadDir(dataDir)
+    if err != nil {
+        log.Fatalf("Error reading data directory: %v", err)
+    }
 
-    // This is where you would process additional log files if present
-    // Each file would be processed independently, with its own usage log
+    // Process all log files, checking policy for each
+    for _, file := range files {
+        if file.IsDir() || strings.HasPrefix(file.Name(), ".") {
+            continue // Skip directories and hidden files
+        }
 
-    // Example if you had a second file:
-    // logFile2 := "data/second_log_file.xes" 
-    // fileHash2 := extractHashFromFilename(logFile2)
-    // processLogFile(logFile2, fileHash2, user)
+        logFilePath := filepath.Join(dataDir, file.Name())
+        fileHash := extractHashFromFilename(file.Name())
 
-    // Process additional log file
-    logFileAdditional := "data/1c3dfd4e0e402eaf2e781c76e7dbb7403b4d6d41bd7935b974faff39eea5d9e6.xes"
-    fileHashAdditional := "1c3dfd4e0e402eaf2e781c76e7dbb7403b4d6d41bd7935b974faff39eea5d9e6"
-    processLogFile(logFileAdditional, fileHashAdditional, user)
+        fmt.Printf("Processing file: %s (hash: %s)\n", logFilePath, fileHash)
+
+        // For each file, try to find a policy that applies
+        // For now, we'll use the first policy, but this could be enhanced
+        if len(config.Policies) > 0 {
+            processLogFile(logFilePath, fileHash, user, 0, config)
+        }
+    }
 }

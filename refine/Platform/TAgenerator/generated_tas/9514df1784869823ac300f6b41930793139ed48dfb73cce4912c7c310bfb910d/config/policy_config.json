@@ -1,0 +1,22 @@
+{
+    "policies": [
+        {
+            "log_expiration": null,
+            "log_access": [],
+            "execution_access": [],
+            "output_access": [],
+            "log_file": "event_log.xes",
+            "source_policy": "policy4.ttl",
+            "last_updated": "2025-02-26 01:13:41"
+        },
+        {
+            "log_expiration": null,
+            "log_access": [],
+            "execution_access": [],
+            "output_access": [],
+            "log_file": "log.xes",
+            "source_policy": "policy5.ttl",
+            "last_updated": "2025-02-26 01:14:28"
+        }
+    ]
+}
