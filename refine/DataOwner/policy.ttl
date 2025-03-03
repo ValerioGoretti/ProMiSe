@@ -1,0 +1,29 @@
+
+@prefix ucon: <http://example.org/ucon#> .
+@prefix eventLog: <http://example.org/eventLog#> .
+@prefix pmt: <http://example.org/pmt#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ucon:Policy_AutoDisc a ucon:Authorization ;
+    ucon:object_id [
+        eventLog:fileName "x.xes"^^xsd:string ;
+        eventLog:format "xes" ;
+        ucon:logExpiration "2025-12-31T23:59:59Z"^^xsd:dateTime
+    ] ;
+
+    ucon:logAccess [
+        ucon:allowedUsers "pubk1"
+    ] ;
+
+    ucon:executionAccess [
+        ucon:allowedUsers "p2"
+    ] ;
+
+    ucon:outputAccess [
+        ucon:allowedUsers "p3,p4"
+    ] ;
+
+    ucon:allowedActions 
+        [ pmt:techniqueType pmt:AutomatedDiscovery ; pmt:algorithm pmt:heuristic ],
+        [ pmt:techniqueType pmt:AutomatedDiscovery ; pmt:algorithm pmt:alpha ]
+    .
