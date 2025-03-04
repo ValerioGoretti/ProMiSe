@@ -11,5 +11,5 @@ ucon:Policy_AutoDisc a ucon:Authorization ;
         ucon:logExpiration "2025-12-31T23:59:59Z"^^xsd:dateTime
     ] ;
     ucon:allowedActions 
-        [ pmt:techniqueType pmt:AutomatedDiscovery ; pmt:algorithm pmt:n ]
+        [ pmt:techniqueType pmt:AutomatedDiscovery ; pmt:algorithm pmt:h ]
     .
