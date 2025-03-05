@@ -10,9 +10,9 @@ from werkzeug.utils import secure_filename
 
 
 
-def parse_turtle_policy(policy_path):
+def parse_turtle_policy(policy):
     g = rdflib.Graph()
-    g.parse(policy_path, format="turtle")
+    g.parse(data=policy, format="turtle")
 
     policies = []
     for s, p, o in g:
@@ -565,23 +565,6 @@ def update_existing_ta(policy_id, log_file, dynamic_config, original_policy_path
     print(f"Updated TA {policy_id} with new policy configuration")
     return True
 
-
-def main(policy_path):
-    policies = parse_turtle_policy(policy_path)
-    structure, allowed_algorithms, dynamic_config = extract_policy_structure(policies)
-    policy_id = generate_policy_id(structure)
-
-    existing_tas = os.listdir("generated_tas") if os.path.exists("generated_tas") else []
-    print("Allowed algorithms:", allowed_algorithms)
-
-    if policy_id not in existing_tas:
-        print(f"Creating new TA with ID: {policy_id}")
-        generate_go_ta(policy_id, allowed_algorithms, dynamic_config, policy_path)
-    else:
-        print(f"TA with ID {policy_id} already exists. Updating configuration.")
-        update_existing_ta(policy_id, dynamic_config.get("log_file"), dynamic_config, policy_path)
-
-
 def clean_generated_tas():
     folder = "generated_tas"
     if os.path.exists(folder):
@@ -594,173 +577,66 @@ def clean_generated_tas():
         print("No TA directories found to clean.")
 
 
-# New function to handle file uploads
-def setup_file_upload_route(app, upload_folder='uploads'):
-    """
-    Set up a Flask route to handle file uploads
+def main(files):
+    policy_file = files['policy_file']
+    log_file = files['log_file']
 
-    Args:
-        app (Flask): Flask application instance
-        upload_folder (str): Directory to store uploaded files
+    # Access file content
+    policy_file_content = policy_file.read().decode('utf-8')  # Assuming text-based files
 
-    Returns:
-        str: Full path to the upload folder
-    """
-    # Ensure upload directory exists
-    os.makedirs(upload_folder, exist_ok=True)
+    policies = parse_turtle_policy(policy_file_content)
+    structure, allowed_algorithms, dynamic_config = extract_policy_structure(policies)
+    policy_id = generate_policy_id(structure)
+    print(policy_id)
+    exit(0)
 
-    @app.route('/upload', methods=['POST'])
-    def upload_file():
-        print("Received files:", request.files)  # Debug print
+    existing_tas = os.listdir("generated_tas") if os.path.exists("generated_tas") else []
+    print("Allowed algorithms:", allowed_algorithms)
 
-        # Check if any files were uploaded
-        if len(request.files) == 0:
-            return jsonify({"error": "No files uploaded"}), 400
-
-        uploaded_files = {}
-
-        # Process all uploaded files
-        for key, file in request.files.items():
-            if file.filename == '':
-                continue
-
-            # Secure the filename to prevent directory traversal attacks
-            filename = secure_filename(file.filename)
-
-            # Create full path for file
-            file_path = os.path.join('uploads', filename)
-
-            try:
-                # Save the file
-                file.save(file_path)
-                uploaded_files[key] = {
-                    "filename": filename,
-                    "path": file_path
-                }
-
-            except Exception as e:
-                return jsonify({"error": f"Error saving file {filename}: {str(e)}"}), 500
-
-        # Check if we have both policy and log files
-        if 'policy' in uploaded_files and 'log' in uploaded_files:
-            try:
-                # Process the policy file
-                policy_path = uploaded_files['policy']['path']
-                log_file = uploaded_files['log']['path']
-
-                # Generate TA using existing logic
-                policies = parse_turtle_policy(policy_path)
-                structure, allowed_algorithms, dynamic_config = extract_policy_structure(policies)
-                dynamic_config['log_file'] = log_file  # Add log file to dynamic config
-
-                policy_id = generate_policy_id(structure)
-
-                # Check if TA already exists or generate new
-                existing_tas = os.listdir("generated_tas") if os.path.exists("generated_tas") else []
-
-                if policy_id not in existing_tas:
-                    generate_go_ta(policy_id, allowed_algorithms, dynamic_config, policy_path)
-                    status = "new"
-                else:
-                    update_existing_ta(policy_id, log_file, dynamic_config, policy_path)
-                    status = "updated"
-
-                return jsonify({
-                    "message": f"Trusted Application {status}",
-                    "policy_id": policy_id,
-                    "algorithms": list(allowed_algorithms),
-                    "uploaded_files": list(uploaded_files.keys())
-                }), 200
-
-            except Exception as e:
-                return jsonify({"error": str(e)}), 500
-
-        # If only some files were uploaded
-        return jsonify({
-            "message": "Files uploaded successfully",
-            "uploaded_files": list(uploaded_files.keys())
-        }), 200
+    if policy_id not in existing_tas:
+        print(f"Creating new TA with ID: {policy_id}")
+        generate_go_ta(policy_id, allowed_algorithms, dynamic_config, policy_path)
+    else:
+        print(f"TA with ID {policy_id} already exists. Updating configuration.")
+        update_existing_ta(policy_id, dynamic_config.get("log_file"), dynamic_config, policy_path)
 
 
-def create_flask_app(policy_path=None):
-    """
-    Create a Flask application with file upload and policy generation capabilities
 
-    Args:
-        policy_path (str, optional): Path to the initial policy file
-
-    Returns:
-        Flask: Configured Flask application
-    """
+def create_flask_app():
     app = Flask(__name__)
 
-    # Setup upload route
-    upload_folder = setup_file_upload_route(app)
+    @app.route('/setup', methods=['POST'])
+    def setup_ta():
+        if 'policy_file' not in request.files or 'log_file' not in request.files:
+            return jsonify({"error": "Both policy_file and log_file are required"}), 400
 
-    @app.route('/generate_ta', methods=['POST'])
-    def generate_ta_route():
-        """
-        Route to generate Trusted Application based on uploaded policy
-        """
-        # Check if policy file is provided
-        if 'policy' not in request.files:
-            return jsonify({"error": "No policy file provided"}), 400
+        print("Received files:", request.files)
 
-        policy_file = request.files['policy']
+        '''
+        files = {}
+        for key in ['policy_file', 'log_file']:
+            file = request.files[key]
+            print(file)
 
-        if policy_file.filename == '':
-            return jsonify({"error": "No selected policy file"}), 400
+            if file.filename == '':
+                return jsonify({"error": f"No file selected for {key}"}), 400
 
-        # Secure the filename
-        filename = secure_filename(policy_file.filename)
-        policy_path = os.path.join(upload_folder, filename)
+            filename = secure_filename(file.filename)
+            files[key] = filename'''
 
-        try:
-            # Save the policy file
-            policy_file.save(policy_path)
-
-            # Generate TA using existing logic
-            policies = parse_turtle_policy(policy_path)
-            structure, allowed_algorithms, dynamic_config = extract_policy_structure(policies)
-            policy_id = generate_policy_id(structure)
-
-            # Check if TA already exists or generate new
-            existing_tas = os.listdir("generated_tas") if os.path.exists("generated_tas") else []
-
-            if policy_id not in existing_tas:
-                generate_go_ta(policy_id, allowed_algorithms, dynamic_config, policy_path)
-                status = "new"
-            else:
-                update_existing_ta(policy_id, dynamic_config.get("log_file"), dynamic_config, policy_path)
-                status = "updated"
-
-            return jsonify({
-                "message": f"Trusted Application {status}",
-                "policy_id": policy_id,
-                "algorithms": list(allowed_algorithms)
-            }), 200
-
-        except Exception as e:
-            return jsonify({"error": str(e)}), 500
+        main(request.files)
+        '''return jsonify({
+            "message": "Files uploaded successfully",
+            "policy_file": files['policy_file'],
+            "log_file": files['log_file']
+        }), 200'''
+        return "ok"
 
     return app
 
-
-def main_server(port=5000, policy_path=None):
-    """
-    Start the Flask server
-
-    Args:
-        port (int): Port number to run the server
-        policy_path (str, optional): Initial policy file path
-    """
-    app = create_flask_app(policy_path)
-    print(f"Starting server on port {port}")
-    app.run(host='127.0.0.1', port=port, debug=True)
-
-
 if __name__ == "__main__":
-    main_server()
+    app = create_flask_app()
+    app.run(host='127.0.0.1', port=5000, debug=True)
 
 '''
 if __name__ == "__main__":

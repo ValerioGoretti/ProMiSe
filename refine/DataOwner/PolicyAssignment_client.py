@@ -81,7 +81,7 @@ ucon:Policy_AutoDisc a ucon:Authorization ;
 
 
 def send_files(server_url, log_file_name, policy_file_name):
-    url = f"{server_url}/upload"
+    url = f"{server_url}/setup"
     files = {
         "log_file": open(log_file_name, "rb"),
         "policy_file": open(policy_file_name, "rb"),
@@ -94,6 +94,14 @@ def send_files(server_url, log_file_name, policy_file_name):
 
         if response.status_code == 200:
             print("Files sent successfully!")
+            print("Server response:", response.text)
+
+            try:
+                json_response = response.json()
+                print("Parsed JSON response:", json_response)
+            except requests.exceptions.JSONDecodeError:
+                print("Response is not in JSON format.")
+
         else:
             print(f"Error sending files: {response.text}")
 
@@ -104,15 +112,20 @@ def send_files(server_url, log_file_name, policy_file_name):
 if __name__ == "__main__":
     #server_url = ask_question("Enter the server URL", "http://127.0.0.1:5000")
     server_url ="http://127.0.0.1:5000"
-    ttl_policy, log_file_name = generate_ttl()
-    if ttl_policy:
-        policy_file_name = f"{log_file_name.split(".")[0]}_{time.time()}.ttl"
-
-        with open(policy_file_name, "w+") as f:
-            f.write(ttl_policy)
-
-        print(f"Policy generated and saved as '{policy_file_name}'")
-
-        send_files(server_url, log_file_name, policy_file_name)  # Invia i file al server
+    dev_mode = True
+    if dev_mode:
+        send_files(server_url, "event_log.xes", "event_log_1741199510.3463435.ttl")
     else:
-        print("Policy generation failed due to missing input.")
+        ttl_policy, log_file_name = generate_ttl()
+        if ttl_policy:
+            policy_file_name = f"{log_file_name.split(".")[0]}_{time.time()}.ttl"
+
+            with open(policy_file_name, "w+") as f:
+                f.write(ttl_policy)
+
+            print(f"Policy generated and saved as '{policy_file_name}'")
+
+            send_files(server_url, log_file_name, policy_file_name)  # Invia i file al server
+        else:
+            print("Policy generation failed due to missing input.")
+
