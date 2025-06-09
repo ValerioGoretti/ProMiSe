@@ -1,0 +1,83 @@
+@prefix ucon: <http://example.org/ucon#> .
+@prefix eventLog: <http://example.org/eventLog#> .
+@prefix pmt: <http://example.org/pmt#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix loc: <http://id.loc.gov/vocabulary/countries/> .
+
+ucon:Policy_AutoDisc a ucon:Authorization ;
+    
+    ucon:object_id [
+        eventLog:fileName "log.xes"^^xsd:string ;
+        eventLog:format "XES" ;
+        ucon:eventKey "concept:name"
+    ] ;
+
+
+    # Access Control Rules 
+    ucon:accessControlRules [
+        ucon:logAccess [
+            ucon:allowedUsers "pubk1", "pubk2"
+        ] ;
+
+        ucon:executionAccess [
+            ucon:allowedUsers "pubk1", "pubk2"
+        ] ;
+
+        ucon:outputAccess [
+            ucon:allowedUsers "pubk1", "pubk2"
+        ]
+    ] ;
+
+    
+    # Log Usage Restrictions 
+    ucon:logUsageRules [
+        ucon:logExpiration "2025-12-31T23:59:59Z"^^xsd:dateTime ;
+
+        ucon:attributeExclusionRules [
+            ucon:scope "event" ;
+            ucon:excludedAttributes [
+                ucon:attributeKey "name" ;
+                ucon:attributeSource "event"
+            ], [
+                ucon:attributeKey "surname" ;
+                ucon:attributeSource "event"
+            ]
+        ] ;
+
+        ucon:allowedGeographies loc:it, loc:fr, loc:de ;
+
+        ucon:allowedTimeRange [
+            ucon:eventAttribute "time:timestamp" ;
+            ucon:startDate "2020-01-01T00:00:00Z"^^xsd:dateTime ;
+            ucon:endDate "2025-01-01T00:00:00Z"^^xsd:dateTime
+        ] ;
+
+        ucon:semanticLogConstraints [
+            ucon:eventAttribute "concept:name" ;
+            ucon:mustInclude "A1", "A5", "A7" ;
+            ucon:mustExclude "A18", "A22"
+        ]
+    ] ;
+
+    
+    # Output Protection Rules 
+    ucon:outputRules [
+        ucon:allowedGeographies loc:it, loc:fr ;
+        ucon:outputExpiration "2025-12-31T23:59:59Z"^^xsd:dateTime ;
+
+        ucon:allowedTimeRange [
+            ucon:eventAttribute "time:timestamp" ;
+            ucon:startDate "2020-01-01T00:00:00Z"^^xsd:dateTime ;
+            ucon:endDate "2025-01-01T00:00:00Z"^^xsd:dateTime
+        ]
+    ] ;
+
+    
+    # Allowed Processing Actions 
+    ucon:processingRules [
+        pmt:techniqueType pmt:AutomatedDiscovery ;
+        pmt:algorithm pmt:HeuristicMiner
+    ], [
+        pmt:techniqueType pmt:AutomatedDiscovery ;
+        pmt:algorithm pmt:AlphaMiner
+    ] .
