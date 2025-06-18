@@ -30,7 +30,7 @@ def generate_ttl():
         output_users = ask_question("Who can access the results?", "pubk1")
 
     algorithms = []
-    ch = ask_question("Do you want to define who can access the output? (y/n)", "n")
+    ch = ask_question("Do you want to define some algorithm? (y/n)", "n")
     if ch.lower() == "y":
         while True:
             algorithm = ask_question("Add an allowed algorithm (e.g., HeuristicMiner, AlphaMiner, STOP to finish)?")
@@ -112,8 +112,9 @@ def send_files(server_url, log_file_name, policy_file_name):
 if __name__ == "__main__":
     #server_url = ask_question("Enter the server URL", "http://127.0.0.1:5000")
     server_url ="http://127.0.0.1:5000"
-    dev_mode = True
+    dev_mode = False
     if dev_mode:
+        #send_files(server_url, "event_log.xes", "event_log_1741199510.3463435.ttl")
         send_files(server_url, "event_log.xes", "event_log_1741199510.3463435.ttl")
     else:
         ttl_policy, log_file_name = generate_ttl()

@@ -9,4 +9,16 @@ ucon:Policy_AutoDisc a ucon:Authorization ;
         eventLog:fileName "event_log.xes"^^xsd:string ;
         eventLog:format "XES" ;
         ucon:logExpiration "2025-12-31T23:59:59Z"^^xsd:dateTime
-    ] ;.
+    ] ;
+    ucon:logAccess [
+        ucon:allowedUsers "agenas, pubk3"
+    ] ;
+    ucon:executionAccess [
+        ucon:allowedUsers "pubk3"
+    ] ;
+    ucon:outputAccess [
+        ucon:allowedUsers "agenas"
+    ] ;
+        ucon:allowedActions 
+            [ pmt:techniqueType pmt:AutomatedDiscovery ; pmt:algorithm pmt:HeuristicMiner ]
+        .

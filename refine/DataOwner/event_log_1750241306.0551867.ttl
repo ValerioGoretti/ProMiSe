@@ -1,0 +1,62 @@
+
+@prefix ucon: <http://example.org/ucon#> .
+@prefix eventLog: <http://example.org/eventLog#> .
+@prefix pmt: <http://example.org/pmt#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix loc: <http://id.loc.gov/vocabulary/countries/> .
+
+ucon:Policy_AutoDisc a ucon:Authorization ;
+
+    ucon:object_id [
+        eventLog:fileName "event_log.xes"^^xsd:string ;
+        eventLog:format "XES" ;
+    ] ;
+
+    # Log Usage Restrictions
+    ucon:logUsageRules [
+        ucon:logExpiration "2025-12-31T23:59:59Z"^^xsd:dateTime ;
+        ucon:maxAccessCount "10"^^xsd:integer ;
+        ucon:allowedLocations loc:it, loc:fr ;
+        ucon:accessControlRules "AGENAS" ;
+
+        ucon:attributeExclusionRules [
+            ucon:scope "event" ;
+            ucon:eventAttribute "concept:names" ;
+            ucon:excludedAttributes [
+                ucon:attributeKey "name"
+            ]
+        ] ;
+
+        ucon:allowedTimeRange [
+            ucon:eventAttribute "time:timestamp" ;
+            ucon:startDate "2020-01-01T00:00:00Z"^^xsd:dateTime ;
+            ucon:endDate "2025-01-01T00:00:00Z"^^xsd:dateTime
+        ] ;
+
+        ucon:semanticLogConstraints [
+            ucon:eventAttribute "concept:name" ;
+            ucon:mustInclude "A1", "A5", "A7" ;
+            ucon:mustExclude "A18", "A22"
+        ]
+    ] ;
+
+    # Output Protection Rules
+    ucon:outputRules [
+        ucon:allowedLocations loc:it, loc:fr ;
+        ucon:outputExpiration "2025-12-31T23:59:59Z"^^xsd:dateTime ;
+        ucon:accessControlRules "agenas", "pubk3" ;
+
+        ucon:allowedTimeRange [
+            ucon:eventAttribute "time:timestamp" ;
+            ucon:startDate "2020-01-01T00:00:00Z"^^xsd:dateTime ;
+            ucon:endDate "2025-01-01T00:00:00Z"^^xsd:dateTime
+        ]
+    ] ;
+
+    # Allowed Processing Actions
+    ucon:processingRules [
+        ucon:accessControlRules "agenas" ;
+        ucon:allowedTechinique [
+            [pmt:techniqueType pmt:AutomatedDiscovery ; pmt:algorithm pmt:HeuristicMiner]
+        ]
+    ] .
