@@ -1,0 +1,55 @@
+
+@prefix ucon: <http://example.org/ucon#> .
+@prefix eventLog: <http://example.org/eventLog#> .
+@prefix pmt: <http://example.org/pmt#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix loc: <http://id.loc.gov/vocabulary/countries/> .
+
+ucon:Policy_AutoDisc a ucon:Authorization ;
+
+    ucon:object_id [
+        eventLog:fileName "event_log.xes"^^xsd:string ;
+        eventLog:format "XES" ;
+    ] ;
+
+    ucon:logUsageRules [
+        ucon:logExpiration "2025-12-31T23:59:59Z"^^xsd:dateTime ;
+        ucon:maxAccessCount "7"^^xsd:integer ;
+        ucon:allowedLocations loc:it ;
+        ucon:accessControlRules "agenas" ;
+        ucon:attributeExclusionRules [
+            ucon:scope "event" ;
+            ucon:eventAttribute "concept:name" ;
+            ucon:excludedAttributes [
+                ucon:attributeKey "name"
+            ]
+        ] ;
+        ucon:allowedTimeRange [
+            ucon:eventAttribute "time:timestamp" ;
+            ucon:startDate "2020-01-01T00:00:00Z"^^xsd:dateTime ;
+            ucon:endDate "2025-01-01T00:00:00Z"^^xsd:dateTime
+        ] ;
+        ucon:semanticLogConstraints [
+            ucon:eventAttribute "concept:name" ;
+            ucon:mustInclude ("A1" "A5" "A7") ;
+            ucon:mustExclude ("A18" "A22")
+        ]
+    ] ;
+
+    ucon:outputRules [
+        ucon:allowedLocations loc:fr, , loc:it ;
+        ucon:outputExpiration "2025-12-31T23:59:59Z"^^xsd:dateTime ;
+        ucon:accessControlRules "pub3" ;
+        ucon:allowedTimeRange [
+            ucon:eventAttribute "time:timestamp" ;
+            ucon:startDate "2020-01-01T00:00:00Z"^^xsd:dateTime ;
+            ucon:endDate "2025-01-01T00:00:00Z"^^xsd:dateTime
+        ]
+    ] ;
+
+    ucon:processingRules [
+        ucon:accessControlRules "agenas" ;
+        ucon:allowedTechinique (
+            [pmt:techniqueType pmt:AutomatedDiscovery ; pmt:algorithm pmt:HeuristicMiner], [pmt:techniqueType pmt:AutomatedDiscovery ; pmt:algorithm pmt:AlphaMiner]
+        )
+    ] .

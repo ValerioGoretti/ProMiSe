@@ -7,6 +7,8 @@ from datetime import datetime
 import flask
 from flask import Flask, request, jsonify
 from werkzeug.utils import secure_filename
+from rdflib.namespace import RDF
+import rdflib
 
 
 
@@ -20,71 +22,125 @@ def parse_turtle_policy(policy):
 
     return policies
 
+def extract_rdf_list(graph, list_node):
+    """Extracts an RDF list (rdf:List) as a Python list of RDF terms (can be BNode, URI, Literal)."""
+    elements = []
+    while list_node and list_node != RDF.nil:
+        first = graph.value(list_node, RDF.first)
+        if first:
+            elements.append(first)
+        list_node = graph.value(list_node, RDF.rest)
+    return elements
+
+
 
 def extract_policy_structure(policies):
     structure = []
-    allowed_algorithms = set()
-    algorithm_nodes = set()
-    log_expiration = None
-    log_access = set()
-    execution_access = set()
-    output_access = set()
-    log_file = None
-
-    # Extract dynamic configuration values
     dynamic_config = {
-        "log_expiration": None,
-        "log_access": [],
-        "execution_access": [],
-        "output_access": [],
-        "log_file": None
+        "log_file": None,
+        "logUsageRules": {},
+        "outputRules": {},
+        "processingRules": {}
     }
 
+    g = rdflib.Graph()
     for s, p, o in policies:
-        if p == rdflib.URIRef("http://example.org/ucon#allowedActions") and isinstance(o, rdflib.BNode):
-            algorithm_nodes.add(o)
+        g.add((s, p, o))
 
-        if p == rdflib.URIRef("http://example.org/eventLog#fileName"):
-            log_file = str(o)
-            dynamic_config["log_file"] = str(o)
+    # === Log file name ===
+    for s in g.subjects(rdflib.URIRef("http://example.org/ucon#object_id")):
+        for _, _, obj_node in g.triples((s, rdflib.URIRef("http://example.org/ucon#object_id"), None)):
+            for _, p2, o2 in g.triples((obj_node, rdflib.URIRef("http://example.org/eventLog#fileName"), None)):
+                dynamic_config["log_file"] = str(o2)
 
-        if isinstance(s, rdflib.BNode) or isinstance(o, rdflib.BNode):
-            continue
+    # === LOG USAGE RULES ===
+    for rule_node in g.objects(None, rdflib.URIRef("http://example.org/ucon#logUsageRules")):
+        for _, p, o in g.triples((rule_node, None, None)):
+            pname = p.split("#")[-1]
 
-        if p in [rdflib.URIRef("http://example.org/ucon#allowedActions"),
-                 rdflib.URIRef("http://example.org/ucon#object_id"),
-                 rdflib.URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")]:
-            structure.append((str(s), str(p), str(o)))  # Convert URIRefs to strings
+            if pname == "logExpiration":
+                dynamic_config["logUsageRules"]["logExpiration"] = str(o)
+            elif pname == "maxAccessCount":
+                dynamic_config["logUsageRules"]["maxAccessCount"] = int(str(o))
+            elif pname == "allowedLocations":
+                dynamic_config["logUsageRules"].setdefault("allowedLocations", []).append(str(o))
+            elif pname == "accessControlRules":
+                # Supporta sia liste che singoli string literal
+                dynamic_config["logUsageRules"].setdefault("accessControlRules", []).extend(
+                    [s.strip().strip('"') for s in str(o).split(",")]
+                )
+            elif pname == "attributeExclusionRules":
+                excl = {}
+                for _, p2, o2 in g.triples((o, None, None)):
+                    if p2.endswith("scope"):
+                        excl["scope"] = str(o2)
+                    elif p2.endswith("eventAttribute"):
+                        excl["eventAttribute"] = str(o2)
+                    elif p2.endswith("excludedAttributes"):
+                        keys = []
+                        for _, _, o3 in g.triples((o2, rdflib.URIRef("http://example.org/ucon#attributeKey"), None)):
+                            keys.append(str(o3))
+                        excl["excludedAttributes"] = keys
+                dynamic_config["logUsageRules"]["attributeExclusionRules"] = excl
+            elif pname == "allowedTimeRange":
+                time_range = {}
+                for _, p2, o2 in g.triples((o, None, None)):
+                    key = p2.split("#")[-1]
+                    time_range[key] = str(o2)
+                dynamic_config["logUsageRules"]["allowedTimeRange"] = time_range
+            elif pname == "semanticLogConstraints":
+                sem = {}
+                for _, p2, o2 in g.triples((o, None, None)):
+                    if p2.endswith("eventAttribute"):
+                        sem["eventAttribute"] = str(o2)
+                    elif p2.endswith("mustInclude"):
+                        sem["mustInclude"] = extract_rdf_list(g, o2)
+                    elif p2.endswith("mustExclude"):
+                        sem["mustExclude"] = extract_rdf_list(g, o2)
+                dynamic_config["logUsageRules"]["semanticLogConstraints"] = sem
 
-        if p == rdflib.URIRef("http://example.org/ucon#logExpiration"):
-            log_expiration = str(o)
-            dynamic_config["log_expiration"] = str(o)
+    # === OUTPUT RULES ===
+    for rule_node in g.objects(None, rdflib.URIRef("http://example.org/ucon#outputRules")):
+        for _, p, o in g.triples((rule_node, None, None)):
+            pname = p.split("#")[-1]
 
-        if p == rdflib.URIRef("http://example.org/ucon#logAccess"):
-            access_users = [user.strip() for user in o.split(",")]
-            log_access.update(access_users)
-            dynamic_config["log_access"] = access_users
+            if pname == "allowedLocations":
+                dynamic_config["outputRules"].setdefault("allowedLocations", []).append(str(o))
+            elif pname == "outputExpiration":
+                dynamic_config["outputRules"]["outputExpiration"] = str(o)
+            elif pname == "accessControlRules":
+                dynamic_config["outputRules"].setdefault("accessControlRules", []).extend(
+                    [s.strip().strip('"') for s in str(o).split(",")]
+                )
+            elif pname == "allowedTimeRange":
+                time_range = {}
+                for _, p2, o2 in g.triples((o, None, None)):
+                    key = p2.split("#")[-1]
+                    time_range[key] = str(o2)
+                dynamic_config["outputRules"]["allowedTimeRange"] = time_range
 
-        if p == rdflib.URIRef("http://example.org/ucon#executionAccess"):
-            exec_users = [user.strip() for user in o.split(",")]
-            execution_access.update(exec_users)
-            dynamic_config["execution_access"] = exec_users
+    # === PROCESSING RULES ===
+    allowed_algorithms = []
+    for rule_node in g.objects(None, rdflib.URIRef("http://example.org/ucon#processingRules")):
+        for _, p, o in g.triples((rule_node, None, None)):
+            pname = p.split("#")[-1]
 
-        if p == rdflib.URIRef("http://example.org/ucon#outputAccess"):
-            out_users = [user.strip() for user in o.split(",")]
-            output_access.update(out_users)
-            dynamic_config["output_access"] = out_users
+            if pname == "accessControlRules":
+                dynamic_config["processingRules"].setdefault("accessControlRules", []).extend(
+                    [s.strip().strip('"') for s in str(o).split(",")]
+                )
+            elif pname == "allowedTechinique":
+                algo_nodes = extract_rdf_list(g, o)
+                for algo_node in algo_nodes:
+                    for _, p2, o2 in g.triples((algo_node, rdflib.URIRef("http://example.org/pmt#algorithm"), None)):
+                        algo_name = str(o2).split("#")[-1]
+                        allowed_algorithms.append(algo_name)
 
-    for s, p, o in policies:
-        if s in algorithm_nodes and p == rdflib.URIRef("http://example.org/pmt#algorithm"):
-            algo = o.split("#")[-1]
-            allowed_algorithms.add(algo)
+    dynamic_config["processingRules"]["allowedTechniques"] = allowed_algorithms
 
-    # Convert all components to tuples for consistent sorting
-    final_structure = structure + [tuple(sorted(allowed_algorithms))]  # Convert allowed_algorithms to tuple
+    static_structure = [tuple(sorted(allowed_algorithms))]
 
-    return final_structure, allowed_algorithms, dynamic_config
-
+    return static_structure, allowed_algorithms, dynamic_config
 
 def generate_policy_id(structure):
     # Now structure contains only tuples which can be sorted
@@ -229,8 +285,6 @@ def update_file_mapping(data_dir, log_file, content_hash, policy_id, hashed_file
 
     return False
 
-
-#TODO: check expiration date value
 def save_policy_config(policy_id, dynamic_config, original_policy_path):
     """Save the dynamic configuration values to a JSON file"""
     config_dir = os.path.join(f"generated_tas/{policy_id}", "config")
@@ -317,8 +371,6 @@ def generate_go_ta(policy_id, allowed_algorithms, dynamic_config, original_polic
     if content_hash:
         #TODO: Check it
         update_file_mapping(data_dir, log_file, content_hash, policy_id, hashed_filename)
-
-    exit(0)
 
     go_mod = """module main
 
@@ -645,7 +697,6 @@ def create_flask_app():
             return jsonify({"error": "Both policy_file and log_file are required"}), 400
 
         print("Received files:", request.files)
-
         '''
         files = {}
         for key in ['policy_file', 'log_file']:
