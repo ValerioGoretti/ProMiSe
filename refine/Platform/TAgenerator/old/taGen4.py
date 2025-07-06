@@ -52,7 +52,7 @@ def store_log_file(ta_path, log_file_path):
 
 def generate_go_ta(static_structure, allowed_algorithms, dynamic_config, log_file_path):
     ta_hash = hash_policy_structure(static_structure)
-    ta_path = os.path.join("generated_tas", ta_hash)
+    ta_path = os.path.join("../generated_tas", ta_hash)
     os.makedirs(ta_path, exist_ok=True)
 
     algo_repo = "algorithmRepository"
@@ -99,5 +99,5 @@ go build -o ta_app main.go
     return ta_path, log_id
 
 if __name__ == "__main__":
-    os.makedirs("generated_tas", exist_ok=True)
+    os.makedirs("../generated_tas", exist_ok=True)
     app.run(port=5000)

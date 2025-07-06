@@ -157,6 +157,7 @@ def send_files(server_url, log_file_name, policy_file_name):
         print(f"Request failed: {e}")
 
 
+
 if __name__ == "__main__":
     #server_url = ask_question("Enter the server URL", "http://127.0.0.1:5000")
     server_url ="http://127.0.0.1:5000"

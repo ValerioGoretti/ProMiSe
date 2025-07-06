@@ -3,13 +3,18 @@ import hashlib
 import os
 import shutil
 import json
-import time
 from datetime import datetime
+import flask
+from flask import Flask, request, jsonify
+from werkzeug.utils import secure_filename
+from rdflib.namespace import RDF
+import rdflib
 
 
-def parse_turtle_policy(policy_path):
+
+def parse_turtle_policy(policy):
     g = rdflib.Graph()
-    g.parse(policy_path, format="turtle")
+    g.parse(data=policy, format="turtle")
 
     policies = []
     for s, p, o in g:
@@ -17,71 +22,125 @@ def parse_turtle_policy(policy_path):
 
     return policies
 
+def extract_rdf_list(graph, list_node):
+    """Extracts an RDF list (rdf:List) as a Python list of RDF terms (can be BNode, URI, Literal)."""
+    elements = []
+    while list_node and list_node != RDF.nil:
+        first = graph.value(list_node, RDF.first)
+        if first:
+            elements.append(first)
+        list_node = graph.value(list_node, RDF.rest)
+    return elements
+
+
 
 def extract_policy_structure(policies):
     structure = []
-    allowed_algorithms = set()
-    algorithm_nodes = set()
-    log_expiration = None
-    log_access = set()
-    execution_access = set()
-    output_access = set()
-    log_file = None
-
-    # Extract dynamic configuration values
     dynamic_config = {
-        "log_expiration": None,
-        "log_access": [],
-        "execution_access": [],
-        "output_access": [],
-        "log_file": None
+        "log_file": None,
+        "logUsageRules": {},
+        "outputRules": {},
+        "processingRules": {}
     }
 
+    g = rdflib.Graph()
     for s, p, o in policies:
-        if p == rdflib.URIRef("http://example.org/ucon#allowedActions") and isinstance(o, rdflib.BNode):
-            algorithm_nodes.add(o)
+        g.add((s, p, o))
 
-        if p == rdflib.URIRef("http://example.org/eventLog#fileName"):
-            log_file = str(o)
-            dynamic_config["log_file"] = str(o)
+    # === Log file name ===
+    for s in g.subjects(rdflib.URIRef("http://example.org/ucon#object_id")):
+        for _, _, obj_node in g.triples((s, rdflib.URIRef("http://example.org/ucon#object_id"), None)):
+            for _, p2, o2 in g.triples((obj_node, rdflib.URIRef("http://example.org/eventLog#fileName"), None)):
+                dynamic_config["log_file"] = str(o2)
 
-        if isinstance(s, rdflib.BNode) or isinstance(o, rdflib.BNode):
-            continue
+    # === LOG USAGE RULES ===
+    for rule_node in g.objects(None, rdflib.URIRef("http://example.org/ucon#logUsageRules")):
+        for _, p, o in g.triples((rule_node, None, None)):
+            pname = p.split("#")[-1]
 
-        if p in [rdflib.URIRef("http://example.org/ucon#allowedActions"),
-                 rdflib.URIRef("http://example.org/ucon#object_id"),
-                 rdflib.URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")]:
-            structure.append((str(s), str(p), str(o)))  # Convert URIRefs to strings
+            if pname == "logExpiration":
+                dynamic_config["logUsageRules"]["logExpiration"] = str(o)
+            elif pname == "maxAccessCount":
+                dynamic_config["logUsageRules"]["maxAccessCount"] = int(str(o))
+            elif pname == "allowedLocations":
+                dynamic_config["logUsageRules"].setdefault("allowedLocations", []).append(str(o))
+            elif pname == "accessControlRules":
+                # Supporta sia liste che singoli string literal
+                dynamic_config["logUsageRules"].setdefault("accessControlRules", []).extend(
+                    [s.strip().strip('"') for s in str(o).split(",")]
+                )
+            elif pname == "attributeExclusionRules":
+                excl = {}
+                for _, p2, o2 in g.triples((o, None, None)):
+                    if p2.endswith("scope"):
+                        excl["scope"] = str(o2)
+                    elif p2.endswith("eventAttribute"):
+                        excl["eventAttribute"] = str(o2)
+                    elif p2.endswith("excludedAttributes"):
+                        keys = []
+                        for _, _, o3 in g.triples((o2, rdflib.URIRef("http://example.org/ucon#attributeKey"), None)):
+                            keys.append(str(o3))
+                        excl["excludedAttributes"] = keys
+                dynamic_config["logUsageRules"]["attributeExclusionRules"] = excl
+            elif pname == "allowedTimeRange":
+                time_range = {}
+                for _, p2, o2 in g.triples((o, None, None)):
+                    key = p2.split("#")[-1]
+                    time_range[key] = str(o2)
+                dynamic_config["logUsageRules"]["allowedTimeRange"] = time_range
+            elif pname == "semanticLogConstraints":
+                sem = {}
+                for _, p2, o2 in g.triples((o, None, None)):
+                    if p2.endswith("eventAttribute"):
+                        sem["eventAttribute"] = str(o2)
+                    elif p2.endswith("mustInclude"):
+                        sem["mustInclude"] = extract_rdf_list(g, o2)
+                    elif p2.endswith("mustExclude"):
+                        sem["mustExclude"] = extract_rdf_list(g, o2)
+                dynamic_config["logUsageRules"]["semanticLogConstraints"] = sem
 
-        if p == rdflib.URIRef("http://example.org/ucon#logExpiration"):
-            log_expiration = str(o)
-            dynamic_config["log_expiration"] = str(o)
+    # === OUTPUT RULES ===
+    for rule_node in g.objects(None, rdflib.URIRef("http://example.org/ucon#outputRules")):
+        for _, p, o in g.triples((rule_node, None, None)):
+            pname = p.split("#")[-1]
 
-        if p == rdflib.URIRef("http://example.org/ucon#logAccess"):
-            access_users = [user.strip() for user in o.split(",")]
-            log_access.update(access_users)
-            dynamic_config["log_access"] = access_users
+            if pname == "allowedLocations":
+                dynamic_config["outputRules"].setdefault("allowedLocations", []).append(str(o))
+            elif pname == "outputExpiration":
+                dynamic_config["outputRules"]["outputExpiration"] = str(o)
+            elif pname == "accessControlRules":
+                dynamic_config["outputRules"].setdefault("accessControlRules", []).extend(
+                    [s.strip().strip('"') for s in str(o).split(",")]
+                )
+            elif pname == "allowedTimeRange":
+                time_range = {}
+                for _, p2, o2 in g.triples((o, None, None)):
+                    key = p2.split("#")[-1]
+                    time_range[key] = str(o2)
+                dynamic_config["outputRules"]["allowedTimeRange"] = time_range
 
-        if p == rdflib.URIRef("http://example.org/ucon#executionAccess"):
-            exec_users = [user.strip() for user in o.split(",")]
-            execution_access.update(exec_users)
-            dynamic_config["execution_access"] = exec_users
+    # === PROCESSING RULES ===
+    allowed_algorithms = []
+    for rule_node in g.objects(None, rdflib.URIRef("http://example.org/ucon#processingRules")):
+        for _, p, o in g.triples((rule_node, None, None)):
+            pname = p.split("#")[-1]
 
-        if p == rdflib.URIRef("http://example.org/ucon#outputAccess"):
-            out_users = [user.strip() for user in o.split(",")]
-            output_access.update(out_users)
-            dynamic_config["output_access"] = out_users
+            if pname == "accessControlRules":
+                dynamic_config["processingRules"].setdefault("accessControlRules", []).extend(
+                    [s.strip().strip('"') for s in str(o).split(",")]
+                )
+            elif pname == "allowedTechinique":
+                algo_nodes = extract_rdf_list(g, o)
+                for algo_node in algo_nodes:
+                    for _, p2, o2 in g.triples((algo_node, rdflib.URIRef("http://example.org/pmt#algorithm"), None)):
+                        algo_name = str(o2).split("#")[-1]
+                        allowed_algorithms.append(algo_name)
 
-    for s, p, o in policies:
-        if s in algorithm_nodes and p == rdflib.URIRef("http://example.org/pmt#algorithm"):
-            algo = o.split("#")[-1]
-            allowed_algorithms.add(algo)
+    dynamic_config["processingRules"]["allowedTechniques"] = allowed_algorithms
 
-    # Convert all components to tuples for consistent sorting
-    final_structure = structure + [tuple(sorted(allowed_algorithms))]  # Convert allowed_algorithms to tuple
+    static_structure = [tuple(sorted(allowed_algorithms))]
 
-    return final_structure, allowed_algorithms, dynamic_config
-
+    return static_structure, allowed_algorithms, dynamic_config
 
 def generate_policy_id(structure):
     # Now structure contains only tuples which can be sorted
@@ -99,6 +158,17 @@ def hash_file_content(file_path):
         for chunk in iter(lambda: f.read(4096), b""):
             hash_sha256.update(chunk)
     return hash_sha256.hexdigest()
+
+
+def hash_content(content: bytes) -> str:
+    """Generate SHA256 hash based on file content"""
+    hash_sha256 = hashlib.sha256()
+    if isinstance(content, str):
+        content = content.encode('utf-8')
+
+    hash_sha256.update(content)
+    return hash_sha256.hexdigest()
+
 
 
 def log_file_access(policy_id, file_hash, operation, actioner):
@@ -124,19 +194,19 @@ def log_file_access(policy_id, file_hash, operation, actioner):
     return True
 
 
-def store_log_file(log_file, data_dir, policy_id=None):
+def store_log_file(log_file, log_file_content, data_dir, policy_id=None):
     """Store log file using content hash as filename, avoid duplicates"""
-    if not log_file or not os.path.exists(log_file):
+    '''if not log_file or not os.path.exists(log_file):
         print(f"Log file {log_file} not found.")
         return None, None
-
+    '''
     # Generate hash from file content
-    content_hash = hash_file_content(log_file)
+    content_hash = hash_content(log_file_content)
     if not content_hash:
         return None, None
 
     # Get file extension
-    _, file_extension = os.path.splitext(log_file)
+    _, file_extension = os.path.splitext(log_file.filename)
 
     # Create new filename based on content hash
     hashed_filename = f"{content_hash}{file_extension}"
@@ -147,7 +217,9 @@ def store_log_file(log_file, data_dir, policy_id=None):
         print(f"File with identical content already exists at {destination_path}")
     else:
         # Copy file with hashed name
-        shutil.copy(log_file, destination_path)
+        with open(destination_path, "wb") as f:
+            f.write(log_file_content.encode("utf-8"))
+
         print(f"File copied to: {destination_path}")
 
         # Log the file addition - only for this specific file
@@ -157,8 +229,9 @@ def store_log_file(log_file, data_dir, policy_id=None):
     return hashed_filename, content_hash
 
 
-def update_file_mapping(data_dir, log_file, content_hash, policy_id):
+def update_file_mapping(data_dir, log_file, content_hash, policy_id, hashed_file_name):
     """Update the JSON mapping file with file metadata"""
+
     # Create mapping file path
     mapping_file = os.path.join(data_dir, "file_mapping.json")
 
@@ -166,11 +239,12 @@ def update_file_mapping(data_dir, log_file, content_hash, policy_id):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     # Get file size
-    file_size = os.path.getsize(log_file)
+    file_path = os.path.join(data_dir, hashed_file_name)
+    file_size = os.path.getsize(file_path)
 
     # File metadata
     file_metadata = {
-        "original_name": os.path.basename(log_file),
+        "original_name": os.path.basename(log_file.filename),
         "content_hash": content_hash,
         "date_added": timestamp,
         "file_size": file_size,
@@ -202,7 +276,7 @@ def update_file_mapping(data_dir, log_file, content_hash, policy_id):
         with open(mapping_file, "w") as f:
             json.dump(mapping_data, f, indent=4)
 
-        print(f"Updated file mapping with new entry: {os.path.basename(log_file)}")
+        print(f"Updated file mapping with new entry: {os.path.basename(log_file.filename)}")
 
         # Log the mapping update - only for this specific file
         log_file_access(policy_id, content_hash, "MAP", "system")
@@ -210,7 +284,6 @@ def update_file_mapping(data_dir, log_file, content_hash, policy_id):
         return True
 
     return False
-
 
 def save_policy_config(policy_id, dynamic_config, original_policy_path):
     """Save the dynamic configuration values to a JSON file"""
@@ -263,26 +336,41 @@ def save_policy_config(policy_id, dynamic_config, original_policy_path):
     return config_file
 
 
-def generate_go_ta(policy_id, allowed_algorithms, dynamic_config, original_policy_path):
+
+def generate_go_ta(policy_id, allowed_algorithms, dynamic_config, original_policy_path, log_file, log_file_content):
+    print("entra generate_go_ta")
     ta_dir = f"generated_tas/{policy_id}/AutomatedDiscovery"
     data_dir = os.path.join(f"generated_tas/{policy_id}", "data")
     os.makedirs(ta_dir, exist_ok=True)
     os.makedirs(data_dir, exist_ok=True)
 
+    print("prima save_policy_config")
+
     # Save dynamic configuration
     config_file = save_policy_config(policy_id, dynamic_config, original_policy_path)
 
+    print("dopo save_policy_config")
+
     # Store log file with content hash as name if it exists
-    log_file = dynamic_config.get("log_file")
+    #log_file = dynamic_config.get("log_file")
     hashed_filename = None
     content_hash = None
+    print(log_file)
+    print(log_file.filename)
+    print(log_file.read().decode('utf-8'))
 
-    if log_file and os.path.exists(log_file):
-        hashed_filename, content_hash = store_log_file(log_file, data_dir, policy_id)
+    print("prima store_log_file")
+    hashed_filename, content_hash = store_log_file(log_file, log_file_content, data_dir, policy_id)
+    print("dopo store_log_file")
 
-        # Update the JSON mapping file
-        if content_hash:
-            update_file_mapping(data_dir, log_file, content_hash, policy_id)
+    print(hashed_filename)
+    print(content_hash)
+
+
+    # Update the JSON mapping file
+    if content_hash:
+        #TODO: Check it
+        update_file_mapping(data_dir, log_file, content_hash, policy_id, hashed_filename)
 
     go_mod = """module main
 
@@ -536,8 +624,9 @@ func main() {
     print(f"Generated TA environment: {ta_dir}")
     return True
 
-
-def update_existing_ta(policy_id, log_file, dynamic_config, original_policy_path):
+#TODO: check it
+def update_existing_ta(policy_id, dynamic_config, original_policy_path, log_file, log_file_content):
+    print("ENTRA IN UPDATE EXISTING TA")
     """Update an existing TA with a new log file and/or policy configuration"""
     data_dir = os.path.join(f"generated_tas/{policy_id}", "data")
     if not os.path.exists(data_dir):
@@ -547,37 +636,18 @@ def update_existing_ta(policy_id, log_file, dynamic_config, original_policy_path
     # Update policy configuration
     save_policy_config(policy_id, dynamic_config, original_policy_path)
 
-    # If there's a log file, store it
-    if log_file and os.path.exists(log_file):
-        # Store log file with content hash
-        hashed_filename, content_hash = store_log_file(log_file, data_dir, policy_id)
 
-        # Update the JSON mapping file
-        if content_hash:
-            updated = update_file_mapping(data_dir, log_file, content_hash, policy_id)
-            if updated:
-                print(f"Updated TA {policy_id} with new log file: {os.path.basename(log_file)} (hash: {content_hash})")
-                return True
+    hashed_filename, content_hash = store_log_file(log_file, log_file_content, data_dir, policy_id)
+
+    # Update the JSON mapping file
+    if content_hash:
+        updated = update_file_mapping(data_dir, log_file, content_hash, policy_id, hashed_filename)
+        if updated:
+            print(f"Updated TA {policy_id} with new log file: {os.path.basename(log_file.filename)} (hash: {content_hash})")
+            return True
 
     print(f"Updated TA {policy_id} with new policy configuration")
     return True
-
-
-def main(policy_path):
-    policies = parse_turtle_policy(policy_path)
-    structure, allowed_algorithms, dynamic_config = extract_policy_structure(policies)
-    policy_id = generate_policy_id(structure)
-
-    existing_tas = os.listdir("generated_tas") if os.path.exists("generated_tas") else []
-    print("Allowed algorithms:", allowed_algorithms)
-
-    if policy_id not in existing_tas:
-        print(f"Creating new TA with ID: {policy_id}")
-        generate_go_ta(policy_id, allowed_algorithms, dynamic_config, policy_path)
-    else:
-        print(f"TA with ID {policy_id} already exists. Updating configuration.")
-        update_existing_ta(policy_id, dynamic_config.get("log_file"), dynamic_config, policy_path)
-
 
 def clean_generated_tas():
     folder = "generated_tas"
@@ -591,9 +661,87 @@ def clean_generated_tas():
         print("No TA directories found to clean.")
 
 
+def main(files):
+    policy_file = files['policy_file']
+    log_file = files['log_file']
+
+    # Access file content
+    policy_file_content = policy_file.read().decode('utf-8')  # Assuming text-based files
+    policy_file.seek(0)
+
+    log_file_content = log_file.read().decode('utf-8')
+    log_file.seek(0)
+
+    policies = parse_turtle_policy(policy_file_content)
+    structure, allowed_algorithms, dynamic_config = extract_policy_structure(policies)
+    policy_id = generate_policy_id(structure)
+
+    existing_tas = os.listdir("../generated_tas") if os.path.exists("../generated_tas") else []
+    print("Allowed algorithms:", allowed_algorithms)
+
+    if policy_id not in existing_tas:
+        print(f"Creating new TA with ID: {policy_id}")
+        generate_go_ta(policy_id, allowed_algorithms, dynamic_config, policy_file.filename, log_file, log_file_content)
+    else:
+        print(f"TA with ID {policy_id} already exists. Updating configuration.")
+        update_existing_ta(policy_id, dynamic_config, policy_file.filename, log_file, log_file_content)
+
+
+
+def create_flask_app():
+    app = Flask(__name__)
+
+    @app.route('/setup', methods=['POST'])
+    def setup_ta():
+        if 'policy_file' not in request.files or 'log_file' not in request.files:
+            return jsonify({"error": "Both policy_file and log_file are required"}), 400
+
+        print("Received files:", request.files)
+        '''
+        files = {}
+        for key in ['policy_file', 'log_file']:
+            file = request.files[key]
+            print(file)
+
+            if file.filename == '':
+                return jsonify({"error": f"No file selected for {key}"}), 400
+
+            filename = secure_filename(file.filename)
+            files[key] = filename'''
+
+        #clean_generated_tas()
+        main(request.files)
+        '''return jsonify({
+            "message": "Files uploaded successfully",
+            "policy_file": files['policy_file'],
+            "log_file": files['log_file']
+        }), 200'''
+        return "ok"
+
+    return app
+
 if __name__ == "__main__":
-    main("policy5.ttl")
-    exit(0)
+    app = create_flask_app()
+    app.run(host='127.0.0.1', port=5000, debug=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''
+if __name__ == "__main__":
+    #main("policy5.ttl")
     while True:
         print("\n --------- MENU ---------\n")
         print("Select an option:")
@@ -604,8 +752,7 @@ if __name__ == "__main__":
         choice = input("> Enter your choice: ")
 
         if choice == "1":
-            policy_file = input("Enter the policy filename: ")
-            main(policy_file)
+            main_server()
         elif choice == "2":
             clean_generated_tas()
         elif choice == "3":
@@ -613,3 +760,4 @@ if __name__ == "__main__":
             break
         else:
             print("Invalid choice. Please try again.")
+'''

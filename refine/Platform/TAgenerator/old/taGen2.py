@@ -624,7 +624,7 @@ def main(files):
     structure, allowed_algorithms, dynamic_config = extract_policy_structure(policies)
     policy_id = generate_policy_id(structure)
 
-    existing_tas = os.listdir("generated_tas") if os.path.exists("generated_tas") else []
+    existing_tas = os.listdir("../generated_tas") if os.path.exists("../generated_tas") else []
     print("Allowed algorithms:", allowed_algorithms)
 
     if policy_id not in existing_tas:
