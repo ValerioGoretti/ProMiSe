@@ -29,7 +29,8 @@ def setup_policy():
     validate_policy(policy_json)
 
     # Salvataggio
-    result = save_policy_instance(g, policy_json, policy_bytes, log_file.filename, log_bytes)
+    #result = save_policy_instance(g, policy_json, policy_bytes, log_file.filename, log_bytes)
+    result = save_policy_instance(g, policy_json, policy_bytes, log_file)
 
     policy_json["policies"][0]["source_policy"] = str(result["config_path"]) + "/policy.ttl"
 

@@ -1,0 +1,22 @@
+{
+  "01": {
+    "log_file": "event_log.xes",
+    "config_path": "generated_tas\\54e8e2b9f4bdd1c56400f95de53ae66b38735940ee7a6c4ee6dea606c98b8f63\\configs\\01",
+    "data_path": "generated_tas\\54e8e2b9f4bdd1c56400f95de53ae66b38735940ee7a6c4ee6dea606c98b8f63\\data\\01",
+    "authorized_users": {
+      "logUsage": [
+        "agenas",
+        "owner"
+      ],
+      "output": [
+        "pub3",
+        "owner"
+      ],
+      "processing": [
+        "agenas",
+        "owner"
+      ]
+    },
+    "owner": "owner"
+  }
+}

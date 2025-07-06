@@ -180,7 +180,7 @@ def parse_policy_turtle(g):
 
     return {"policies": policies}
 
-def save_policy_instance(graph, policy_json, policy_bytes, log_filename, log_bytes):
+def save_policy_instance(graph, policy_json, policy_file, log_file):
     hash_val = compute_policy_structure_hash(policy_json)
     base_dir = Path("generated_tas") / hash_val
     configs_dir = base_dir / "configs"
@@ -199,19 +199,52 @@ def save_policy_instance(graph, policy_json, policy_bytes, log_filename, log_byt
 
     policy_path = config_subdir / "policy.ttl"
     with open(policy_path, "wb") as f:
-        f.write(policy_bytes)
+        f.write(policy_file)
 
     config_path = config_subdir / "policy_config.json"
     with open(config_path, "w") as f:
         json.dump(policy_json, f, indent=2)
 
-    log_path = data_subdir / log_filename
+    log_path = data_subdir / log_file.filename
     with open(log_path, "wb") as f:
-        f.write(log_bytes)
+        f.write(log_file.read())
+
+    # Estrai utenti autorizzati per ciascuna fase
+    auth = policy_json["policies"][0]
+    authorized_users = {
+        "logUsage": auth.get("logUsageRules", {}).get("accessControlRules", []),
+        "output": auth.get("outputRules", {}).get("accessControlRules", []),
+        "processing": auth.get("processingRules", {}).get("accessControlRules", [])
+    }
+
+    # Proprietario del dato con accesso universale
+    owner = auth.get("owner", "owner")
+    if owner:
+        for phase in authorized_users:
+            if owner not in authorized_users[phase]:
+                authorized_users[phase].append(owner)
+
+    mapping_path = base_dir / "mapping.json"
+    if mapping_path.exists():
+        with open(mapping_path, "r") as f:
+            mapping = json.load(f)
+    else:
+        mapping = {}
+
+    mapping[next_id] = {
+        "log_file": log_file.filename,
+        "config_path": str(config_subdir),
+        "data_path": str(data_subdir),
+        "authorized_users": authorized_users,
+        "owner": owner
+    }
+
+    with open(mapping_path, "w") as f:
+        json.dump(mapping, f, indent=2)
 
     return {
         "hash": hash_val,
         "config_path": str(config_subdir),
         "data_path": str(data_subdir),
-        "log_filename": log_filename
+        "log_filename": log_file.filename
     }
