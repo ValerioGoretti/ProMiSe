@@ -180,7 +180,7 @@ def parse_policy_turtle(g):
 
     return {"policies": policies}
 
-def save_policy_instance(graph, policy_json, policy_file, log_file):
+def save_policy_instance(graph, policy_json, policy_file, log_filename, log_bytes):
     hash_val = compute_policy_structure_hash(policy_json)
     base_dir = Path("generated_tas") / hash_val
     configs_dir = base_dir / "configs"
@@ -205,9 +205,9 @@ def save_policy_instance(graph, policy_json, policy_file, log_file):
     with open(config_path, "w") as f:
         json.dump(policy_json, f, indent=2)
 
-    log_path = data_subdir / log_file.filename
+    log_path = data_subdir / log_filename
     with open(log_path, "wb") as f:
-        f.write(log_file.read())
+        f.write(log_bytes)
 
     # Estrai utenti autorizzati per ciascuna fase
     auth = policy_json["policies"][0]
@@ -232,7 +232,7 @@ def save_policy_instance(graph, policy_json, policy_file, log_file):
         mapping = {}
 
     mapping[next_id] = {
-        "log_file": log_file.filename,
+        "log_file": log_filename,
         "config_path": str(config_subdir),
         "data_path": str(data_subdir),
         "authorized_users": authorized_users,
@@ -246,5 +246,5 @@ def save_policy_instance(graph, policy_json, policy_file, log_file):
         "hash": hash_val,
         "config_path": str(config_subdir),
         "data_path": str(data_subdir),
-        "log_filename": log_file.filename
+        "log_filename": log_filename
     }
