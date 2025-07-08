@@ -37,10 +37,16 @@ def setup_policy():
 
     policy_json["policies"][0]["source_policy"] = str(result["config_path"]) + "/policy.ttl"
 
-    return jsonify({
-        "message": "Policy and log saved successfully.",
-        "details": result
-    })
+    if result.get("duplicate"):
+        return jsonify({
+            "message": "Duplicate detected. Using existing configuration.",
+            "details": result
+        }), 200
+    else:
+        return jsonify({
+            "message": "Policy and log saved successfully.",
+            "details": result
+        }), 201
 
 if __name__ == "__main__":
     app.run(debug=True)

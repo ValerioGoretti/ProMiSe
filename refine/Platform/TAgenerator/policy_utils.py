@@ -5,6 +5,8 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import shutil
+
 
 UCON = Namespace("http://example.org/ucon#")
 EVENTLOG = Namespace("http://example.org/eventLog#")
@@ -21,6 +23,16 @@ def node_to_str(val):
 
 def extract_structure(obj):
     if isinstance(obj, dict):
+        # Se è una tecnica, estrai i nomi degli algoritmi
+        if "allowedTechniques" in obj:
+            return {
+                "allowedTechniques": sorted(
+                    [
+                        tech.get("algorithm", "unknown")
+                        for tech in obj.get("allowedTechniques", [])
+                    ]
+                )
+            }
         return {k: extract_structure(v) for k, v in obj.items()}
     elif isinstance(obj, list):
         return [extract_structure(obj[0])] if obj else []
@@ -180,71 +192,113 @@ def parse_policy_turtle(g):
 
     return {"policies": policies}
 
-def save_policy_instance(graph, policy_json, policy_file, log_filename, log_bytes):
+def save_policy_instance(graph, policy_json, policy_bytes, log_filename, log_bytes):
     hash_val = compute_policy_structure_hash(policy_json)
     base_dir = Path("generated_tas") / hash_val
     configs_dir = base_dir / "configs"
     data_dir = base_dir / "data"
-
     configs_dir.mkdir(parents=True, exist_ok=True)
     data_dir.mkdir(parents=True, exist_ok=True)
 
+    # Carica mapping esistente o inizializza
+    mapping_path = base_dir / "mapping.json"
+    mapping = json.loads(mapping_path.read_text()) if mapping_path.exists() else {}
+
+    # Calcolo hash del log e owner
+    owner = policy_json["policies"][0].get("owner", "owner")
+    log_hash = hashlib.sha256(log_bytes).hexdigest()
+    dedup_key = f"{owner}:{hash_val}:{log_hash}"
+
+    # Verifica duplicati
+    for entry_id, entry in mapping.items():
+        if entry.get("dedup_key") == dedup_key:
+            return {
+                "duplicate": True,
+                "existing_id": entry_id,
+                "config_path": entry["config_path"],
+                "data_path": entry["data_path"],
+                "log_filename": entry["log_file"]
+            }
+
+    # Non duplicato, crea nuova istanza
     existing_ids = [int(p.name) for p in configs_dir.iterdir() if p.is_dir() and p.name.isdigit()]
     next_id = f"{(max(existing_ids) + 1) if existing_ids else 1:02}"
-
     config_subdir = configs_dir / next_id
     data_subdir = data_dir / next_id
     config_subdir.mkdir()
     data_subdir.mkdir()
 
-    policy_path = config_subdir / "policy.ttl"
-    with open(policy_path, "wb") as f:
-        f.write(policy_file)
+    # Salva policy TTL
+    (config_subdir / "policy.ttl").write_bytes(policy_bytes)
+    # Salva JSON config
+    (config_subdir / "policy_config.json").write_text(json.dumps(policy_json, indent=2))
+    # Salva file di log
+    (data_subdir / log_filename).write_bytes(log_bytes)
 
-    config_path = config_subdir / "policy_config.json"
-    with open(config_path, "w") as f:
-        json.dump(policy_json, f, indent=2)
-
-    log_path = data_subdir / log_filename
-    with open(log_path, "wb") as f:
-        f.write(log_bytes)
-
-    # Estrai utenti autorizzati per ciascuna fase
+    # Autorizzazioni per fase
     auth = policy_json["policies"][0]
     authorized_users = {
         "logUsage": auth.get("logUsageRules", {}).get("accessControlRules", []),
         "output": auth.get("outputRules", {}).get("accessControlRules", []),
         "processing": auth.get("processingRules", {}).get("accessControlRules", [])
     }
-
-    # Proprietario del dato con accesso universale
-    owner = auth.get("owner", "owner")
     if owner:
         for phase in authorized_users:
             if owner not in authorized_users[phase]:
                 authorized_users[phase].append(owner)
 
-    mapping_path = base_dir / "mapping.json"
-    if mapping_path.exists():
-        with open(mapping_path, "r") as f:
-            mapping = json.load(f)
-    else:
-        mapping = {}
+    # 🔁 Copia algoritmi richiesti e crea manifest
+    algorithm_subdir = base_dir / "algorithms"
+    algorithm_subdir.mkdir(exist_ok=True)
 
+    techniques = auth.get("processingRules", {}).get("allowedTechniques", [])
+    algorithm_manifest = []
+
+    for tech in techniques:
+        algorithm_name = tech.get("algorithm")
+        technique_type = tech.get("techniqueType", "")
+
+        if not algorithm_name:
+            continue
+
+        source_path = Path("algorithmRepository") / f"{algorithm_name}.go"
+        target_path = algorithm_subdir / f"{algorithm_name}.go"
+
+        if not target_path.exists():
+            if source_path.exists():
+                shutil.copy(source_path, target_path)
+            else:
+                raise FileNotFoundError(f"L'algoritmo '{algorithm_name}' non è presente in 'algorithmRepository'.")
+
+        algorithm_manifest.append({
+            "algorithm": algorithm_name,
+            "techniqueType": technique_type,
+            "path": str(target_path.resolve())
+        })
+
+    # Salva manifest
+    manifest_path = algorithm_subdir / "algorithm_manifest.json"
+    manifest_path.write_text(json.dumps(algorithm_manifest, indent=2))
+
+    # Aggiungi voce al mapping
     mapping[next_id] = {
         "log_file": log_filename,
         "config_path": str(config_subdir),
         "data_path": str(data_subdir),
         "authorized_users": authorized_users,
-        "owner": owner
+        "owner": owner,
+        "dedup_key": dedup_key
     }
-
-    with open(mapping_path, "w") as f:
-        json.dump(mapping, f, indent=2)
+    mapping_path.write_text(json.dumps(mapping, indent=2))
 
     return {
+        "duplicate": False,
         "hash": hash_val,
+        "id": next_id,
         "config_path": str(config_subdir),
         "data_path": str(data_subdir),
         "log_filename": log_filename
     }
+
+
+
