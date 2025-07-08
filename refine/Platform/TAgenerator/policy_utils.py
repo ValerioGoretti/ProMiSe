@@ -6,7 +6,7 @@ import json
 import os
 from pathlib import Path
 import shutil
-
+from generate_main_go import generate_main_go, generate_go_mod
 
 UCON = Namespace("http://example.org/ucon#")
 EVENTLOG = Namespace("http://example.org/eventLog#")
@@ -234,6 +234,11 @@ def save_policy_instance(graph, policy_json, policy_bytes, log_filename, log_byt
     (config_subdir / "policy_config.json").write_text(json.dumps(policy_json, indent=2))
     # Salva file di log
     (data_subdir / log_filename).write_bytes(log_bytes)
+
+    main_go_path = base_dir / "main.go"
+    if not main_go_path.exists():
+        generate_main_go(ta_hash=hash_val)
+        generate_go_mod(ta_hash=hash_val)
 
     # Autorizzazioni per fase
     auth = policy_json["policies"][0]
