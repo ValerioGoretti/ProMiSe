@@ -270,10 +270,15 @@ def save_policy_instance(graph, policy_json, policy_bytes, log_filename, log_byt
             else:
                 raise FileNotFoundError(f"L'algoritmo '{algorithm_name}' non è presente in 'algorithmRepository'.")
 
+        # Calcola hash dell'algoritmo copiato
+        algo_bytes = target_path.read_bytes()
+        algo_hash = hashlib.sha256(algo_bytes).hexdigest()
+
         algorithm_manifest.append({
             "algorithm": algorithm_name,
             "techniqueType": technique_type,
-            "path": str(target_path.resolve())
+            "path": str(target_path.resolve()),
+            "hash": algo_hash
         })
 
     # Salva manifest
