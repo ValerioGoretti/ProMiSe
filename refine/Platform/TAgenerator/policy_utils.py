@@ -235,6 +235,9 @@ def save_policy_instance(graph, policy_json, policy_bytes, log_filename, log_byt
     # Salva file di log
     (data_subdir / log_filename).write_bytes(log_bytes)
 
+    # CREA QUI IL FILE audit.log VUOTO
+    (config_subdir / "audit.txt").write_text("")
+
     main_go_path = base_dir / "main.go"
     if not main_go_path.exists():
         generate_main_go(ta_hash=hash_val)
@@ -252,7 +255,7 @@ def save_policy_instance(graph, policy_json, policy_bytes, log_filename, log_byt
             if owner not in authorized_users[phase]:
                 authorized_users[phase].append(owner)
 
-    # 🔁 Copia algoritmi richiesti e crea manifest
+    # Copia algoritmi richiesti e crea manifest
     algorithm_subdir = base_dir / "algorithms"
     algorithm_subdir.mkdir(exist_ok=True)
 

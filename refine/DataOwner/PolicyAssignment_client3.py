@@ -173,7 +173,7 @@ if __name__ == "__main__":
             with open(policy_file_name, "w+") as f:
                 f.write(ttl_policy)
 
-            print(f"Policy generated and saved as '{policy_file_name}'")
+            print(f"Policy generated and saved as '{policy_file_name}'") 
 
             send_files(server_url, log_file_name, policy_file_name)  # Invia i file al server
         else:
