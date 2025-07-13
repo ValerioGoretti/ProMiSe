@@ -46,15 +46,8 @@ func LoadCounters(configID string) (*Counters, error) {
 	return &c, nil
 }
 
-// Salva i counters su file
-func SaveCounters(configID string) error {
-	counterMutex.RLock()
-	c, ok := countersMap[configID]
-	counterMutex.RUnlock()
-	if !ok {
-		return fmt.Errorf("no counters loaded for configID %s", configID)
-	}
-
+// SaveCounters salva un oggetto Counters già protetto da lock
+func SaveCounters(configID string, c *Counters) error {
 	data, err := json.MarshalIndent(c, "", "  ")
 	if err != nil {
 		return err
@@ -78,7 +71,7 @@ func IncrementLogAccess(configID string) error {
 	}
 
 	c.LogAccessCount++
-	err := SaveCounters(configID)
+	err := SaveCounters(configID, c)
 	if err != nil {
 		return err
 	}
@@ -101,7 +94,7 @@ func IncrementOutputAccess(configID string) error {
 	}
 
 	c.OutputAccessCount++
-	err := SaveCounters(configID)
+	err := SaveCounters(configID, c)
 	if err != nil {
 		return err
 	}
@@ -109,7 +102,49 @@ func IncrementOutputAccess(configID string) error {
 	return WriteAuditLog(configID, fmt.Sprintf("Increment OutputAccessCount: %d", c.OutputAccessCount))
 }
 
+/*
+	func CheckLogAccessLimit(configID string, max int) bool {
+		counterMutex.RLock()
+		defer counterMutex.RUnlock()
+		c, ok := countersMap[configID]
+		if !ok {
+			return false
+		}
+		return c.LogAccessCount < max
+	}
+
+	func CheckOutputAccessLimit(configID string, max int) bool {
+		counterMutex.RLock()
+		defer counterMutex.RUnlock()
+		c, ok := countersMap[configID]
+		if !ok {
+			return false
+		}
+		return c.OutputAccessCount < max
+	}
+*/
+func ReloadCounters(configID string) error {
+	path := getCounterPath(configID)
+	file, err := os.ReadFile(path)
+	if err != nil {
+		return fmt.Errorf("failed to read counters for %s: %w", configID, err)
+	}
+
+	var c Counters
+	err = json.Unmarshal(file, &c)
+	if err != nil {
+		return fmt.Errorf("failed to parse counters for %s: %w", configID, err)
+	}
+
+	counterMutex.Lock()
+	countersMap[configID] = &c
+	counterMutex.Unlock()
+
+	return nil
+}
+
 func CheckLogAccessLimit(configID string, max int) bool {
+	_ = ReloadCounters(configID) // ricarica da file sempre
 	counterMutex.RLock()
 	defer counterMutex.RUnlock()
 	c, ok := countersMap[configID]
@@ -120,6 +155,7 @@ func CheckLogAccessLimit(configID string, max int) bool {
 }
 
 func CheckOutputAccessLimit(configID string, max int) bool {
+	_ = ReloadCounters(configID) // ricarica da file sempre
 	counterMutex.RLock()
 	defer counterMutex.RUnlock()
 	c, ok := countersMap[configID]

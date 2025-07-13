@@ -1,7 +1,7 @@
 {
   "policies": [
     {
-      "log_file": "event_log.xes",
+      "log_file": "sepsis.xes",
       "logUsageRules": {
         "logExpiration": "2025-12-31T23:59:59+00:00",
         "maxAccessCount": 7,
@@ -15,24 +15,21 @@
           "scope": "event",
           "eventAttribute": "concept:name",
           "excludedAttributes": [
-            "name"
+            "Leucocytes"
           ]
         },
         "allowedTimeRange": {
           "eventAttribute": "time:timestamp",
-          "startDate": "2020-01-01T00:00:00+00:00",
-          "endDate": "2025-01-01T00:00:00+00:00"
+          "startDate": "2014-01-01T00:00:00+00:00",
+          "endDate": "2015-01-01T00:00:00+00:00"
         },
         "semanticLogConstraints": {
           "eventAttribute": "concept:name",
           "mustInclude": [
-            "A1",
-            "A5",
-            "A7"
+            "CRP"
           ],
           "mustExclude": [
-            "A18",
-            "A22"
+            "A1"
           ]
         }
       },

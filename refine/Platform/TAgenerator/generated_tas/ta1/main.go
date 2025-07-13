@@ -1,11 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"ta1/taPackage/config"
-	"ta1/taPackage/enforcement"
 	"ta1/taPackage/rpc"
 )
 
@@ -32,6 +30,7 @@ func main() {
 	*/
 }
 
+/*
 func printConfig() {
 	err := config.LoadMappings("mapping.json")
 	if err != nil {
@@ -96,3 +95,4 @@ func printConfig() {
 		fmt.Println("Accesso al log consentito")
 	}
 }
+*/

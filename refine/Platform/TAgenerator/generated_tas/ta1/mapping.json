@@ -1,6 +1,6 @@
 {
   "01": {
-    "log_file": "event_log.xes",
+    "log_file": "sepsis.xes",
     "config_path": "configs/01/",
     "data_path": "data/01/",
     "authorized_users": {
