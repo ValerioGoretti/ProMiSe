@@ -1,0 +1,23 @@
+{
+  "01": {
+    "log_file": "event_log.xes",
+    "config_path": "configs/01/",
+    "data_path": "data/01/",
+    "authorized_users": {
+      "logUsage": [
+        "agenas",
+        "owner"
+      ],
+      "output": [
+        "pub3",
+        "owner"
+      ],
+      "processing": [
+        "agenas",
+        "owner"
+      ]
+    },
+    "owner": "owner",
+    "dedup_key": "owner:10a5de9a5a8ad149ef42921499a210767da7e66ed68140f039ee2f1d689127ba:1c3dfd4e0e402eaf2e781c76e7dbb7403b4d6d41bd7935b974faff39eea5d9e6"
+  }
+}

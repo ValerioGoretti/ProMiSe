@@ -1,0 +1,76 @@
+{
+  "policies": [
+    {
+      "log_file": "event_log.xes",
+      "logUsageRules": {
+        "logExpiration": "2025-12-31T23:59:59+00:00",
+        "maxAccessCount": 7,
+        "allowedLocations": [
+          "it"
+        ],
+        "accessControlRules": [
+          "agenas"
+        ],
+        "attributeExclusionRules": {
+          "scope": "event",
+          "eventAttribute": "concept:name",
+          "excludedAttributes": [
+            "name"
+          ]
+        },
+        "allowedTimeRange": {
+          "eventAttribute": "time:timestamp",
+          "startDate": "2020-01-01T00:00:00+00:00",
+          "endDate": "2025-01-01T00:00:00+00:00"
+        },
+        "semanticLogConstraints": {
+          "eventAttribute": "concept:name",
+          "mustInclude": [
+            "A1",
+            "A5",
+            "A7"
+          ],
+          "mustExclude": [
+            "A18",
+            "A22"
+          ]
+        }
+      },
+      "outputRules": {
+        "outputExpiration": "2025-12-31T23:59:59+00:00",
+        "maxAccessCount": 7,
+        "allowedLocations": [
+          "fr",
+          "it"
+        ],
+        "accessControlRules": [
+          "pub3"
+        ],
+        "allowedTimeRange": {
+          "eventAttribute": "time:timestamp",
+          "startDate": "2020-01-01T00:00:00+00:00",
+          "endDate": "2025-01-01T00:00:00+00:00"
+        }
+      },
+      "processingRules": {
+        "accessControlRules": [
+          "agenas"
+        ],
+        "allowedLocations": [
+          "es"
+        ],
+        "allowedTechniques": [
+          {
+            "techniqueType": "AutomatedDiscovery",
+            "algorithm": "HeuristicMiner"
+          },
+          {
+            "techniqueType": "AutomatedDiscovery",
+            "algorithm": "AlphaMiner"
+          }
+        ]
+      },
+      "last_updated": "2025-07-12T12:58:08"
+    }
+  ]
+}

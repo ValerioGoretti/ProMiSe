@@ -1,0 +1,4 @@
+[2025-07-13 15:41:58] GET /policy - IP: [::1]:56091 - Esito: Policy restituita
+[2025-07-13 15:42:05] GET /policy - IP: [::1]:56091 - Esito: Policy restituita
+[2025-07-13 15:42:35] POST /process - IP: [::1]:56153 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-13 15:43:51] GET /policy - IP: [::1]:56214 - Esito: Policy restituita
