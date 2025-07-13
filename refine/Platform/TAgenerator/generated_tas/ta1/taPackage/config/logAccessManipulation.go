@@ -74,7 +74,7 @@ func LoadAndFilterXesLog(filePath string, rules LogUsageRules) (*FilteredLog, er
 			// Unifica string e date
 			allAttrs := append(event.Strings, event.Dates...)
 
-			conceptName := getAttributeValue(allAttrs, rules.AttributeExclusionRules.EventAttribute)
+			conceptName := GetAttributeValue(allAttrs, rules.AttributeExclusionRules.EventAttribute)
 
 			// AttributeExclusionRules
 			if stringInSlice(conceptName, rules.AttributeExclusionRules.ExcludedAttributes) {
@@ -82,7 +82,7 @@ func LoadAndFilterXesLog(filePath string, rules LogUsageRules) (*FilteredLog, er
 			}
 
 			// allowedTimeRange
-			timeValStr := getAttributeValue(allAttrs, rules.AllowedTimeRange.EventAttribute)
+			timeValStr := GetAttributeValue(allAttrs, rules.AllowedTimeRange.EventAttribute)
 			if timeValStr != "" {
 				tm, err := time.Parse(time.RFC3339, timeValStr)
 				if err == nil {
@@ -114,7 +114,7 @@ func LoadAndFilterXesLog(filePath string, rules LogUsageRules) (*FilteredLog, er
 	return filteredLog, nil
 }
 
-func getAttributeValue(attrs []XesAttribute, key string) string {
+func GetAttributeValue(attrs []XesAttribute, key string) string {
 	for _, a := range attrs {
 		if strings.ToLower(a.Key) == strings.ToLower(key) {
 			return a.Value

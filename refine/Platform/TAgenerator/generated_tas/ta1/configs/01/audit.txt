@@ -72,3 +72,9 @@
 [2025-07-13 23:45:38] POST /output - IP: [::1]:60144 - Esito: Superato limite accessi output
 [2025-07-13 23:45:45] Increment OutputAccessCount: 1
 [2025-07-13 23:45:45] POST /output - IP: [::1]:60144 - Esito: Output restituito: heuristicMiner_output.txt
+[2025-07-14 00:54:14] POST /process - IP: [::1]:62843 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-14 00:54:45] POST /process - IP: [::1]:62843 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-14 00:54:58] POST /process - IP: [::1]:62843 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-14 00:56:45] POST /process - IP: [::1]:63100 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-14 01:07:32] Increment LogAccessCount: 2
+[2025-07-14 01:07:33] POST /log - IP: [::1]:63368 - Esito: Accesso log consentito - log filtrato restituito

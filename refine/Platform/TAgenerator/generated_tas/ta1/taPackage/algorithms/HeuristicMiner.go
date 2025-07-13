@@ -23,6 +23,8 @@ var longDepencency2Threshold = 0.99 //Usually it's high (almost 1)
 var longDistance = 2
 var DEBUG = false
 var depLongDist = false
+var outputPrefixPath = "outputs/"
+var configPrefixPath = "configs/"
 
 type dependencyMeasure struct {
 	dep        float32
@@ -475,7 +477,7 @@ func TracesMapper(eventMap map[string]int, events [][]string, filePath string, p
 		}
 	}
 	// Save the map to JSON
-	er := SaveMapToJSON(eventMap, "./mining-data/consumption-data/"+processName+"/miningMetadata/map.json")
+	er := SaveMapToJSON(eventMap, "configs/"+processName+"/heuristicminerMetadata/map.json")
 	if er != nil {
 		fmt.Println("Error saving to JSON:", er)
 		return nil
@@ -560,7 +562,7 @@ func causalMatrixtoPnml(cm map[string]causalMatrix, processName string) (bool, P
 		return false, pnml
 	}
 	// Create and write PNML file
-	file, err := os.Create("./mining-data/output/" + "heuristicsMiner_output.pnml")
+	file, err := os.Create("outputs/" + processName + "/HeuristicMiner/heuristicsMiner_output.pnml")
 	//file, err := os.Create("output/" + processName + "_" + strconv.Itoa(int(timestamp)) + ".pnml")
 	if err != nil {
 		fmt.Println("Error creating file:", err)
@@ -619,7 +621,7 @@ func searchNewDependecyLongDistance2(dependencyMatrix2 [][]dependencyMeasure, ev
 
 	// Create and write PNML file
 	//file, err := os.Create("output/" + processName + "_" + strconv.Itoa(int(timestamp)) + ".pnml")
-	file, err := os.Create("./mining-data/output/" + "heuristicsMiner_output.pnml")
+	file, err := os.Create("outputs/" + processName + "/HeuristicMiner/heuristicsMiner_output.pnml")
 	if err != nil {
 		fmt.Println("Error creating file:", err)
 		return n, false
@@ -637,7 +639,7 @@ func scanEvent(events [][]string, eventMap map[string]int, processName string) {
 		}
 	}
 	//er := SaveMapToJSON(eventMap, "/data/miningMetadata/"+processName+"/map.json")
-	er := SaveMapToJSON(eventMap, "./mining-data/consumption-data/"+processName+"/miningMetadata/map.json")
+	er := SaveMapToJSON(eventMap, "configs/"+processName+"/heuristicminerMetadata/map.json")
 	if er != nil {
 		fmt.Println("Error saving to JSON:", er)
 	}
@@ -647,7 +649,7 @@ func heuristicMinerExecution(ev [][]string, processName string) {
 	//fmt.Println("-------------------------------\n", ev)
 	var d1, d2 int
 	var dependencyMatrix [][]dependencyMeasure
-	eventMap, e := LoadMapFromJSON("./mining-data/consumption-data/" + processName + "/miningMetadata/map.json")
+	eventMap, e := LoadMapFromJSON("configs/" + processName + "/heuristicminerMetadata/map.json")
 	d1 = len(eventMap)
 
 	if e != nil {
@@ -664,7 +666,7 @@ func heuristicMinerExecution(ev [][]string, processName string) {
 		d2 = len(eventMap)
 
 		// Read the data from the JSON file
-		dm, err := readFromJSON("./mining-data/consumption-data/" + processName + "/miningMetadata/dependencyMatrix.json")
+		dm, err := readFromJSON("configs/" + processName + "/heuristicminerMetadata/dependencyMatrix.json")
 		dependencyMatrix = dm
 		if err != nil {
 			log.Fatal(err)
@@ -678,7 +680,7 @@ func heuristicMinerExecution(ev [][]string, processName string) {
 		calculateDependencyMatrix(dependencyMatrix, e, eventMap, 1)
 	}
 	// Save the dependencyMatrix to a JSON file
-	e = saveToJSON(dependencyMatrix, "./mining-data/consumption-data/"+processName+"/miningMetadata/dependencyMatrix.json")
+	e = saveToJSON(dependencyMatrix, "configs/"+processName+"/heuristicminerMetadata/dependencyMatrix.json")
 	if e != nil {
 		log.Fatal(e)
 	}
@@ -708,7 +710,7 @@ func heuristicMinerExecution(ev [][]string, processName string) {
 			scanEvent(ev, eventMap, processName)
 			d2 = len(eventMap)
 
-			dpm2, e := readFromJSON("./mining-data/consumption-data/" + processName + "/miningMetadata/dependencyMatrix" + strconv.Itoa(longDistance) + "len" + ".json")
+			dpm2, e := readFromJSON("configs/" + processName + "/heuristicminerMetadata/dependencyMatrix" + strconv.Itoa(longDistance) + "len" + ".json")
 			if e != nil {
 				fmt.Println("Error loading Dependency matrix long ", longDistance, " from JSON:", e)
 				return
@@ -724,7 +726,7 @@ func heuristicMinerExecution(ev [][]string, processName string) {
 		for _, e := range ev {
 			calculateDependencyMatrix(dependencyMatrix2, e, eventMap, longDistance)
 		}
-		e = saveToJSON(dependencyMatrix2, "./mining-data/consumption-data/"+processName+"/miningMetadata/dependencyMatrix"+strconv.Itoa(longDistance)+"len"+".json")
+		e = saveToJSON(dependencyMatrix2, "configs/"+processName+"/heuristicminerMetadata/dependencyMatrix"+strconv.Itoa(longDistance)+"len"+".json")
 		if e != nil {
 			log.Fatal(e)
 		}
@@ -739,7 +741,14 @@ func heuristicMinerExecution(ev [][]string, processName string) {
 	}
 }
 
-func HeuristicMiner(inputPath string, outputPath string) error {
-	fmt.Println("HeuristicMiner called with inputPath:", inputPath, "outputPath:", outputPath)
+func HeuristicMiner(eventMatrix [][]string, configID string) error {
+	fmt.Println("HeuristicMiner called with", len(eventMatrix), "traces.")
+
+	// Esegui l'algoritmo vero
+	heuristicMinerExecution(eventMatrix, configID)
+
+	// Qui potresti voler salvare l'output finale nel file `outputPath`, se non già fatto
+	// Es. ioutil.WriteFile(outputPath, outputData, 0644)
+
 	return nil
 }

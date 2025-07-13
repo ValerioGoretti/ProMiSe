@@ -166,13 +166,13 @@ func HandleProcessing(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Costruisci i path input/output
-	inputPath := filepath.Join(mapping.ConfigPath, policy.LogFile)
+	inputPath := filepath.Join(mapping.DataPath, policy.LogFile)
 
 	// Timestamp per filename univoco
 	timestamp := fmt.Sprintf("%d", time.Now().Unix())
 
 	// Path output: output/<configID>/<algoritmo>/model_<timestamp>.json
-	outputDir := filepath.Join("output", payload.ConfigID, payload.Algorithm)
+	outputDir := filepath.Join("outputs", payload.ConfigID, payload.Algorithm)
 	if err := os.MkdirAll(outputDir, os.ModePerm); err != nil {
 		http.Error(w, "Errore creazione cartella output", http.StatusInternalServerError)
 		_ = config.WriteAuditLogFromRequest(payload.ConfigID, r, "Errore creazione cartella output")
@@ -181,10 +181,31 @@ func HandleProcessing(w http.ResponseWriter, r *http.Request) {
 	outputFilename := fmt.Sprintf("model_%s.json", timestamp)
 	outputPath := filepath.Join(outputDir, outputFilename)
 
-	// Esegui l'algoritmo
-	if err := algorithms.RunAlgorithm(payload.Algorithm, inputPath, outputPath); err != nil {
-		http.Error(w, "Errore durante il processamento: "+err.Error(), http.StatusInternalServerError)
-		_ = config.WriteAuditLogFromRequest(payload.ConfigID, r, "Errore esecuzione algoritmo: "+err.Error())
+	// Solo se serve, crea la matrice eventi
+	var eventMatrix [][]string
+	if payload.Algorithm == "HeuristicMiner" {
+		filteredLog, err := config.LoadAndFilterXesLog(inputPath, policy.LogUsageRules)
+		if err != nil {
+			http.Error(w, "Errore filtro log: "+err.Error(), http.StatusInternalServerError)
+			return
+		}
+		for _, trace := range filteredLog.Traces {
+			var eventSeq []string
+			for _, event := range trace.Events {
+				name := config.GetAttributeValue(event.Attributes, "concept:name")
+				if name != "" {
+					eventSeq = append(eventSeq, name)
+				}
+			}
+			if len(eventSeq) > 0 {
+				eventMatrix = append(eventMatrix, eventSeq)
+			}
+		}
+	}
+
+	// Chiamata centralizzata
+	if err := algorithms.RunAlgorithm(payload.Algorithm, inputPath, outputPath, eventMatrix, payload.ConfigID); err != nil {
+		http.Error(w, "Errore esecuzione algoritmo: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 
