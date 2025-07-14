@@ -177,3 +177,28 @@ func LoadFullXesLog(filePath string) (*FilteredLog, error) {
 
 	return filteredLog, nil
 }
+
+func ExtractFilteredLogString(log *FilteredLog) string {
+	var builder strings.Builder
+
+	for i, trace := range log.Traces {
+		builder.WriteString(fmt.Sprintf("Trace %d:\n", i+1))
+		// Attributi della traccia
+		for _, attr := range trace.Attributes {
+			builder.WriteString(fmt.Sprintf("  Trace Attribute - %s: %s\n", attr.Key, attr.Value))
+		}
+		// Eventi
+		for j, event := range trace.Events {
+			builder.WriteString(fmt.Sprintf("  Event %d:\n", j+1))
+			for _, attr := range event.Attributes {
+				builder.WriteString(fmt.Sprintf("    %s: %s\n", attr.Key, attr.Value))
+			}
+			if event.Date != "" {
+				builder.WriteString(fmt.Sprintf("    Date: %s\n", event.Date))
+			}
+		}
+		builder.WriteString("\n")
+	}
+
+	return builder.String()
+}

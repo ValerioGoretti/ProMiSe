@@ -3,8 +3,12 @@
 package rpc
 
 import (
+	"crypto/sha256"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	//"github.com/edgelesssys/ego/ecrypto"
+	"github.com/edgelesssys/ego/enclave"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -126,10 +130,29 @@ func HandleLogAccess(w http.ResponseWriter, r *http.Request) {
 
 	// Ritorna il log filtrato come JSON
 	w.Header().Set("Content-Type", "application/json")
-	if err := json.NewEncoder(w).Encode(filteredLog); err != nil {
+	// extrct string from filteredLog
+	filteredLogString := config.ExtractFilteredLogString(filteredLog)
+	filteredByteArray := []byte(filteredLogString)
+	filteredByteArrayhash := sha256.Sum256(filteredByteArray)
+	teeSignedLog, err := enclave.GetRemoteReport(filteredByteArrayhash[:])
+	if err != nil {
+		fmt.Println("[DEBUG] Errore ottenimento remote report:", err)
+		http.Error(w, "Errore ottenimento remote report", http.StatusInternalServerError)
+		return
+	}
+	encodedTeeSignedLog := base64.StdEncoding.EncodeToString(teeSignedLog)
+
+	//Rispondi alla richiesta con il log filtrato e encodedTeeSignedLog
+	response := map[string]string{
+		"filtered_log":   filteredLogString,
+		"tee_signed_log": encodedTeeSignedLog,
+	}
+
+	if err := json.NewEncoder(w).Encode(response); err != nil {
 		http.Error(w, "Errore serializzazione log", http.StatusInternalServerError)
 		return
 	}
+
 }
 
 func HandleProcessing(w http.ResponseWriter, r *http.Request) {
@@ -360,4 +383,13 @@ func HandleMonitoring(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	w.Write(data)
+}
+
+func signResult(result []byte) (report []byte) {
+	report, err := enclave.GetRemoteReport(result[:])
+	if err != nil {
+		fmt.Println("[DEBUG] Errore ottenimento remote report:", err)
+		return
+	}
+	return report
 }
