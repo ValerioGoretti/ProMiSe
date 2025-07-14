@@ -3,6 +3,7 @@
     "log_file": "sepsis.xes",
     "config_path": "configs/01/",
     "data_path": "data/01/",
+    "output_path": "outputs/01/",
     "authorized_users": {
       "logUsage": [
         "agenas",

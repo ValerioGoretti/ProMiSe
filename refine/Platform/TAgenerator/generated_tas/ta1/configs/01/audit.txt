@@ -79,3 +79,58 @@
 [2025-07-14 01:07:32] Increment LogAccessCount: 2
 [2025-07-14 01:07:33] POST /log - IP: [::1]:63368 - Esito: Accesso log consentito - log filtrato restituito
 [2025-07-14 12:12:26] POST /process - IP: [::1]:53084 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-14 12:48:21] Increment LogAccessCount: 3
+[2025-07-14 12:48:21] POST /log - IP: 127.0.0.1:45394 - Esito: Accesso log consentito - log filtrato restituito
+[2025-07-14 11:00:45] Increment LogAccessCount: 4
+[2025-07-14 11:00:45] POST /log - IP: 127.0.0.1:42292 - Esito: Accesso log consentito - log filtrato restituito
+[2025-07-14 11:14:07] Increment OutputAccessCount: 2
+[2025-07-14 11:14:07] POST /output - IP: 127.0.0.1:37380 - Esito: Errore lettura file di output
+[2025-07-14 11:14:34] Increment OutputAccessCount: 3
+[2025-07-14 11:14:34] POST /output - IP: 127.0.0.1:37380 - Esito: Errore lettura file di output
+[2025-07-14 11:16:55] Increment OutputAccessCount: 4
+[2025-07-14 11:16:55] POST /output - IP: 127.0.0.1:58056 - Esito: Errore lettura file di output
+[2025-07-14 11:20:07] Increment OutputAccessCount: 5
+[2025-07-14 11:20:07] POST /output - IP: 127.0.0.1:40548 - Esito: Errore lettura file di output
+[2025-07-14 11:21:35] Increment OutputAccessCount: 6
+[2025-07-14 11:21:35] POST /output - IP: 127.0.0.1:48528 - Esito: Errore lettura file di output
+[2025-07-14 11:23:37] Increment OutputAccessCount: 7
+[2025-07-14 11:23:37] POST /output - IP: 127.0.0.1:53392 - Esito: Errore lettura file di output
+[2025-07-14 11:24:12] POST /output - IP: 127.0.0.1:49864 - Esito: Superato limite accessi output
+[2025-07-14 11:25:46] Increment OutputAccessCount: 1
+[2025-07-14 11:25:46] POST /output - IP: 127.0.0.1:47160 - Esito: Errore lettura file di output
+[2025-07-14 11:28:33] Increment OutputAccessCount: 2
+[2025-07-14 11:28:33] POST /output - IP: 127.0.0.1:45548 - Esito: Errore lettura file di output
+[2025-07-14 11:30:15] Increment OutputAccessCount: 3
+[2025-07-14 11:30:15] POST /output - IP: 127.0.0.1:53534 - Esito: Errore lettura file di output
+[2025-07-14 11:32:52] Increment OutputAccessCount: 4
+[2025-07-14 11:32:52] POST /output - IP: 127.0.0.1:41352 - Esito: Errore lettura file di output
+[2025-07-14 11:33:03] POST /output - IP: 127.0.0.1:41352 - Esito: Superato limite accessi output
+[2025-07-14 11:33:08] POST /output - IP: 127.0.0.1:41352 - Esito: Superato limite accessi output
+[2025-07-14 11:33:21] Increment OutputAccessCount: 1
+[2025-07-14 11:33:21] POST /output - IP: 127.0.0.1:41352 - Esito: Errore lettura file di output
+[2025-07-14 11:34:07] Increment OutputAccessCount: 2
+[2025-07-14 11:34:07] POST /output - IP: 127.0.0.1:53970 - Esito: Errore lettura file di output
+[2025-07-14 11:35:26] Increment LogAccessCount: 5
+[2025-07-14 11:35:27] POST /log - IP: 127.0.0.1:50916 - Esito: Accesso log consentito - log filtrato restituito
+[2025-07-14 11:38:22] Increment OutputAccessCount: 3
+[2025-07-14 11:38:22] POST /output - IP: 127.0.0.1:43048 - Esito: Output restituito: heuristicMiner_output.txt
+[2025-07-14 11:38:56] Increment OutputAccessCount: 4
+[2025-07-14 11:38:56] POST /output - IP: 127.0.0.1:43048 - Esito: Errore lettura file di output
+[2025-07-14 11:41:07] Increment OutputAccessCount: 5
+[2025-07-14 11:41:07] POST /output - IP: 127.0.0.1:33614 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-14 11:43:16] Increment OutputAccessCount: 6
+[2025-07-14 11:43:16] POST /output - IP: 127.0.0.1:45488 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-14 11:54:37] Increment OutputAccessCount: 7
+[2025-07-14 11:54:37] POST /output - IP: 127.0.0.1:43652 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-14 11:55:00] POST /process - IP: 127.0.0.1:43652 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-14 11:55:00] POST /process - IP: 127.0.0.1:43652 - Esito: Errore lettura file di output
+[2025-07-14 12:00:01] POST /process - IP: 127.0.0.1:51574 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-14 12:00:01] POST /process - IP: 127.0.0.1:51574 - Esito: Errore lettura file di output
+[2025-07-14 12:02:22] POST /process - IP: 127.0.0.1:57064 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-14 12:02:22] POST /process - IP: 127.0.0.1:57064 - Esito: Errore lettura file di output
+[2025-07-14 12:02:59] POST /process - IP: 127.0.0.1:35776 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-14 12:02:59] POST /process - IP: 127.0.0.1:35776 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-14 12:54:48] POST /process - IP: 127.0.0.1:43302 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-14 12:54:48] POST /process - IP: 127.0.0.1:43302 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-14 12:56:13] POST /process - IP: 127.0.0.1:59276 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-14 12:56:13] POST /process - IP: 127.0.0.1:59276 - Esito: Output restituito: heuristicMiner_output.pnml

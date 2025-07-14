@@ -24,3 +24,6 @@ func main() {
 	http.ListenAndServe(":8080", nil)
 
 }
+
+// quando inizo la call go test.PrintRamUsage
+//

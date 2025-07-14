@@ -7,12 +7,13 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"ta1/taPackage/test"
+
 	//"github.com/edgelesssys/ego/ecrypto"
 	"github.com/edgelesssys/ego/enclave"
 	"net/http"
 	"os"
 	"path/filepath"
-	"strings"
 	"ta1/taPackage/algorithms"
 	"ta1/taPackage/config"
 	"ta1/taPackage/enforcement"
@@ -156,6 +157,7 @@ func HandleLogAccess(w http.ResponseWriter, r *http.Request) {
 }
 
 func HandleProcessing(w http.ResponseWriter, r *http.Request) {
+	go test.PrintRamUsage()
 	if r.Method != http.MethodPost {
 		http.Error(w, "Metodo non consentito", http.StatusMethodNotAllowed)
 		return
@@ -228,19 +230,49 @@ func HandleProcessing(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Chiamata centralizzata
-	if err := algorithms.RunAlgorithm(payload.Algorithm, inputPath, outputPath, eventMatrix, payload.ConfigID); err != nil {
+	outputF, err := algorithms.RunAlgorithm(payload.Algorithm, inputPath, outputPath, eventMatrix, payload.ConfigID)
+	if err != nil {
 		http.Error(w, "Errore esecuzione algoritmo: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	_ = config.WriteAuditLogFromRequest(payload.ConfigID, r, fmt.Sprintf("Processing eseguito con algoritmo %s", payload.Algorithm))
 
-	response := map[string]string{
-		"message":    fmt.Sprintf("Processing eseguito con algoritmo %s", payload.Algorithm),
-		"outputFile": "output_" + payload.Algorithm + ".json",
+	//Calculate output Report
+	// Leggi e restituisci il contenuto del file
+	outputFilePath := outputDir + "/" + outputF
+	fmt.Println(outputFilePath)
+
+	data, err := os.ReadFile(outputFilePath)
+	if err != nil {
+		http.Error(w, "Errore lettura file di output", http.StatusInternalServerError)
+		_ = config.WriteAuditLogFromRequest(payload.ConfigID, r, "Errore lettura file di output")
+		return
 	}
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(response)
+
+	_ = config.WriteAuditLogFromRequest(payload.ConfigID, r, "Output restituito: "+filepath.Base(outputFilePath))
+
+	filteredByteArrayhash := sha256.Sum256(data)
+	teeSignedLog, err := enclave.GetRemoteReport(filteredByteArrayhash[:])
+	if err != nil {
+		fmt.Println("[DEBUG] Errore ottenimento remote report:", err)
+		http.Error(w, "Errore ottenimento remote report", http.StatusInternalServerError)
+		return
+	}
+	encodedTeeSignedOutput := base64.StdEncoding.EncodeToString(teeSignedLog)
+	//encodedOutput := base64.StdEncoding.EncodeToString(data)
+
+	//Rispondi alla richiesta con il file di ouput e encodedTeeSignedOutput
+	response := map[string]string{
+		"message":          fmt.Sprintf("Processing eseguito con algoritmo %s", payload.Algorithm),
+		"output_signature": encodedTeeSignedOutput,
+	}
+	test.STOPMONITORING = true
+
+	if err := json.NewEncoder(w).Encode(response); err != nil {
+		http.Error(w, "Errore serializzazione log", http.StatusInternalServerError)
+		return
+	}
 }
 
 func HandleOutputAccess(w http.ResponseWriter, r *http.Request) {
@@ -286,7 +318,7 @@ func HandleOutputAccess(w http.ResponseWriter, r *http.Request) {
 	_ = config.IncrementOutputAccess(payload.ConfigID)
 
 	// Path alla cartella output dell’algoritmo
-	outputDir := filepath.Join("outputs", payload.ConfigID, strings.ToLower(payload.Algorithm))
+	outputDir := filepath.Join("outputs", payload.ConfigID, payload.Algorithm)
 
 	var outputFilePath string
 	if payload.OutputFile != "" {
@@ -327,9 +359,30 @@ func HandleOutputAccess(w http.ResponseWriter, r *http.Request) {
 
 	_ = config.WriteAuditLogFromRequest(payload.ConfigID, r, "Output restituito: "+filepath.Base(outputFilePath))
 
-	w.Header().Set("Content-Disposition", "attachment; filename="+filepath.Base(outputFilePath))
-	w.Header().Set("Content-Type", "application/octet-stream")
-	w.Write(data)
+	filteredByteArrayhash := sha256.Sum256(data)
+	teeSignedLog, err := enclave.GetRemoteReport(filteredByteArrayhash[:])
+	if err != nil {
+		fmt.Println("[DEBUG] Errore ottenimento remote report:", err)
+		http.Error(w, "Errore ottenimento remote report", http.StatusInternalServerError)
+		return
+	}
+	encodedTeeSignedOutput := base64.StdEncoding.EncodeToString(teeSignedLog)
+	//encodedOutput := base64.StdEncoding.EncodeToString(data)
+
+	//Rispondi alla richiesta con il file di ouput e encodedTeeSignedOutput
+	response := map[string]string{
+		"output_file":      string(data),
+		"output_signature": encodedTeeSignedOutput,
+	}
+
+	if err := json.NewEncoder(w).Encode(response); err != nil {
+		http.Error(w, "Errore serializzazione log", http.StatusInternalServerError)
+		return
+	}
+
+	//w.Header().Set("Content-Disposition", "attachment; filename="+filepath.Base(outputFilePath))
+	//w.Header().Set("Content-Type", "application/octet-stream")
+	//w.Write(data)
 }
 
 func HandlePolicyInfo(w http.ResponseWriter, r *http.Request) {

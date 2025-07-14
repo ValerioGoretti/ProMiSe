@@ -13,15 +13,15 @@ var AlgorithmMap = map[string]ProcessingFunc{
 }
 
 // RunAlgorithm esegue l'algoritmo specificato, se presente nella mappa
-func RunAlgorithm(name string, inputPath string, outputPath string, eventMatrix [][]string, configID string) error {
+func RunAlgorithm(name string, inputPath string, outputPath string, eventMatrix [][]string, configID string) (string, error) {
 	switch name {
 	case "HeuristicMiner":
-		return HeuristicMiner(eventMatrix, configID)
+		return "heuristicMiner_output.pnml", HeuristicMiner(eventMatrix, configID)
 	default:
 		algo, exists := AlgorithmMap[name]
 		if !exists {
-			return fmt.Errorf("algoritmo non supportato: %s", name)
+			return "", fmt.Errorf("algoritmo non supportato: %s", name)
 		}
-		return algo(inputPath, outputPath)
+		return "alphaminerMiner_output.pnml", algo(inputPath, outputPath)
 	}
 }
