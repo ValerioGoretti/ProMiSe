@@ -78,3 +78,4 @@
 [2025-07-14 00:56:45] POST /process - IP: [::1]:63100 - Esito: Processing eseguito con algoritmo HeuristicMiner
 [2025-07-14 01:07:32] Increment LogAccessCount: 2
 [2025-07-14 01:07:33] POST /log - IP: [::1]:63368 - Esito: Accesso log consentito - log filtrato restituito
+[2025-07-14 12:12:26] POST /process - IP: [::1]:53084 - Esito: Processing eseguito con algoritmo HeuristicMiner

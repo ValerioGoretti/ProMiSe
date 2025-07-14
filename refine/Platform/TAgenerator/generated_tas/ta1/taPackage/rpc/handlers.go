@@ -184,7 +184,8 @@ func HandleProcessing(w http.ResponseWriter, r *http.Request) {
 	// Solo se serve, crea la matrice eventi
 	var eventMatrix [][]string
 	if payload.Algorithm == "HeuristicMiner" {
-		filteredLog, err := config.LoadAndFilterXesLog(inputPath, policy.LogUsageRules)
+		//filteredLog, err := config.LoadAndFilterXesLog(inputPath, policy.LogUsageRules)
+		filteredLog, err := config.LoadFullXesLog(inputPath)
 		if err != nil {
 			http.Error(w, "Errore filtro log: "+err.Error(), http.StatusInternalServerError)
 			return

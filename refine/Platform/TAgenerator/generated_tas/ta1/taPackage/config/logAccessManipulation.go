@@ -131,3 +131,49 @@ func stringInSlice(s string, list []string) bool {
 	}
 	return false
 }
+
+func LoadFullXesLog(filePath string) (*FilteredLog, error) {
+	fmt.Println("[DEBUG] LoadFullXesLog -> ENTRATO con filePath:", filePath)
+	file, err := os.Open(filePath)
+	if err != nil {
+		return nil, fmt.Errorf("failed to open xes file: %w", err)
+	}
+	defer file.Close()
+
+	var log XesLog
+	decoder := xml.NewDecoder(file)
+	if err := decoder.Decode(&log); err != nil {
+		return nil, fmt.Errorf("failed to parse xes xml: %w", err)
+	}
+
+	filteredLog := &FilteredLog{}
+
+	for _, trace := range log.Traces {
+		filteredTrace := FilteredTrace{
+			Attributes: trace.Attributes,
+			Events:     []FilteredEvent{},
+		}
+
+		for _, event := range trace.Events {
+			allAttrs := append(event.Strings, event.Dates...)
+
+			// Trova un eventuale timestamp (opzionale, non essenziale)
+			var eventDate string
+			for _, attr := range event.Dates {
+				if attr.Key == "time:timestamp" {
+					eventDate = attr.Value
+					break
+				}
+			}
+
+			filteredTrace.Events = append(filteredTrace.Events, FilteredEvent{
+				Attributes: allAttrs,
+				Date:       eventDate,
+			})
+		}
+
+		filteredLog.Traces = append(filteredLog.Traces, filteredTrace)
+	}
+
+	return filteredLog, nil
+}

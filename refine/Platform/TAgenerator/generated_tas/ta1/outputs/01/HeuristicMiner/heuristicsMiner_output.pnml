@@ -65,11 +65,6 @@
                 <text>P13</text>
             </name>
         </place>
-        <place id="P0">
-            <name>
-                <text>P0</text>
-            </name>
-        </place>
         <place id="P14">
             <name>
                 <text>P14</text>
@@ -135,6 +130,11 @@
                 <text>P26</text>
             </name>
         </place>
+        <place id="P0">
+            <name>
+                <text>P0</text>
+            </name>
+        </place>
         <place id="P27">
             <name>
                 <text>P27</text>
@@ -175,59 +175,54 @@
                 <text>P34</text>
             </name>
         </place>
-        <transition id="IV_Antibiotics">
+        <place id="P35">
             <name>
-                <text>IV Antibiotics</text>
+                <text>P35</text>
+            </name>
+        </place>
+        <place id="P36">
+            <name>
+                <text>P36</text>
+            </name>
+        </place>
+        <place id="P37">
+            <name>
+                <text>P37</text>
+            </name>
+        </place>
+        <place id="P38">
+            <name>
+                <text>P38</text>
+            </name>
+        </place>
+        <place id="P39">
+            <name>
+                <text>P39</text>
+            </name>
+        </place>
+        <place id="P40">
+            <name>
+                <text>P40</text>
+            </name>
+        </place>
+        <place id="P41">
+            <name>
+                <text>P41</text>
+            </name>
+        </place>
+        <place id="P42">
+            <name>
+                <text>P42</text>
+            </name>
+        </place>
+        <transition id="Return_ER">
+            <name>
+                <text>Return ER</text>
             </name>
         </transition>
-        <transition id="Admission_IC">
+        <transition id="Release_C">
             <name>
-                <text>Admission IC</text>
-            </name>
-        </transition>
-        <transition id="Admission_NC">
-            <name>
-                <text>Admission NC</text>
-            </name>
-        </transition>
-        <transition id="IV_Liquid">
-            <name>
-                <text>IV Liquid</text>
-            </name>
-        </transition>
-        <transition id="ER_Triage">
-            <name>
-                <text>ER Triage</text>
-            </name>
-        </transition>
-        <transition id="IV_Antibiotics">
-            <name>
-                <text>IV Antibiotics</text>
-            </name>
-        </transition>
-        <transition id="Admission_NC">
-            <name>
-                <text>Admission NC</text>
-            </name>
-        </transition>
-        <transition id="IV_Antibiotics">
-            <name>
-                <text>IV Antibiotics</text>
-            </name>
-        </transition>
-        <transition id="ER_Triage">
-            <name>
-                <text>ER Triage</text>
-            </name>
-        </transition>
-        <transition id="Admission_NC">
-            <name>
-                <text>Admission NC</text>
-            </name>
-        </transition>
-        <transition id="ER_Triage">
-            <name>
-                <text>ER Triage</text>
+                <text>Release C</text>
             </name>
         </transition>
         <transition id="Release_D">
@@ -240,64 +235,24 @@
                 <text>Release A</text>
             </name>
         </transition>
-        <transition id="Return_ER">
+        <transition id="Release_B">
             <name>
-                <text>Return ER</text>
-            </name>
-        </transition>
-        <transition id="LacticAcid">
-            <name>
-                <text>LacticAcid</text>
-            </name>
-        </transition>
-        <transition id="Admission_IC">
-            <name>
-                <text>Admission IC</text>
-            </name>
-        </transition>
-        <transition id="ER_Registration">
-            <name>
-                <text>ER Registration</text>
-            </name>
-        </transition>
-        <transition id="ER_Sepsis_Triage">
-            <name>
-                <text>ER Sepsis Triage</text>
-            </name>
-        </transition>
-        <transition id="ER_Triage">
-            <name>
-                <text>ER Triage</text>
-            </name>
-        </transition>
-        <transition id="Admission_IC">
-            <name>
-                <text>Admission IC</text>
-            </name>
-        </transition>
-        <transition id="ER_Sepsis_Triage">
-            <name>
-                <text>ER Sepsis Triage</text>
-            </name>
-        </transition>
-        <transition id="ER_Registration">
-            <name>
-                <text>ER Registration</text>
-            </name>
-        </transition>
-        <transition id="ER_Triage">
-            <name>
-                <text>ER Triage</text>
-            </name>
-        </transition>
-        <transition id="Admission_IC">
-            <name>
-                <text>Admission IC</text>
+                <text>Release B</text>
             </name>
         </transition>
         <transition id="IV_Liquid">
             <name>
                 <text>IV Liquid</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
             </name>
         </transition>
         <transition id="IV_Antibiotics">
@@ -310,9 +265,14 @@
                 <text>Admission NC</text>
             </name>
         </transition>
-        <transition id="ER_Registration">
+        <transition id="ER_Triage">
             <name>
-                <text>ER Registration</text>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="IV_Antibiotics">
+            <name>
+                <text>IV Antibiotics</text>
             </name>
         </transition>
         <transition id="ER_Triage">
@@ -320,14 +280,24 @@
                 <text>ER Triage</text>
             </name>
         </transition>
-        <transition id="Return_ER">
+        <transition id="Release_C">
             <name>
-                <text>Return ER</text>
+                <text>Release C</text>
+            </name>
+        </transition>
+        <transition id="Release_D">
+            <name>
+                <text>Release D</text>
             </name>
         </transition>
         <transition id="ER_Triage">
             <name>
                 <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="IV_Antibiotics">
+            <name>
+                <text>IV Antibiotics</text>
             </name>
         </transition>
         <transition id="ER_Registration">
@@ -340,24 +310,29 @@
                 <text>IV Liquid</text>
             </name>
         </transition>
+        <transition id="ER_Registration">
+            <name>
+                <text>ER Registration</text>
+            </name>
+        </transition>
+        <transition id="IV_Liquid">
+            <name>
+                <text>IV Liquid</text>
+            </name>
+        </transition>
+        <transition id="IV_Antibiotics">
+            <name>
+                <text>IV Antibiotics</text>
+            </name>
+        </transition>
+        <transition id="ER_Registration">
+            <name>
+                <text>ER Registration</text>
+            </name>
+        </transition>
         <transition id="ER_Sepsis_Triage">
             <name>
                 <text>ER Sepsis Triage</text>
-            </name>
-        </transition>
-        <transition id="Release_C">
-            <name>
-                <text>Release C</text>
-            </name>
-        </transition>
-        <transition id="Admission_IC">
-            <name>
-                <text>Admission IC</text>
-            </name>
-        </transition>
-        <transition id="Release_B">
-            <name>
-                <text>Release B</text>
             </name>
         </transition>
         <transition id="CRP">
@@ -370,36 +345,6 @@
                 <text>Admission IC</text>
             </name>
         </transition>
-        <transition id="ER_Triage">
-            <name>
-                <text>ER Triage</text>
-            </name>
-        </transition>
-        <transition id="Admission_NC">
-            <name>
-                <text>Admission NC</text>
-            </name>
-        </transition>
-        <transition id="Admission_IC">
-            <name>
-                <text>Admission IC</text>
-            </name>
-        </transition>
-        <transition id="ER_Sepsis_Triage">
-            <name>
-                <text>ER Sepsis Triage</text>
-            </name>
-        </transition>
-        <transition id="Admission_NC">
-            <name>
-                <text>Admission NC</text>
-            </name>
-        </transition>
-        <transition id="Admission_IC">
-            <name>
-                <text>Admission IC</text>
-            </name>
-        </transition>
         <transition id="Admission_NC">
             <name>
                 <text>Admission NC</text>
@@ -408,11 +353,6 @@
         <transition id="ER_Sepsis_Triage">
             <name>
                 <text>ER Sepsis Triage</text>
-            </name>
-        </transition>
-        <transition id="Admission_IC">
-            <name>
-                <text>Admission IC</text>
             </name>
         </transition>
         <transition id="ER_Triage">
@@ -430,14 +370,64 @@
                 <text>Admission NC</text>
             </name>
         </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
         <transition id="ER_Triage">
             <name>
                 <text>ER Triage</text>
             </name>
         </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
         <transition id="Admission_IC">
             <name>
                 <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="ER_Sepsis_Triage">
+            <name>
+                <text>ER Sepsis Triage</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_C">
+            <name>
+                <text>Release C</text>
+            </name>
+        </transition>
+        <transition id="Release_D">
+            <name>
+                <text>Release D</text>
             </name>
         </transition>
         <transition id="IV_Liquid">
@@ -465,6 +455,21 @@
                 <text>Release A</text>
             </name>
         </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_C">
+            <name>
+                <text>Release C</text>
+            </name>
+        </transition>
+        <transition id="Release_D">
+            <name>
+                <text>Release D</text>
+            </name>
+        </transition>
         <transition id="IV_Liquid">
             <name>
                 <text>IV Liquid</text>
@@ -475,34 +480,109 @@
                 <text>Release A</text>
             </name>
         </transition>
-        <transition id="Release_B">
+        <transition id="LacticAcid">
             <name>
-                <text>Release B</text>
+                <text>LacticAcid</text>
             </name>
         </transition>
-        <transition id="Release_C">
+        <transition id="ER_Sepsis_Triage">
             <name>
-                <text>Release C</text>
+                <text>ER Sepsis Triage</text>
             </name>
         </transition>
-        <transition id="Release_D">
+        <transition id="ER_Registration">
             <name>
-                <text>Release D</text>
+                <text>ER Registration</text>
             </name>
         </transition>
-        <transition id="Release_B">
+        <transition id="Admission_IC">
             <name>
-                <text>Release B</text>
+                <text>Admission IC</text>
             </name>
         </transition>
-        <transition id="Release_C">
+        <transition id="Admission_IC">
             <name>
-                <text>Release C</text>
+                <text>Admission IC</text>
             </name>
         </transition>
-        <transition id="Release_D">
+        <transition id="ER_Registration">
             <name>
-                <text>Release D</text>
+                <text>ER Registration</text>
+            </name>
+        </transition>
+        <transition id="ER_Sepsis_Triage">
+            <name>
+                <text>ER Sepsis Triage</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="IV_Antibiotics">
+            <name>
+                <text>IV Antibiotics</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="IV_Liquid">
+            <name>
+                <text>IV Liquid</text>
+            </name>
+        </transition>
+        <transition id="IV_Antibiotics">
+            <name>
+                <text>IV Antibiotics</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="ER_Registration">
+            <name>
+                <text>ER Registration</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="ER_Sepsis_Triage">
+            <name>
+                <text>ER Sepsis Triage</text>
+            </name>
+        </transition>
+        <transition id="Release_A">
+            <name>
+                <text>Release A</text>
             </name>
         </transition>
         <transition id="ER_Sepsis_Triage">
@@ -525,14 +605,49 @@
                 <text>Admission NC</text>
             </name>
         </transition>
+        <transition id="Leucocytes">
+            <name>
+                <text>Leucocytes</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
         <transition id="Admission_NC">
             <name>
                 <text>Admission NC</text>
             </name>
         </transition>
-        <transition id="Release_B">
+        <transition id="Admission_IC">
             <name>
-                <text>Release B</text>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="ER_Sepsis_Triage">
+            <name>
+                <text>ER Sepsis Triage</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="ER_Sepsis_Triage">
+            <name>
+                <text>ER Sepsis Triage</text>
             </name>
         </transition>
         <transition id="Admission_NC">
@@ -555,9 +670,9 @@
                 <text>Release B</text>
             </name>
         </transition>
-        <transition id="Release_B">
+        <transition id="Release_D">
             <name>
-                <text>Release B</text>
+                <text>Release D</text>
             </name>
         </transition>
         <transition id="Release_A">
@@ -565,118 +680,240 @@
                 <text>Release A</text>
             </name>
         </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_D">
+            <name>
+                <text>Release D</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_D">
+            <name>
+                <text>Release D</text>
+            </name>
+        </transition>
         <transition id="Admission_IC">
             <name>
                 <text>Admission IC</text>
             </name>
         </transition>
-        <arc id="A1" source="IV_Antibiotics" target="P1"></arc>
-        <arc id="A2" source="P1" target="Admission_IC"></arc>
-        <arc id="A3" source="P1" target="Admission_NC"></arc>
-        <arc id="A4" source="IV_Liquid" target="P2"></arc>
-        <arc id="A5" source="P2" target="ER_Triage"></arc>
-        <arc id="A6" source="P2" target="IV_Antibiotics"></arc>
-        <arc id="A7" source="P2" target="Admission_NC"></arc>
-        <arc id="A8" source="IV_Liquid" target="P3"></arc>
-        <arc id="A9" source="P3" target="IV_Antibiotics"></arc>
-        <arc id="A10" source="P3" target="ER_Triage"></arc>
-        <arc id="A11" source="IV_Liquid" target="P4"></arc>
-        <arc id="A12" source="P4" target="Admission_NC"></arc>
-        <arc id="A13" source="P4" target="ER_Triage"></arc>
-        <arc id="A14" source="Release_D" target="P5"></arc>
-        <arc id="A15" source="Release_A" target="P6"></arc>
-        <arc id="A16" source="P6" target="Return_ER"></arc>
-        <arc id="A17" source="P7" target="LacticAcid"></arc>
-        <arc id="A18" source="Admission_IC" target="P7"></arc>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="Release_A">
+            <name>
+                <text>Release A</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="Release_A">
+            <name>
+                <text>Release A</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <arc id="A1" source="P1" target="Return_ER"></arc>
+        <arc id="A2" source="Release_C" target="P1"></arc>
+        <arc id="A3" source="Release_D" target="P1"></arc>
+        <arc id="A4" source="Release_A" target="P1"></arc>
+        <arc id="A5" source="Return_ER" target="P2"></arc>
+        <arc id="A6" source="Release_B" target="P3"></arc>
+        <arc id="A7" source="IV_Liquid" target="P4"></arc>
+        <arc id="A8" source="P4" target="Admission_NC"></arc>
+        <arc id="A9" source="P4" target="ER_Triage"></arc>
+        <arc id="A10" source="IV_Liquid" target="P5"></arc>
+        <arc id="A11" source="P5" target="IV_Antibiotics"></arc>
+        <arc id="A12" source="P5" target="Admission_NC"></arc>
+        <arc id="A13" source="P5" target="ER_Triage"></arc>
+        <arc id="A14" source="IV_Liquid" target="P6"></arc>
+        <arc id="A15" source="P6" target="IV_Antibiotics"></arc>
+        <arc id="A16" source="P6" target="ER_Triage"></arc>
+        <arc id="A17" source="P7" target="ER_Triage"></arc>
+        <arc id="A18" source="IV_Antibiotics" target="P7"></arc>
         <arc id="A19" source="ER_Registration" target="P7"></arc>
-        <arc id="A20" source="ER_Sepsis_Triage" target="P7"></arc>
-        <arc id="A21" source="P8" target="LacticAcid"></arc>
-        <arc id="A22" source="ER_Triage" target="P8"></arc>
-        <arc id="A23" source="Admission_IC" target="P8"></arc>
-        <arc id="A24" source="ER_Sepsis_Triage" target="P8"></arc>
-        <arc id="A25" source="ER_Registration" target="P8"></arc>
-        <arc id="A26" source="P9" target="LacticAcid"></arc>
-        <arc id="A27" source="ER_Triage" target="P9"></arc>
-        <arc id="A28" source="Admission_IC" target="P9"></arc>
-        <arc id="A29" source="LacticAcid" target="P10"></arc>
-        <arc id="A30" source="P10" target="LacticAcid"></arc>
-        <arc id="A31" source="LacticAcid" target="P11"></arc>
-        <arc id="A32" source="P11" target="IV_Liquid"></arc>
-        <arc id="A33" source="LacticAcid" target="P12"></arc>
-        <arc id="A34" source="P12" target="IV_Antibiotics"></arc>
-        <arc id="A35" source="LacticAcid" target="P13"></arc>
-        <arc id="A36" source="P13" target="Admission_NC"></arc>
-        <arc id="A37" source="P0" target="ER_Registration"></arc>
-        <arc id="A38" source="ER_Registration" target="P14"></arc>
-        <arc id="A39" source="P14" target="LacticAcid"></arc>
-        <arc id="A40" source="P14" target="ER_Triage"></arc>
-        <arc id="A41" source="Return_ER" target="P15"></arc>
-        <arc id="A42" source="P16" target="ER_Triage"></arc>
-        <arc id="A43" source="ER_Registration" target="P16"></arc>
-        <arc id="A44" source="IV_Liquid" target="P16"></arc>
-        <arc id="A45" source="ER_Triage" target="P17"></arc>
-        <arc id="A46" source="P17" target="ER_Sepsis_Triage"></arc>
-        <arc id="A47" source="Release_C" target="P18"></arc>
-        <arc id="A48" source="Release_B" target="P19"></arc>
-        <arc id="A49" source="P20" target="CRP"></arc>
-        <arc id="A50" source="CRP" target="P20"></arc>
-        <arc id="A51" source="Admission_IC" target="P20"></arc>
-        <arc id="A52" source="P21" target="CRP"></arc>
-        <arc id="A53" source="ER_Triage" target="P21"></arc>
-        <arc id="A54" source="Admission_NC" target="P21"></arc>
-        <arc id="A55" source="Admission_IC" target="P21"></arc>
-        <arc id="A56" source="P22" target="CRP"></arc>
-        <arc id="A57" source="ER_Sepsis_Triage" target="P22"></arc>
-        <arc id="A58" source="Admission_NC" target="P22"></arc>
-        <arc id="A59" source="Admission_IC" target="P22"></arc>
-        <arc id="A60" source="P23" target="CRP"></arc>
-        <arc id="A61" source="Admission_NC" target="P23"></arc>
-        <arc id="A62" source="ER_Sepsis_Triage" target="P23"></arc>
-        <arc id="A63" source="Admission_IC" target="P23"></arc>
-        <arc id="A64" source="ER_Triage" target="P23"></arc>
-        <arc id="A65" source="P24" target="CRP"></arc>
-        <arc id="A66" source="ER_Sepsis_Triage" target="P24"></arc>
-        <arc id="A67" source="Admission_NC" target="P24"></arc>
-        <arc id="A68" source="CRP" target="P24"></arc>
-        <arc id="A69" source="ER_Triage" target="P24"></arc>
-        <arc id="A70" source="Admission_IC" target="P24"></arc>
-        <arc id="A71" source="CRP" target="P25"></arc>
-        <arc id="A72" source="P25" target="IV_Liquid"></arc>
-        <arc id="A73" source="P25" target="Release_B"></arc>
-        <arc id="A74" source="P25" target="Release_C"></arc>
-        <arc id="A75" source="P25" target="Release_D"></arc>
-        <arc id="A76" source="P25" target="Release_A"></arc>
-        <arc id="A77" source="CRP" target="P26"></arc>
-        <arc id="A78" source="P26" target="CRP"></arc>
-        <arc id="A79" source="P26" target="IV_Liquid"></arc>
-        <arc id="A80" source="P26" target="Release_A"></arc>
-        <arc id="A81" source="P26" target="Release_B"></arc>
-        <arc id="A82" source="P26" target="Release_C"></arc>
-        <arc id="A83" source="P26" target="Release_D"></arc>
-        <arc id="A84" source="CRP" target="P27"></arc>
-        <arc id="A85" source="P27" target="CRP"></arc>
-        <arc id="A86" source="P27" target="Release_B"></arc>
-        <arc id="A87" source="P27" target="Release_C"></arc>
-        <arc id="A88" source="P27" target="Release_D"></arc>
-        <arc id="A89" source="ER_Sepsis_Triage" target="P28"></arc>
-        <arc id="A90" source="P28" target="IV_Liquid"></arc>
-        <arc id="A91" source="ER_Sepsis_Triage" target="P29"></arc>
-        <arc id="A92" source="P29" target="IV_Antibiotics"></arc>
-        <arc id="A93" source="ER_Sepsis_Triage" target="P30"></arc>
-        <arc id="A94" source="P30" target="Admission_NC"></arc>
-        <arc id="A95" source="Admission_NC" target="P31"></arc>
-        <arc id="A96" source="P31" target="CRP"></arc>
-        <arc id="A97" source="P31" target="Release_B"></arc>
-        <arc id="A98" source="Admission_NC" target="P32"></arc>
-        <arc id="A99" source="P32" target="Admission_NC"></arc>
-        <arc id="A100" source="Admission_NC" target="P33"></arc>
-        <arc id="A101" source="P33" target="Admission_IC"></arc>
-        <arc id="A102" source="P33" target="Release_A"></arc>
-        <arc id="A103" source="P33" target="Release_B"></arc>
-        <arc id="A104" source="Admission_NC" target="P34"></arc>
-        <arc id="A105" source="P34" target="Release_B"></arc>
-        <arc id="A106" source="P34" target="CRP"></arc>
-        <arc id="A107" source="P34" target="Release_A"></arc>
-        <arc id="A108" source="P34" target="Admission_IC"></arc>
+        <arc id="A20" source="IV_Liquid" target="P7"></arc>
+        <arc id="A21" source="P8" target="ER_Triage"></arc>
+        <arc id="A22" source="ER_Registration" target="P8"></arc>
+        <arc id="A23" source="IV_Liquid" target="P8"></arc>
+        <arc id="A24" source="P9" target="ER_Triage"></arc>
+        <arc id="A25" source="IV_Antibiotics" target="P9"></arc>
+        <arc id="A26" source="ER_Registration" target="P9"></arc>
+        <arc id="A27" source="ER_Triage" target="P10"></arc>
+        <arc id="A28" source="P10" target="ER_Sepsis_Triage"></arc>
+        <arc id="A29" source="P11" target="CRP"></arc>
+        <arc id="A30" source="Admission_IC" target="P11"></arc>
+        <arc id="A31" source="CRP" target="P11"></arc>
+        <arc id="A32" source="Admission_NC" target="P11"></arc>
+        <arc id="A33" source="ER_Sepsis_Triage" target="P11"></arc>
+        <arc id="A34" source="ER_Triage" target="P11"></arc>
+        <arc id="A35" source="P12" target="CRP"></arc>
+        <arc id="A36" source="ER_Sepsis_Triage" target="P12"></arc>
+        <arc id="A37" source="Admission_NC" target="P12"></arc>
+        <arc id="A38" source="Admission_IC" target="P12"></arc>
+        <arc id="A39" source="P13" target="CRP"></arc>
+        <arc id="A40" source="ER_Triage" target="P13"></arc>
+        <arc id="A41" source="Admission_NC" target="P13"></arc>
+        <arc id="A42" source="Admission_IC" target="P13"></arc>
+        <arc id="A43" source="P14" target="CRP"></arc>
+        <arc id="A44" source="CRP" target="P14"></arc>
+        <arc id="A45" source="Admission_IC" target="P14"></arc>
+        <arc id="A46" source="P15" target="CRP"></arc>
+        <arc id="A47" source="Admission_NC" target="P15"></arc>
+        <arc id="A48" source="Admission_IC" target="P15"></arc>
+        <arc id="A49" source="ER_Sepsis_Triage" target="P15"></arc>
+        <arc id="A50" source="ER_Triage" target="P15"></arc>
+        <arc id="A51" source="CRP" target="P16"></arc>
+        <arc id="A52" source="P16" target="CRP"></arc>
+        <arc id="A53" source="P16" target="Release_B"></arc>
+        <arc id="A54" source="P16" target="Release_C"></arc>
+        <arc id="A55" source="P16" target="Release_D"></arc>
+        <arc id="A56" source="CRP" target="P17"></arc>
+        <arc id="A57" source="P17" target="IV_Liquid"></arc>
+        <arc id="A58" source="P17" target="Release_B"></arc>
+        <arc id="A59" source="P17" target="Release_C"></arc>
+        <arc id="A60" source="P17" target="Release_D"></arc>
+        <arc id="A61" source="P17" target="Release_A"></arc>
+        <arc id="A62" source="CRP" target="P18"></arc>
+        <arc id="A63" source="P18" target="Release_B"></arc>
+        <arc id="A64" source="P18" target="Release_C"></arc>
+        <arc id="A65" source="P18" target="Release_D"></arc>
+        <arc id="A66" source="P18" target="CRP"></arc>
+        <arc id="A67" source="P18" target="IV_Liquid"></arc>
+        <arc id="A68" source="P18" target="Release_A"></arc>
+        <arc id="A69" source="P19" target="LacticAcid"></arc>
+        <arc id="A70" source="ER_Sepsis_Triage" target="P19"></arc>
+        <arc id="A71" source="ER_Registration" target="P19"></arc>
+        <arc id="A72" source="Admission_IC" target="P19"></arc>
+        <arc id="A73" source="P20" target="LacticAcid"></arc>
+        <arc id="A74" source="Admission_IC" target="P20"></arc>
+        <arc id="A75" source="ER_Registration" target="P20"></arc>
+        <arc id="A76" source="ER_Sepsis_Triage" target="P20"></arc>
+        <arc id="A77" source="ER_Triage" target="P20"></arc>
+        <arc id="A78" source="P21" target="LacticAcid"></arc>
+        <arc id="A79" source="ER_Triage" target="P21"></arc>
+        <arc id="A80" source="Admission_IC" target="P21"></arc>
+        <arc id="A81" source="LacticAcid" target="P22"></arc>
+        <arc id="A82" source="P22" target="IV_Antibiotics"></arc>
+        <arc id="A83" source="LacticAcid" target="P23"></arc>
+        <arc id="A84" source="P23" target="Admission_NC"></arc>
+        <arc id="A85" source="LacticAcid" target="P24"></arc>
+        <arc id="A86" source="P24" target="LacticAcid"></arc>
+        <arc id="A87" source="LacticAcid" target="P25"></arc>
+        <arc id="A88" source="P25" target="IV_Liquid"></arc>
+        <arc id="A89" source="IV_Antibiotics" target="P26"></arc>
+        <arc id="A90" source="P26" target="Admission_IC"></arc>
+        <arc id="A91" source="P26" target="ER_Triage"></arc>
+        <arc id="A92" source="P26" target="Admission_NC"></arc>
+        <arc id="A93" source="P0" target="ER_Registration"></arc>
+        <arc id="A94" source="ER_Registration" target="P27"></arc>
+        <arc id="A95" source="P27" target="LacticAcid"></arc>
+        <arc id="A96" source="P27" target="ER_Triage"></arc>
+        <arc id="A97" source="ER_Registration" target="P28"></arc>
+        <arc id="A98" source="P28" target="ER_Sepsis_Triage"></arc>
+        <arc id="A99" source="ER_Sepsis_Triage" target="P29"></arc>
+        <arc id="A100" source="P29" target="IV_Liquid"></arc>
+        <arc id="A101" source="ER_Sepsis_Triage" target="P30"></arc>
+        <arc id="A102" source="P30" target="IV_Antibiotics"></arc>
+        <arc id="A103" source="ER_Sepsis_Triage" target="P31"></arc>
+        <arc id="A104" source="P31" target="Admission_NC"></arc>
+        <arc id="A105" source="P32" target="Leucocytes"></arc>
+        <arc id="A106" source="ER_Triage" target="P32"></arc>
+        <arc id="A107" source="Admission_NC" target="P32"></arc>
+        <arc id="A108" source="Admission_IC" target="P32"></arc>
+        <arc id="A109" source="P33" target="Leucocytes"></arc>
+        <arc id="A110" source="Admission_IC" target="P33"></arc>
+        <arc id="A111" source="Admission_NC" target="P33"></arc>
+        <arc id="A112" source="ER_Sepsis_Triage" target="P33"></arc>
+        <arc id="A113" source="ER_Triage" target="P33"></arc>
+        <arc id="A114" source="P34" target="Leucocytes"></arc>
+        <arc id="A115" source="ER_Sepsis_Triage" target="P34"></arc>
+        <arc id="A116" source="Admission_NC" target="P34"></arc>
+        <arc id="A117" source="Admission_IC" target="P34"></arc>
+        <arc id="A118" source="Leucocytes" target="P35"></arc>
+        <arc id="A119" source="P35" target="Release_A"></arc>
+        <arc id="A120" source="P35" target="Release_B"></arc>
+        <arc id="A121" source="P35" target="Release_D"></arc>
+        <arc id="A122" source="Leucocytes" target="P36"></arc>
+        <arc id="A123" source="P36" target="Release_A"></arc>
+        <arc id="A124" source="P36" target="Release_B"></arc>
+        <arc id="A125" source="P36" target="Leucocytes"></arc>
+        <arc id="A126" source="P36" target="Release_D"></arc>
+        <arc id="A127" source="Leucocytes" target="P37"></arc>
+        <arc id="A128" source="P37" target="Leucocytes"></arc>
+        <arc id="A129" source="P37" target="Release_B"></arc>
+        <arc id="A130" source="P37" target="Release_D"></arc>
+        <arc id="A131" source="Admission_NC" target="P38"></arc>
+        <arc id="A132" source="P38" target="Admission_IC"></arc>
+        <arc id="A133" source="P38" target="Release_A"></arc>
+        <arc id="A134" source="P38" target="Release_B"></arc>
+        <arc id="A135" source="Admission_NC" target="P39"></arc>
+        <arc id="A136" source="P39" target="Admission_IC"></arc>
+        <arc id="A137" source="P39" target="Leucocytes"></arc>
+        <arc id="A138" source="P39" target="Release_B"></arc>
+        <arc id="A139" source="P39" target="CRP"></arc>
+        <arc id="A140" source="P39" target="Admission_NC"></arc>
+        <arc id="A141" source="P39" target="Release_A"></arc>
+        <arc id="A142" source="Admission_NC" target="P40"></arc>
+        <arc id="A143" source="P40" target="Leucocytes"></arc>
+        <arc id="A144" source="P40" target="Release_B"></arc>
+        <arc id="A145" source="Admission_NC" target="P41"></arc>
+        <arc id="A146" source="P41" target="Release_B"></arc>
+        <arc id="A147" source="P41" target="CRP"></arc>
+        <arc id="A148" source="Admission_NC" target="P42"></arc>
+        <arc id="A149" source="P42" target="Admission_NC"></arc>
+        <arc id="A150" source="P42" target="Release_B"></arc>
     </net>
 </pnml>
