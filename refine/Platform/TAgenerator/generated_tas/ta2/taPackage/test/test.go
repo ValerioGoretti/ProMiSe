@@ -11,7 +11,6 @@ import (
 )
 
 var STOPMONITORING = false
-var TEE = true
 
 func PrintRamUsage() {
 	var ramList = []int{}
@@ -47,7 +46,7 @@ func WaitUntilStop() {
 }
 
 func saveToCSV(ramList []int, timestampList []int) error {
-	testFileName := "/outputs/test/test_" + fmt.Sprint(time.Now().Unix()) + ".csv"
+	testFileName := "outputs/test/test_" + fmt.Sprint(time.Now().Unix()) + ".csv"
 	file, err := os.Create(testFileName)
 	if err != nil {
 		return err

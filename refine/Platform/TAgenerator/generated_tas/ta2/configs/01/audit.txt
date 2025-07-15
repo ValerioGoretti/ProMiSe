@@ -162,3 +162,79 @@
 [2025-07-15 01:14:51] POST /process - IP: 127.0.0.1:38250 - Esito: Output restituito: heuristicMiner_output.pnml
 [2025-07-15 07:30:50] POST /process - IP: 127.0.0.1:50852 - Esito: Processing eseguito con algoritmo HeuristicMiner
 [2025-07-15 07:30:50] POST /process - IP: 127.0.0.1:50852 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 09:56:44] POST /process - IP: 127.0.0.1:47040 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 09:56:44] POST /process - IP: 127.0.0.1:47040 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 10:00:25] POST /process - IP: 127.0.0.1:44228 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 10:00:25] POST /process - IP: 127.0.0.1:44228 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 10:02:06] POST /process - IP: 127.0.0.1:42886 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 10:02:06] POST /process - IP: 127.0.0.1:42886 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 10:02:51] POST /process - IP: 127.0.0.1:42886 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 10:02:51] POST /process - IP: 127.0.0.1:42886 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 20:25:49] POST /process - IP: 127.0.0.1:33660 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 20:25:49] POST /process - IP: 127.0.0.1:33660 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 20:32:11] POST /process - IP: 127.0.0.1:60892 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 20:32:11] POST /process - IP: 127.0.0.1:60892 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 20:33:07] POST /process - IP: 127.0.0.1:60892 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 20:33:07] POST /process - IP: 127.0.0.1:60892 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 20:35:36] POST /process - IP: 127.0.0.1:48356 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 20:35:36] POST /process - IP: 127.0.0.1:48356 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 20:36:00] POST /process - IP: 127.0.0.1:48356 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 20:36:00] POST /process - IP: 127.0.0.1:48356 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 20:36:17] POST /process - IP: 127.0.0.1:48356 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 20:36:17] POST /process - IP: 127.0.0.1:48356 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 20:36:34] POST /process - IP: 127.0.0.1:48356 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 20:36:34] POST /process - IP: 127.0.0.1:48356 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 20:36:46] POST /process - IP: 127.0.0.1:48356 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 20:36:46] POST /process - IP: 127.0.0.1:48356 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 20:37:31] POST /process - IP: 127.0.0.1:48356 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 20:37:31] POST /process - IP: 127.0.0.1:48356 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 20:37:58] POST /process - IP: 127.0.0.1:48356 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 20:37:58] POST /process - IP: 127.0.0.1:48356 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 20:38:10] POST /process - IP: 127.0.0.1:48356 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 20:38:10] POST /process - IP: 127.0.0.1:48356 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 20:38:23] POST /process - IP: 127.0.0.1:48356 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 20:38:23] POST /process - IP: 127.0.0.1:48356 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 20:38:38] POST /process - IP: 127.0.0.1:48356 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 20:38:38] POST /process - IP: 127.0.0.1:48356 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 20:40:12] POST /process - IP: 127.0.0.1:50542 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 20:40:12] POST /process - IP: 127.0.0.1:50542 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 20:40:27] POST /process - IP: 127.0.0.1:50542 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 20:40:27] POST /process - IP: 127.0.0.1:50542 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 20:40:37] POST /process - IP: 127.0.0.1:50542 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 20:40:37] POST /process - IP: 127.0.0.1:50542 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 20:40:52] POST /process - IP: 127.0.0.1:50542 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 20:40:52] POST /process - IP: 127.0.0.1:50542 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 20:41:03] POST /process - IP: 127.0.0.1:50542 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 20:41:03] POST /process - IP: 127.0.0.1:50542 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-16 00:01:03] POST /process - IP: 127.0.0.1:33306 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-16 00:01:03] POST /process - IP: 127.0.0.1:33306 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-16 00:01:42] POST /process - IP: 127.0.0.1:33306 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-16 00:01:42] POST /process - IP: 127.0.0.1:33306 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-16 00:01:52] POST /process - IP: 127.0.0.1:33306 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-16 00:01:52] POST /process - IP: 127.0.0.1:33306 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-16 00:02:00] POST /process - IP: 127.0.0.1:33306 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-16 00:02:00] POST /process - IP: 127.0.0.1:33306 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-16 00:02:09] POST /process - IP: 127.0.0.1:33306 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-16 00:02:09] POST /process - IP: 127.0.0.1:33306 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-16 00:03:33] POST /process - IP: 127.0.0.1:47186 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-16 00:03:33] POST /process - IP: 127.0.0.1:47186 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-16 00:03:57] POST /process - IP: 127.0.0.1:47186 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-16 00:03:57] POST /process - IP: 127.0.0.1:47186 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-16 00:04:16] POST /process - IP: 127.0.0.1:47186 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-16 00:04:16] POST /process - IP: 127.0.0.1:47186 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-16 00:04:51] POST /process - IP: 127.0.0.1:47186 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-16 00:04:51] POST /process - IP: 127.0.0.1:47186 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-16 00:05:03] POST /process - IP: 127.0.0.1:47186 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-16 00:05:03] POST /process - IP: 127.0.0.1:47186 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-16 00:05:14] POST /process - IP: 127.0.0.1:47186 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-16 00:05:14] POST /process - IP: 127.0.0.1:47186 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-16 00:07:04] POST /process - IP: 127.0.0.1:39832 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-16 00:07:04] POST /process - IP: 127.0.0.1:39832 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-16 00:07:18] POST /process - IP: 127.0.0.1:39832 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-16 00:07:18] POST /process - IP: 127.0.0.1:39832 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-16 00:07:28] POST /process - IP: 127.0.0.1:39832 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-16 00:07:28] POST /process - IP: 127.0.0.1:39832 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-16 00:07:38] POST /process - IP: 127.0.0.1:39832 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-16 00:07:38] POST /process - IP: 127.0.0.1:39832 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-16 00:07:49] POST /process - IP: 127.0.0.1:39832 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-16 00:07:49] POST /process - IP: 127.0.0.1:39832 - Esito: Output restituito: heuristicMiner_output.pnml

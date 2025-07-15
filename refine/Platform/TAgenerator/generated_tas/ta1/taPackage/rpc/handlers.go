@@ -157,14 +157,6 @@ func HandleLogAccess(w http.ResponseWriter, r *http.Request) {
 }
 
 func HandleProcessing(w http.ResponseWriter, r *http.Request) {
-	err := clearFile("configs/01/heuristicMinerMetadata/dependencyMatrix.json")
-	if err != nil {
-		return
-	}
-	err = writeEmptyJSON("configs/01/heuristicMinerMetadata/map.json")
-	if err != nil {
-		return
-	}
 	test.STOPMONITORING = false
 	go test.PrintRamUsage()
 	if r.Method != http.MethodPost {

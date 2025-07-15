@@ -3,20 +3,17 @@
 package rpc
 
 import (
-	"crypto/sha256"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"ta1/taPackage/test"
+	"ta2/taPackage/test"
 
-	//"github.com/edgelesssys/ego/ecrypto"
-	"github.com/edgelesssys/ego/enclave"
 	"net/http"
 	"os"
 	"path/filepath"
-	"ta1/taPackage/algorithms"
-	"ta1/taPackage/config"
-	"ta1/taPackage/enforcement"
+	"ta2/taPackage/algorithms"
+	"ta2/taPackage/config"
+	"ta2/taPackage/enforcement"
 	"time"
 )
 
@@ -133,14 +130,10 @@ func HandleLogAccess(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	// extrct string from filteredLog
 	filteredLogString := config.ExtractFilteredLogString(filteredLog)
-	filteredByteArray := []byte(filteredLogString)
-	filteredByteArrayhash := sha256.Sum256(filteredByteArray)
-	teeSignedLog, err := enclave.GetRemoteReport(filteredByteArrayhash[:])
-	if err != nil {
-		fmt.Println("[DEBUG] Errore ottenimento remote report:", err)
-		http.Error(w, "Errore ottenimento remote report", http.StatusInternalServerError)
-		return
-	}
+	//filteredByteArray := []byte(filteredLogString)
+	//filteredByteArrayhash := sha256.Sum256(filteredByteArray)
+	var teeSignedLog = []byte{}
+
 	encodedTeeSignedLog := base64.StdEncoding.EncodeToString(teeSignedLog)
 
 	//Rispondi alla richiesta con il log filtrato e encodedTeeSignedLog
@@ -254,24 +247,14 @@ func HandleProcessing(w http.ResponseWriter, r *http.Request) {
 	_ = config.WriteAuditLogFromRequest(payload.ConfigID, r, "Output restituito: "+filepath.Base(outputFilePath))
 
 	var teeSignedLog []byte
-	filteredByteArrayhash := sha256.Sum256(data)
-	if !test.TEE {
-		teeSignedLog = []byte{}
-	} else {
-		teeSignedLog, err = enclave.GetRemoteReport(filteredByteArrayhash[:])
-		if err != nil {
-			fmt.Println("[DEBUG] Errore ottenimento remote report:", err)
-			http.Error(w, "Errore ottenimento remote report", http.StatusInternalServerError)
-			return
-		}
-	}
+	teeSignedLog = []byte{}
 
 	encodedTeeSignedOutput := base64.StdEncoding.EncodeToString(teeSignedLog)
 	//encodedOutput := base64.StdEncoding.EncodeToString(data)
 
 	//Rispondi alla richiesta con il file di ouput e encodedTeeSignedOutput
 	response := map[string]string{
-		"message":          fmt.Sprintf("Processing eseguito con algoritmo %s", payload.Algorithm),
+		"message":          fmt.Sprintf("Processing eseguito con algoritmo %s", payload.Algorithm, " ", string(data)),
 		"output_signature": encodedTeeSignedOutput,
 	}
 	test.STOPMONITORING = true
@@ -366,13 +349,10 @@ func HandleOutputAccess(w http.ResponseWriter, r *http.Request) {
 
 	_ = config.WriteAuditLogFromRequest(payload.ConfigID, r, "Output restituito: "+filepath.Base(outputFilePath))
 
-	filteredByteArrayhash := sha256.Sum256(data)
-	teeSignedLog, err := enclave.GetRemoteReport(filteredByteArrayhash[:])
-	if err != nil {
-		fmt.Println("[DEBUG] Errore ottenimento remote report:", err)
-		http.Error(w, "Errore ottenimento remote report", http.StatusInternalServerError)
-		return
-	}
+	var teeSignedLog []byte
+
+	teeSignedLog = []byte{}
+
 	encodedTeeSignedOutput := base64.StdEncoding.EncodeToString(teeSignedLog)
 	//encodedOutput := base64.StdEncoding.EncodeToString(data)
 
@@ -445,11 +425,9 @@ func HandleMonitoring(w http.ResponseWriter, r *http.Request) {
 	w.Write(data)
 }
 
-func signResult(result []byte) (report []byte) {
-	report, err := enclave.GetRemoteReport(result[:])
-	if err != nil {
-		fmt.Println("[DEBUG] Errore ottenimento remote report:", err)
-		return
-	}
-	return report
+func clearFile(filePath string) error {
+	return os.WriteFile(filePath, []byte{}, 0644)
+}
+func writeEmptyJSON(filePath string) error {
+	return os.WriteFile(filePath, []byte("{}"), 0644)
 }

@@ -3,7 +3,7 @@ package enforcement
 import (
 	"errors"
 	"strings"
-	"ta1/taPackage/config"
+	"ta2/taPackage/config"
 	"time"
 )
 

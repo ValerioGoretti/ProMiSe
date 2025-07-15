@@ -1,7 +1,7 @@
 {
   "policies": [
     {
-      "log_file": "sepsis.xes",
+      "log_file": "BPI_Challenge_2013_incidents.xes",
       "logUsageRules": {
         "logExpiration": "2025-12-31T23:59:59+00:00",
         "maxAccessCount": 70,
