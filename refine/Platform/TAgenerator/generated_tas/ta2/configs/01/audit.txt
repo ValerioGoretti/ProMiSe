@@ -1,0 +1,164 @@
+[2025-07-13 15:41:58] GET /policy - IP: [::1]:56091 - Esito: Policy restituita
+[2025-07-13 15:42:05] GET /policy - IP: [::1]:56091 - Esito: Policy restituita
+[2025-07-13 15:42:35] POST /process - IP: [::1]:56153 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-13 15:43:51] GET /policy - IP: [::1]:56214 - Esito: Policy restituita
+[2025-07-13 17:04:37] Increment LogAccessCount: 2
+[2025-07-13 17:04:37] POST /log - IP: [::1]:59383 - Esito: Errore caricamento o filtro log
+[2025-07-13 17:06:01] Increment LogAccessCount: 3
+[2025-07-13 17:06:01] POST /log - IP: [::1]:59489 - Esito: Errore caricamento o filtro log
+[2025-07-13 17:07:50] Increment LogAccessCount: 4
+[2025-07-13 17:07:50] POST /log - IP: [::1]:59627 - Esito: Accesso log consentito - log filtrato restituito
+[2025-07-13 17:09:58] Increment LogAccessCount: 5
+[2025-07-13 17:09:59] POST /log - IP: [::1]:59794 - Esito: Accesso log consentito - log filtrato restituito
+[2025-07-13 17:11:24] Increment LogAccessCount: 6
+[2025-07-13 17:11:25] POST /log - IP: [::1]:59855 - Esito: Accesso log consentito - log filtrato restituito
+[2025-07-13 17:12:56] Increment LogAccessCount: 7
+[2025-07-13 17:12:56] POST /log - IP: [::1]:59933 - Esito: Accesso log consentito - log filtrato restituito
+[2025-07-13 17:12:57] POST /log - IP: [::1]:59933 - Esito: Superato limite accessi log
+[2025-07-13 17:31:09] Increment LogAccessCount: 1
+[2025-07-13 17:31:09] POST /log - IP: [::1]:60622 - Esito: Accesso log consentito - log filtrato restituito
+[2025-07-13 17:54:17] Increment LogAccessCount: 2
+[2025-07-13 17:54:17] POST /log - IP: [::1]:62781 - Esito: Accesso log consentito - log filtrato restituito
+[2025-07-13 17:55:22] POST /log - IP: [::1]:62858 - Esito: Errore caricamento policy
+[2025-07-13 17:56:03] Increment LogAccessCount: 3
+[2025-07-13 17:56:03] POST /log - IP: [::1]:62913 - Esito: Accesso log consentito - log filtrato restituito
+[2025-07-13 18:32:50] POST /process - IP: [::1]:64406 - Esito: Errore esecuzione algoritmo: algoritmo non supportato: HeuristicMiner
+[2025-07-13 18:33:01] POST /process - IP: [::1]:64406 - Esito: Accesso processing negato
+[2025-07-13 18:33:19] POST /process - IP: [::1]:64406 - Esito: Errore esecuzione algoritmo: algoritmo non supportato: HeuristicMiner
+[2025-07-13 18:34:02] POST /process - IP: [::1]:64529 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-13 18:34:39] POST /process - IP: [::1]:64529 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-13 18:35:03] POST /process - IP: [::1]:64529 - Esito: Processing eseguito con algoritmo AlphaMiner
+[2025-07-13 23:31:12] POST /output - IP: [::1]:59379 - Esito: Accesso output negato
+[2025-07-13 23:31:43] POST /output - IP: [::1]:59379 - Esito: Superato limite accessi output
+[2025-07-13 23:31:55] POST /output - IP: [::1]:59379 - Esito: Superato limite accessi output
+[2025-07-13 23:32:06] POST /output - IP: [::1]:59379 - Esito: Superato limite accessi output
+[2025-07-13 23:32:20] POST /output - IP: [::1]:59505 - Esito: Superato limite accessi output
+[2025-07-13 23:33:39] Increment LogAccessCount: 1
+[2025-07-13 23:33:39] POST /log - IP: [::1]:59586 - Esito: Accesso log consentito - log filtrato restituito
+[2025-07-13 23:33:49] Increment OutputAccessCount: 1
+[2025-07-13 23:33:49] POST /output - IP: [::1]:59586 - Esito: Output restituito: alphaminer_output.txt
+[2025-07-13 23:33:55] Increment OutputAccessCount: 2
+[2025-07-13 23:33:55] POST /output - IP: [::1]:59586 - Esito: Output restituito: alphaminer_output.txt
+[2025-07-13 23:33:57] Increment OutputAccessCount: 3
+[2025-07-13 23:33:57] POST /output - IP: [::1]:59586 - Esito: Output restituito: alphaminer_output.txt
+[2025-07-13 23:35:26] Increment OutputAccessCount: 4
+[2025-07-13 23:35:26] POST /output - IP: [::1]:59676 - Esito: Output restituito: heuristicMiner_output.txt
+[2025-07-13 23:35:29] Increment OutputAccessCount: 5
+[2025-07-13 23:35:29] POST /output - IP: [::1]:59676 - Esito: Output restituito: heuristicMiner_output.txt
+[2025-07-13 23:35:51] Increment OutputAccessCount: 6
+[2025-07-13 23:35:51] POST /output - IP: [::1]:59676 - Esito: Output restituito: heuristicMiner_output.txt
+[2025-07-13 23:35:52] Increment OutputAccessCount: 7
+[2025-07-13 23:35:52] POST /output - IP: [::1]:59676 - Esito: Output restituito: heuristicMiner_output.txt
+[2025-07-13 23:35:54] POST /output - IP: [::1]:59676 - Esito: Superato limite accessi output
+[2025-07-13 23:36:03] POST /output - IP: [::1]:59676 - Esito: Superato limite accessi output
+[2025-07-13 23:36:09] POST /output - IP: [::1]:59778 - Esito: Superato limite accessi output
+[2025-07-13 23:36:35] POST /output - IP: [::1]:59823 - Esito: Superato limite accessi output
+[2025-07-13 23:36:53] POST /output - IP: [::1]:59863 - Esito: Superato limite accessi output
+[2025-07-13 23:45:31] Increment OutputAccessCount: 1
+[2025-07-13 23:45:31] POST /output - IP: [::1]:60144 - Esito: Output restituito: heuristicMiner_output.txt
+[2025-07-13 23:45:32] Increment OutputAccessCount: 2
+[2025-07-13 23:45:32] POST /output - IP: [::1]:60144 - Esito: Output restituito: heuristicMiner_output.txt
+[2025-07-13 23:45:33] Increment OutputAccessCount: 3
+[2025-07-13 23:45:33] POST /output - IP: [::1]:60144 - Esito: Output restituito: heuristicMiner_output.txt
+[2025-07-13 23:45:34] Increment OutputAccessCount: 4
+[2025-07-13 23:45:34] POST /output - IP: [::1]:60144 - Esito: Output restituito: heuristicMiner_output.txt
+[2025-07-13 23:45:34] Increment OutputAccessCount: 5
+[2025-07-13 23:45:34] POST /output - IP: [::1]:60144 - Esito: Output restituito: heuristicMiner_output.txt
+[2025-07-13 23:45:35] Increment OutputAccessCount: 6
+[2025-07-13 23:45:35] POST /output - IP: [::1]:60144 - Esito: Output restituito: heuristicMiner_output.txt
+[2025-07-13 23:45:36] Increment OutputAccessCount: 7
+[2025-07-13 23:45:36] POST /output - IP: [::1]:60144 - Esito: Output restituito: heuristicMiner_output.txt
+[2025-07-13 23:45:37] POST /output - IP: [::1]:60144 - Esito: Superato limite accessi output
+[2025-07-13 23:45:38] POST /output - IP: [::1]:60144 - Esito: Superato limite accessi output
+[2025-07-13 23:45:45] Increment OutputAccessCount: 1
+[2025-07-13 23:45:45] POST /output - IP: [::1]:60144 - Esito: Output restituito: heuristicMiner_output.txt
+[2025-07-14 00:54:14] POST /process - IP: [::1]:62843 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-14 00:54:45] POST /process - IP: [::1]:62843 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-14 00:54:58] POST /process - IP: [::1]:62843 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-14 00:56:45] POST /process - IP: [::1]:63100 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-14 01:07:32] Increment LogAccessCount: 2
+[2025-07-14 01:07:33] POST /log - IP: [::1]:63368 - Esito: Accesso log consentito - log filtrato restituito
+[2025-07-14 12:12:26] POST /process - IP: [::1]:53084 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-14 12:48:21] Increment LogAccessCount: 3
+[2025-07-14 12:48:21] POST /log - IP: 127.0.0.1:45394 - Esito: Accesso log consentito - log filtrato restituito
+[2025-07-14 11:00:45] Increment LogAccessCount: 4
+[2025-07-14 11:00:45] POST /log - IP: 127.0.0.1:42292 - Esito: Accesso log consentito - log filtrato restituito
+[2025-07-14 11:14:07] Increment OutputAccessCount: 2
+[2025-07-14 11:14:07] POST /output - IP: 127.0.0.1:37380 - Esito: Errore lettura file di output
+[2025-07-14 11:14:34] Increment OutputAccessCount: 3
+[2025-07-14 11:14:34] POST /output - IP: 127.0.0.1:37380 - Esito: Errore lettura file di output
+[2025-07-14 11:16:55] Increment OutputAccessCount: 4
+[2025-07-14 11:16:55] POST /output - IP: 127.0.0.1:58056 - Esito: Errore lettura file di output
+[2025-07-14 11:20:07] Increment OutputAccessCount: 5
+[2025-07-14 11:20:07] POST /output - IP: 127.0.0.1:40548 - Esito: Errore lettura file di output
+[2025-07-14 11:21:35] Increment OutputAccessCount: 6
+[2025-07-14 11:21:35] POST /output - IP: 127.0.0.1:48528 - Esito: Errore lettura file di output
+[2025-07-14 11:23:37] Increment OutputAccessCount: 7
+[2025-07-14 11:23:37] POST /output - IP: 127.0.0.1:53392 - Esito: Errore lettura file di output
+[2025-07-14 11:24:12] POST /output - IP: 127.0.0.1:49864 - Esito: Superato limite accessi output
+[2025-07-14 11:25:46] Increment OutputAccessCount: 1
+[2025-07-14 11:25:46] POST /output - IP: 127.0.0.1:47160 - Esito: Errore lettura file di output
+[2025-07-14 11:28:33] Increment OutputAccessCount: 2
+[2025-07-14 11:28:33] POST /output - IP: 127.0.0.1:45548 - Esito: Errore lettura file di output
+[2025-07-14 11:30:15] Increment OutputAccessCount: 3
+[2025-07-14 11:30:15] POST /output - IP: 127.0.0.1:53534 - Esito: Errore lettura file di output
+[2025-07-14 11:32:52] Increment OutputAccessCount: 4
+[2025-07-14 11:32:52] POST /output - IP: 127.0.0.1:41352 - Esito: Errore lettura file di output
+[2025-07-14 11:33:03] POST /output - IP: 127.0.0.1:41352 - Esito: Superato limite accessi output
+[2025-07-14 11:33:08] POST /output - IP: 127.0.0.1:41352 - Esito: Superato limite accessi output
+[2025-07-14 11:33:21] Increment OutputAccessCount: 1
+[2025-07-14 11:33:21] POST /output - IP: 127.0.0.1:41352 - Esito: Errore lettura file di output
+[2025-07-14 11:34:07] Increment OutputAccessCount: 2
+[2025-07-14 11:34:07] POST /output - IP: 127.0.0.1:53970 - Esito: Errore lettura file di output
+[2025-07-14 11:35:26] Increment LogAccessCount: 5
+[2025-07-14 11:35:27] POST /log - IP: 127.0.0.1:50916 - Esito: Accesso log consentito - log filtrato restituito
+[2025-07-14 11:38:22] Increment OutputAccessCount: 3
+[2025-07-14 11:38:22] POST /output - IP: 127.0.0.1:43048 - Esito: Output restituito: heuristicMiner_output.txt
+[2025-07-14 11:38:56] Increment OutputAccessCount: 4
+[2025-07-14 11:38:56] POST /output - IP: 127.0.0.1:43048 - Esito: Errore lettura file di output
+[2025-07-14 11:41:07] Increment OutputAccessCount: 5
+[2025-07-14 11:41:07] POST /output - IP: 127.0.0.1:33614 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-14 11:43:16] Increment OutputAccessCount: 6
+[2025-07-14 11:43:16] POST /output - IP: 127.0.0.1:45488 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-14 11:54:37] Increment OutputAccessCount: 7
+[2025-07-14 11:54:37] POST /output - IP: 127.0.0.1:43652 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-14 11:55:00] POST /process - IP: 127.0.0.1:43652 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-14 11:55:00] POST /process - IP: 127.0.0.1:43652 - Esito: Errore lettura file di output
+[2025-07-14 12:00:01] POST /process - IP: 127.0.0.1:51574 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-14 12:00:01] POST /process - IP: 127.0.0.1:51574 - Esito: Errore lettura file di output
+[2025-07-14 12:02:22] POST /process - IP: 127.0.0.1:57064 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-14 12:02:22] POST /process - IP: 127.0.0.1:57064 - Esito: Errore lettura file di output
+[2025-07-14 12:02:59] POST /process - IP: 127.0.0.1:35776 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-14 12:02:59] POST /process - IP: 127.0.0.1:35776 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-14 12:54:48] POST /process - IP: 127.0.0.1:43302 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-14 12:54:48] POST /process - IP: 127.0.0.1:43302 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-14 12:56:13] POST /process - IP: 127.0.0.1:59276 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-14 12:56:13] POST /process - IP: 127.0.0.1:59276 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 00:11:27] POST /process - IP: 127.0.0.1:48536 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 00:11:27] POST /process - IP: 127.0.0.1:48536 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 00:31:21] POST /process - IP: 127.0.0.1:33778 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 00:31:21] POST /process - IP: 127.0.0.1:33778 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 00:32:29] POST /process - IP: 127.0.0.1:37142 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 00:32:29] POST /process - IP: 127.0.0.1:37142 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 00:37:17] POST /process - IP: 127.0.0.1:36814 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 00:37:17] POST /process - IP: 127.0.0.1:36814 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 00:39:24] POST /process - IP: 127.0.0.1:53824 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 00:39:24] POST /process - IP: 127.0.0.1:53824 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 00:40:00] POST /process - IP: 127.0.0.1:35776 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 00:40:00] POST /process - IP: 127.0.0.1:35776 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 00:41:17] POST /process - IP: 127.0.0.1:38652 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 00:41:17] POST /process - IP: 127.0.0.1:38652 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 01:07:56] POST /process - IP: 127.0.0.1:51734 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 01:07:56] POST /process - IP: 127.0.0.1:51734 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 01:12:18] POST /process - IP: 127.0.0.1:41752 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 01:12:18] POST /process - IP: 127.0.0.1:41752 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 01:12:21] POST /process - IP: 127.0.0.1:41752 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 01:12:21] POST /process - IP: 127.0.0.1:41752 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 01:12:26] POST /process - IP: 127.0.0.1:41752 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 01:12:26] POST /process - IP: 127.0.0.1:41752 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 01:14:46] POST /process - IP: 127.0.0.1:38250 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 01:14:46] POST /process - IP: 127.0.0.1:38250 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 01:14:51] POST /process - IP: 127.0.0.1:38250 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 01:14:51] POST /process - IP: 127.0.0.1:38250 - Esito: Output restituito: heuristicMiner_output.pnml
+[2025-07-15 07:30:50] POST /process - IP: 127.0.0.1:50852 - Esito: Processing eseguito con algoritmo HeuristicMiner
+[2025-07-15 07:30:50] POST /process - IP: 127.0.0.1:50852 - Esito: Output restituito: heuristicMiner_output.pnml

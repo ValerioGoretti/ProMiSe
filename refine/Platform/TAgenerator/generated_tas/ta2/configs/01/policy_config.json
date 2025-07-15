@@ -1,0 +1,73 @@
+{
+  "policies": [
+    {
+      "log_file": "sepsis.xes",
+      "logUsageRules": {
+        "logExpiration": "2025-12-31T23:59:59+00:00",
+        "maxAccessCount": 7,
+        "allowedLocations": [
+          "it"
+        ],
+        "accessControlRules": [
+          "agenas"
+        ],
+        "attributeExclusionRules": {
+          "scope": "event",
+          "eventAttribute": "concept:name",
+          "excludedAttributes": [
+            "Leucocytes"
+          ]
+        },
+        "allowedTimeRange": {
+          "eventAttribute": "time:timestamp",
+          "startDate": "2004-01-01T00:00:00+00:00",
+          "endDate": "2035-01-01T00:00:00+00:00"
+        },
+        "semanticLogConstraints": {
+          "eventAttribute": "concept:name",
+          "mustInclude": [
+            "CRP"
+          ],
+          "mustExclude": [
+            "A1"
+          ]
+        }
+      },
+      "outputRules": {
+        "outputExpiration": "2025-12-31T23:59:59+00:00",
+        "maxAccessCount": 7,
+        "allowedLocations": [
+          "fr",
+          "it"
+        ],
+        "accessControlRules": [
+          "pub3"
+        ],
+        "allowedTimeRange": {
+          "eventAttribute": "time:timestamp",
+          "startDate": "2020-01-01T00:00:00+00:00",
+          "endDate": "2025-01-01T00:00:00+00:00"
+        }
+      },
+      "processingRules": {
+        "accessControlRules": [
+          "agenas"
+        ],
+        "allowedLocations": [
+          "es"
+        ],
+        "allowedTechniques": [
+          {
+            "techniqueType": "AutomatedDiscovery",
+            "algorithm": "HeuristicMiner"
+          },
+          {
+            "techniqueType": "AutomatedDiscovery",
+            "algorithm": "AlphaMiner"
+          }
+        ]
+      },
+      "last_updated": "2025-07-12T12:58:08"
+    }
+  ]
+}

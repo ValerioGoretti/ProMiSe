@@ -157,6 +157,15 @@ func HandleLogAccess(w http.ResponseWriter, r *http.Request) {
 }
 
 func HandleProcessing(w http.ResponseWriter, r *http.Request) {
+	err := clearFile("configs/01/heuristicMinerMetadata/dependencyMatrix.json")
+	if err != nil {
+		return
+	}
+	err = writeEmptyJSON("configs/01/heuristicMinerMetadata/map.json")
+	if err != nil {
+		return
+	}
+	test.STOPMONITORING = false
 	go test.PrintRamUsage()
 	if r.Method != http.MethodPost {
 		http.Error(w, "Metodo non consentito", http.StatusMethodNotAllowed)
@@ -252,13 +261,19 @@ func HandleProcessing(w http.ResponseWriter, r *http.Request) {
 
 	_ = config.WriteAuditLogFromRequest(payload.ConfigID, r, "Output restituito: "+filepath.Base(outputFilePath))
 
+	var teeSignedLog []byte
 	filteredByteArrayhash := sha256.Sum256(data)
-	teeSignedLog, err := enclave.GetRemoteReport(filteredByteArrayhash[:])
-	if err != nil {
-		fmt.Println("[DEBUG] Errore ottenimento remote report:", err)
-		http.Error(w, "Errore ottenimento remote report", http.StatusInternalServerError)
-		return
+	if !test.TEE {
+		teeSignedLog = []byte{}
+	} else {
+		teeSignedLog, err = enclave.GetRemoteReport(filteredByteArrayhash[:])
+		if err != nil {
+			fmt.Println("[DEBUG] Errore ottenimento remote report:", err)
+			http.Error(w, "Errore ottenimento remote report", http.StatusInternalServerError)
+			return
+		}
 	}
+
 	encodedTeeSignedOutput := base64.StdEncoding.EncodeToString(teeSignedLog)
 	//encodedOutput := base64.StdEncoding.EncodeToString(data)
 
@@ -445,4 +460,11 @@ func signResult(result []byte) (report []byte) {
 		return
 	}
 	return report
+}
+
+func clearFile(filePath string) error {
+	return os.WriteFile(filePath, []byte{}, 0644)
+}
+func writeEmptyJSON(filePath string) error {
+	return os.WriteFile(filePath, []byte("{}"), 0644)
 }

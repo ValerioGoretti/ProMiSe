@@ -1,0 +1,2492 @@
+<pnml>
+    <net id="net1">
+        <place id="P1">
+            <name>
+                <text>P1</text>
+            </name>
+        </place>
+        <place id="P2">
+            <name>
+                <text>P2</text>
+            </name>
+        </place>
+        <place id="P3">
+            <name>
+                <text>P3</text>
+            </name>
+        </place>
+        <place id="P4">
+            <name>
+                <text>P4</text>
+            </name>
+        </place>
+        <place id="P5">
+            <name>
+                <text>P5</text>
+            </name>
+        </place>
+        <place id="P6">
+            <name>
+                <text>P6</text>
+            </name>
+        </place>
+        <place id="P7">
+            <name>
+                <text>P7</text>
+            </name>
+        </place>
+        <place id="P8">
+            <name>
+                <text>P8</text>
+            </name>
+        </place>
+        <place id="P9">
+            <name>
+                <text>P9</text>
+            </name>
+        </place>
+        <place id="P10">
+            <name>
+                <text>P10</text>
+            </name>
+        </place>
+        <place id="P11">
+            <name>
+                <text>P11</text>
+            </name>
+        </place>
+        <place id="P12">
+            <name>
+                <text>P12</text>
+            </name>
+        </place>
+        <place id="P13">
+            <name>
+                <text>P13</text>
+            </name>
+        </place>
+        <place id="P14">
+            <name>
+                <text>P14</text>
+            </name>
+        </place>
+        <place id="P15">
+            <name>
+                <text>P15</text>
+            </name>
+        </place>
+        <place id="P16">
+            <name>
+                <text>P16</text>
+            </name>
+        </place>
+        <place id="P17">
+            <name>
+                <text>P17</text>
+            </name>
+        </place>
+        <place id="P18">
+            <name>
+                <text>P18</text>
+            </name>
+        </place>
+        <place id="P19">
+            <name>
+                <text>P19</text>
+            </name>
+        </place>
+        <place id="P20">
+            <name>
+                <text>P20</text>
+            </name>
+        </place>
+        <place id="P21">
+            <name>
+                <text>P21</text>
+            </name>
+        </place>
+        <place id="P22">
+            <name>
+                <text>P22</text>
+            </name>
+        </place>
+        <place id="P23">
+            <name>
+                <text>P23</text>
+            </name>
+        </place>
+        <place id="P24">
+            <name>
+                <text>P24</text>
+            </name>
+        </place>
+        <place id="P25">
+            <name>
+                <text>P25</text>
+            </name>
+        </place>
+        <place id="P26">
+            <name>
+                <text>P26</text>
+            </name>
+        </place>
+        <place id="P27">
+            <name>
+                <text>P27</text>
+            </name>
+        </place>
+        <place id="P28">
+            <name>
+                <text>P28</text>
+            </name>
+        </place>
+        <place id="P29">
+            <name>
+                <text>P29</text>
+            </name>
+        </place>
+        <place id="P30">
+            <name>
+                <text>P30</text>
+            </name>
+        </place>
+        <place id="P31">
+            <name>
+                <text>P31</text>
+            </name>
+        </place>
+        <place id="P32">
+            <name>
+                <text>P32</text>
+            </name>
+        </place>
+        <place id="P33">
+            <name>
+                <text>P33</text>
+            </name>
+        </place>
+        <place id="P34">
+            <name>
+                <text>P34</text>
+            </name>
+        </place>
+        <place id="P35">
+            <name>
+                <text>P35</text>
+            </name>
+        </place>
+        <place id="P36">
+            <name>
+                <text>P36</text>
+            </name>
+        </place>
+        <place id="P37">
+            <name>
+                <text>P37</text>
+            </name>
+        </place>
+        <place id="P38">
+            <name>
+                <text>P38</text>
+            </name>
+        </place>
+        <place id="P39">
+            <name>
+                <text>P39</text>
+            </name>
+        </place>
+        <place id="P40">
+            <name>
+                <text>P40</text>
+            </name>
+        </place>
+        <place id="P41">
+            <name>
+                <text>P41</text>
+            </name>
+        </place>
+        <place id="P42">
+            <name>
+                <text>P42</text>
+            </name>
+        </place>
+        <place id="P43">
+            <name>
+                <text>P43</text>
+            </name>
+        </place>
+        <place id="P44">
+            <name>
+                <text>P44</text>
+            </name>
+        </place>
+        <place id="P45">
+            <name>
+                <text>P45</text>
+            </name>
+        </place>
+        <place id="P46">
+            <name>
+                <text>P46</text>
+            </name>
+        </place>
+        <place id="P47">
+            <name>
+                <text>P47</text>
+            </name>
+        </place>
+        <place id="P48">
+            <name>
+                <text>P48</text>
+            </name>
+        </place>
+        <place id="P49">
+            <name>
+                <text>P49</text>
+            </name>
+        </place>
+        <place id="P50">
+            <name>
+                <text>P50</text>
+            </name>
+        </place>
+        <place id="P51">
+            <name>
+                <text>P51</text>
+            </name>
+        </place>
+        <place id="P52">
+            <name>
+                <text>P52</text>
+            </name>
+        </place>
+        <place id="P53">
+            <name>
+                <text>P53</text>
+            </name>
+        </place>
+        <place id="P54">
+            <name>
+                <text>P54</text>
+            </name>
+        </place>
+        <place id="P55">
+            <name>
+                <text>P55</text>
+            </name>
+        </place>
+        <place id="P56">
+            <name>
+                <text>P56</text>
+            </name>
+        </place>
+        <place id="P57">
+            <name>
+                <text>P57</text>
+            </name>
+        </place>
+        <place id="P58">
+            <name>
+                <text>P58</text>
+            </name>
+        </place>
+        <place id="P59">
+            <name>
+                <text>P59</text>
+            </name>
+        </place>
+        <place id="P60">
+            <name>
+                <text>P60</text>
+            </name>
+        </place>
+        <place id="P61">
+            <name>
+                <text>P61</text>
+            </name>
+        </place>
+        <place id="P62">
+            <name>
+                <text>P62</text>
+            </name>
+        </place>
+        <place id="P63">
+            <name>
+                <text>P63</text>
+            </name>
+        </place>
+        <place id="P64">
+            <name>
+                <text>P64</text>
+            </name>
+        </place>
+        <place id="P65">
+            <name>
+                <text>P65</text>
+            </name>
+        </place>
+        <place id="P66">
+            <name>
+                <text>P66</text>
+            </name>
+        </place>
+        <place id="P67">
+            <name>
+                <text>P67</text>
+            </name>
+        </place>
+        <place id="P68">
+            <name>
+                <text>P68</text>
+            </name>
+        </place>
+        <place id="P69">
+            <name>
+                <text>P69</text>
+            </name>
+        </place>
+        <place id="P70">
+            <name>
+                <text>P70</text>
+            </name>
+        </place>
+        <place id="P71">
+            <name>
+                <text>P71</text>
+            </name>
+        </place>
+        <place id="P72">
+            <name>
+                <text>P72</text>
+            </name>
+        </place>
+        <place id="P73">
+            <name>
+                <text>P73</text>
+            </name>
+        </place>
+        <place id="P74">
+            <name>
+                <text>P74</text>
+            </name>
+        </place>
+        <place id="P75">
+            <name>
+                <text>P75</text>
+            </name>
+        </place>
+        <place id="P76">
+            <name>
+                <text>P76</text>
+            </name>
+        </place>
+        <place id="P77">
+            <name>
+                <text>P77</text>
+            </name>
+        </place>
+        <place id="P78">
+            <name>
+                <text>P78</text>
+            </name>
+        </place>
+        <place id="P79">
+            <name>
+                <text>P79</text>
+            </name>
+        </place>
+        <place id="P80">
+            <name>
+                <text>P80</text>
+            </name>
+        </place>
+        <place id="P81">
+            <name>
+                <text>P81</text>
+            </name>
+        </place>
+        <place id="P82">
+            <name>
+                <text>P82</text>
+            </name>
+        </place>
+        <place id="P83">
+            <name>
+                <text>P83</text>
+            </name>
+        </place>
+        <place id="P84">
+            <name>
+                <text>P84</text>
+            </name>
+        </place>
+        <place id="P85">
+            <name>
+                <text>P85</text>
+            </name>
+        </place>
+        <place id="P86">
+            <name>
+                <text>P86</text>
+            </name>
+        </place>
+        <place id="P87">
+            <name>
+                <text>P87</text>
+            </name>
+        </place>
+        <place id="P88">
+            <name>
+                <text>P88</text>
+            </name>
+        </place>
+        <place id="P89">
+            <name>
+                <text>P89</text>
+            </name>
+        </place>
+        <place id="P90">
+            <name>
+                <text>P90</text>
+            </name>
+        </place>
+        <place id="P91">
+            <name>
+                <text>P91</text>
+            </name>
+        </place>
+        <place id="P92">
+            <name>
+                <text>P92</text>
+            </name>
+        </place>
+        <place id="P93">
+            <name>
+                <text>P93</text>
+            </name>
+        </place>
+        <place id="P94">
+            <name>
+                <text>P94</text>
+            </name>
+        </place>
+        <place id="P95">
+            <name>
+                <text>P95</text>
+            </name>
+        </place>
+        <place id="P96">
+            <name>
+                <text>P96</text>
+            </name>
+        </place>
+        <place id="P97">
+            <name>
+                <text>P97</text>
+            </name>
+        </place>
+        <place id="P98">
+            <name>
+                <text>P98</text>
+            </name>
+        </place>
+        <place id="P99">
+            <name>
+                <text>P99</text>
+            </name>
+        </place>
+        <place id="P100">
+            <name>
+                <text>P100</text>
+            </name>
+        </place>
+        <place id="P0">
+            <name>
+                <text>P0</text>
+            </name>
+        </place>
+        <place id="P101">
+            <name>
+                <text>P101</text>
+            </name>
+        </place>
+        <place id="P102">
+            <name>
+                <text>P102</text>
+            </name>
+        </place>
+        <place id="P103">
+            <name>
+                <text>P103</text>
+            </name>
+        </place>
+        <place id="P104">
+            <name>
+                <text>P104</text>
+            </name>
+        </place>
+        <place id="P105">
+            <name>
+                <text>P105</text>
+            </name>
+        </place>
+        <place id="P106">
+            <name>
+                <text>P106</text>
+            </name>
+        </place>
+        <place id="P107">
+            <name>
+                <text>P107</text>
+            </name>
+        </place>
+        <place id="P108">
+            <name>
+                <text>P108</text>
+            </name>
+        </place>
+        <place id="P109">
+            <name>
+                <text>P109</text>
+            </name>
+        </place>
+        <place id="P110">
+            <name>
+                <text>P110</text>
+            </name>
+        </place>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Unmatched">
+            <name>
+                <text>Unmatched</text>
+            </name>
+        </transition>
+        <transition id="A_FINALIZED">
+            <name>
+                <text>A_FINALIZED</text>
+            </name>
+        </transition>
+        <transition id="Leucocytes">
+            <name>
+                <text>Leucocytes</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="ER_Sepsis_Triage">
+            <name>
+                <text>ER Sepsis Triage</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="ER_Sepsis_Triage">
+            <name>
+                <text>ER Sepsis Triage</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_C">
+            <name>
+                <text>Release C</text>
+            </name>
+        </transition>
+        <transition id="Release_D">
+            <name>
+                <text>Release D</text>
+            </name>
+        </transition>
+        <transition id="Release_E">
+            <name>
+                <text>Release E</text>
+            </name>
+        </transition>
+        <transition id="Release_A">
+            <name>
+                <text>Release A</text>
+            </name>
+        </transition>
+        <transition id="Return_ER">
+            <name>
+                <text>Return ER</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_A">
+            <name>
+                <text>Release A</text>
+            </name>
+        </transition>
+        <transition id="Return_ER">
+            <name>
+                <text>Return ER</text>
+            </name>
+        </transition>
+        <transition id="Release_C">
+            <name>
+                <text>Release C</text>
+            </name>
+        </transition>
+        <transition id="Release_D">
+            <name>
+                <text>Release D</text>
+            </name>
+        </transition>
+        <transition id="Release_E">
+            <name>
+                <text>Release E</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_E">
+            <name>
+                <text>Release E</text>
+            </name>
+        </transition>
+        <transition id="Release_A">
+            <name>
+                <text>Release A</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_C">
+            <name>
+                <text>Release C</text>
+            </name>
+        </transition>
+        <transition id="Release_D">
+            <name>
+                <text>Release D</text>
+            </name>
+        </transition>
+        <transition id="Return_ER">
+            <name>
+                <text>Return ER</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_C">
+            <name>
+                <text>Release C</text>
+            </name>
+        </transition>
+        <transition id="Release_D">
+            <name>
+                <text>Release D</text>
+            </name>
+        </transition>
+        <transition id="Release_E">
+            <name>
+                <text>Release E</text>
+            </name>
+        </transition>
+        <transition id="A_DECLINED">
+            <name>
+                <text>A_DECLINED</text>
+            </name>
+        </transition>
+        <transition id="A_PARTLYSUBMITTED">
+            <name>
+                <text>A_PARTLYSUBMITTED</text>
+            </name>
+        </transition>
+        <transition id="A_ACCEPTED">
+            <name>
+                <text>A_ACCEPTED</text>
+            </name>
+        </transition>
+        <transition id="A_CANCELLED">
+            <name>
+                <text>A_CANCELLED</text>
+            </name>
+        </transition>
+        <transition id="O_CANCELLED">
+            <name>
+                <text>O_CANCELLED</text>
+            </name>
+        </transition>
+        <transition id="W_Nabellen_offertes">
+            <name>
+                <text>W_Nabellen offertes</text>
+            </name>
+        </transition>
+        <transition id="W_Nabellen_incomplete_dossiers">
+            <name>
+                <text>W_Nabellen incomplete dossiers</text>
+            </name>
+        </transition>
+        <transition id="IV_Liquid">
+            <name>
+                <text>IV Liquid</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="IV_Antibiotics">
+            <name>
+                <text>IV Antibiotics</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="Release_A">
+            <name>
+                <text>Release A</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="IV_Antibiotics">
+            <name>
+                <text>IV Antibiotics</text>
+            </name>
+        </transition>
+        <transition id="Release_A">
+            <name>
+                <text>Release A</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="ER_Registration">
+            <name>
+                <text>ER Registration</text>
+            </name>
+        </transition>
+        <transition id="IV_Liquid">
+            <name>
+                <text>IV Liquid</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="IV_Antibiotics">
+            <name>
+                <text>IV Antibiotics</text>
+            </name>
+        </transition>
+        <transition id="ER_Registration">
+            <name>
+                <text>ER Registration</text>
+            </name>
+        </transition>
+        <transition id="IV_Liquid">
+            <name>
+                <text>IV Liquid</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="ER_Registration">
+            <name>
+                <text>ER Registration</text>
+            </name>
+        </transition>
+        <transition id="IV_Antibiotics">
+            <name>
+                <text>IV Antibiotics</text>
+            </name>
+        </transition>
+        <transition id="ER_Registration">
+            <name>
+                <text>ER Registration</text>
+            </name>
+        </transition>
+        <transition id="ER_Sepsis_Triage">
+            <name>
+                <text>ER Sepsis Triage</text>
+            </name>
+        </transition>
+        <transition id="Release_C">
+            <name>
+                <text>Release C</text>
+            </name>
+        </transition>
+        <transition id="W_Beoordelen_fraude">
+            <name>
+                <text>W_Beoordelen fraude</text>
+            </name>
+        </transition>
+        <transition id="A_PREACCEPTED">
+            <name>
+                <text>A_PREACCEPTED</text>
+            </name>
+        </transition>
+        <transition id="W_Beoordelen_fraude">
+            <name>
+                <text>W_Beoordelen fraude</text>
+            </name>
+        </transition>
+        <transition id="W_Afhandelen_leads">
+            <name>
+                <text>W_Afhandelen leads</text>
+            </name>
+        </transition>
+        <transition id="W_Beoordelen_fraude">
+            <name>
+                <text>W_Beoordelen fraude</text>
+            </name>
+        </transition>
+        <transition id="W_Afhandelen_leads">
+            <name>
+                <text>W_Afhandelen leads</text>
+            </name>
+        </transition>
+        <transition id="LacticAcid">
+            <name>
+                <text>LacticAcid</text>
+            </name>
+        </transition>
+        <transition id="ER_Sepsis_Triage">
+            <name>
+                <text>ER Sepsis Triage</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="ER_Registration">
+            <name>
+                <text>ER Registration</text>
+            </name>
+        </transition>
+        <transition id="ER_Sepsis_Triage">
+            <name>
+                <text>ER Sepsis Triage</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="ER_Registration">
+            <name>
+                <text>ER Registration</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="Release_E">
+            <name>
+                <text>Release E</text>
+            </name>
+        </transition>
+        <transition id="IV_Antibiotics">
+            <name>
+                <text>IV Antibiotics</text>
+            </name>
+        </transition>
+        <transition id="Release_A">
+            <name>
+                <text>Release A</text>
+            </name>
+        </transition>
+        <transition id="Release_E">
+            <name>
+                <text>Release E</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="IV_Liquid">
+            <name>
+                <text>IV Liquid</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_E">
+            <name>
+                <text>Release E</text>
+            </name>
+        </transition>
+        <transition id="IV_Liquid">
+            <name>
+                <text>IV Liquid</text>
+            </name>
+        </transition>
+        <transition id="IV_Antibiotics">
+            <name>
+                <text>IV Antibiotics</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="Release_A">
+            <name>
+                <text>Release A</text>
+            </name>
+        </transition>
+        <transition id="Release_A">
+            <name>
+                <text>Release A</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_E">
+            <name>
+                <text>Release E</text>
+            </name>
+        </transition>
+        <transition id="Release_E">
+            <name>
+                <text>Release E</text>
+            </name>
+        </transition>
+        <transition id="IV_Liquid">
+            <name>
+                <text>IV Liquid</text>
+            </name>
+        </transition>
+        <transition id="Release_A">
+            <name>
+                <text>Release A</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="IV_Antibiotics">
+            <name>
+                <text>IV Antibiotics</text>
+            </name>
+        </transition>
+        <transition id="Release_A">
+            <name>
+                <text>Release A</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_E">
+            <name>
+                <text>Release E</text>
+            </name>
+        </transition>
+        <transition id="A_REGISTERED">
+            <name>
+                <text>A_REGISTERED</text>
+            </name>
+        </transition>
+        <transition id="W_Afhandelen_leads">
+            <name>
+                <text>W_Afhandelen leads</text>
+            </name>
+        </transition>
+        <transition id="W_Afhandelen_leads">
+            <name>
+                <text>W_Afhandelen leads</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="CRP">
+            <name>
+                <text>CRP</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_C">
+            <name>
+                <text>Release C</text>
+            </name>
+        </transition>
+        <transition id="Release_D">
+            <name>
+                <text>Release D</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="Release_A">
+            <name>
+                <text>Release A</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_C">
+            <name>
+                <text>Release C</text>
+            </name>
+        </transition>
+        <transition id="Release_D">
+            <name>
+                <text>Release D</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_C">
+            <name>
+                <text>Release C</text>
+            </name>
+        </transition>
+        <transition id="Release_D">
+            <name>
+                <text>Release D</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="Release_A">
+            <name>
+                <text>Release A</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_C">
+            <name>
+                <text>Release C</text>
+            </name>
+        </transition>
+        <transition id="Release_D">
+            <name>
+                <text>Release D</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="Release_C">
+            <name>
+                <text>Release C</text>
+            </name>
+        </transition>
+        <transition id="Release_A">
+            <name>
+                <text>Release A</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_D">
+            <name>
+                <text>Release D</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_C">
+            <name>
+                <text>Release C</text>
+            </name>
+        </transition>
+        <transition id="Release_D">
+            <name>
+                <text>Release D</text>
+            </name>
+        </transition>
+        <transition id="ER_Sepsis_Triage">
+            <name>
+                <text>ER Sepsis Triage</text>
+            </name>
+        </transition>
+        <transition id="IV_Liquid">
+            <name>
+                <text>IV Liquid</text>
+            </name>
+        </transition>
+        <transition id="IV_Antibiotics">
+            <name>
+                <text>IV Antibiotics</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="IV_Antibiotics">
+            <name>
+                <text>IV Antibiotics</text>
+            </name>
+        </transition>
+        <transition id="ER_Registration">
+            <name>
+                <text>ER Registration</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="Release_A">
+            <name>
+                <text>Release A</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_A">
+            <name>
+                <text>Release A</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="ER_Registration">
+            <name>
+                <text>ER Registration</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_A">
+            <name>
+                <text>Release A</text>
+            </name>
+        </transition>
+        <transition id="ER_Registration">
+            <name>
+                <text>ER Registration</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="ER_Registration">
+            <name>
+                <text>ER Registration</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="Release_A">
+            <name>
+                <text>Release A</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="W_Completeren_aanvraag">
+            <name>
+                <text>W_Completeren aanvraag</text>
+            </name>
+        </transition>
+        <transition id="W_Nabellen_incomplete_dossiers">
+            <name>
+                <text>W_Nabellen incomplete dossiers</text>
+            </name>
+        </transition>
+        <transition id="W_Nabellen_incomplete_dossiers">
+            <name>
+                <text>W_Nabellen incomplete dossiers</text>
+            </name>
+        </transition>
+        <transition id="O_SENT">
+            <name>
+                <text>O_SENT</text>
+            </name>
+        </transition>
+        <transition id="A_ACTIVATED">
+            <name>
+                <text>A_ACTIVATED</text>
+            </name>
+        </transition>
+        <transition id="W_Nabellen_incomplete_dossiers">
+            <name>
+                <text>W_Nabellen incomplete dossiers</text>
+            </name>
+        </transition>
+        <transition id="W_Nabellen_incomplete_dossiers">
+            <name>
+                <text>W_Nabellen incomplete dossiers</text>
+            </name>
+        </transition>
+        <transition id="O_SELECTED">
+            <name>
+                <text>O_SELECTED</text>
+            </name>
+        </transition>
+        <transition id="O_SENT_BACK">
+            <name>
+                <text>O_SENT_BACK</text>
+            </name>
+        </transition>
+        <transition id="O_ACCEPTED">
+            <name>
+                <text>O_ACCEPTED</text>
+            </name>
+        </transition>
+        <transition id="W_Nabellen_incomplete_dossiers">
+            <name>
+                <text>W_Nabellen incomplete dossiers</text>
+            </name>
+        </transition>
+        <transition id="W_Nabellen_incomplete_dossiers">
+            <name>
+                <text>W_Nabellen incomplete dossiers</text>
+            </name>
+        </transition>
+        <transition id="W_Nabellen_incomplete_dossiers">
+            <name>
+                <text>W_Nabellen incomplete dossiers</text>
+            </name>
+        </transition>
+        <transition id="Release_D">
+            <name>
+                <text>Release D</text>
+            </name>
+        </transition>
+        <transition id="Completed">
+            <name>
+                <text>Completed</text>
+            </name>
+        </transition>
+        <transition id="Queued">
+            <name>
+                <text>Queued</text>
+            </name>
+        </transition>
+        <transition id="W_Valideren_aanvraag">
+            <name>
+                <text>W_Valideren aanvraag</text>
+            </name>
+        </transition>
+        <transition id="W_Valideren_aanvraag">
+            <name>
+                <text>W_Valideren aanvraag</text>
+            </name>
+        </transition>
+        <transition id="W_Wijzigen_contractgegevens">
+            <name>
+                <text>W_Wijzigen contractgegevens</text>
+            </name>
+        </transition>
+        <transition id="W_Valideren_aanvraag">
+            <name>
+                <text>W_Valideren aanvraag</text>
+            </name>
+        </transition>
+        <transition id="W_Wijzigen_contractgegevens">
+            <name>
+                <text>W_Wijzigen contractgegevens</text>
+            </name>
+        </transition>
+        <transition id="W_Wijzigen_contractgegevens">
+            <name>
+                <text>W_Wijzigen contractgegevens</text>
+            </name>
+        </transition>
+        <transition id="W_Valideren_aanvraag">
+            <name>
+                <text>W_Valideren aanvraag</text>
+            </name>
+        </transition>
+        <transition id="W_Wijzigen_contractgegevens">
+            <name>
+                <text>W_Wijzigen contractgegevens</text>
+            </name>
+        </transition>
+        <transition id="W_Wijzigen_contractgegevens">
+            <name>
+                <text>W_Wijzigen contractgegevens</text>
+            </name>
+        </transition>
+        <transition id="W_Valideren_aanvraag">
+            <name>
+                <text>W_Valideren aanvraag</text>
+            </name>
+        </transition>
+        <transition id="Return_ER">
+            <name>
+                <text>Return ER</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="ER_Sepsis_Triage">
+            <name>
+                <text>ER Sepsis Triage</text>
+            </name>
+        </transition>
+        <transition id="Return_ER">
+            <name>
+                <text>Return ER</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="Return_ER">
+            <name>
+                <text>Return ER</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="ER_Sepsis_Triage">
+            <name>
+                <text>ER Sepsis Triage</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="Return_ER">
+            <name>
+                <text>Return ER</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="ER_Sepsis_Triage">
+            <name>
+                <text>ER Sepsis Triage</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="Return_ER">
+            <name>
+                <text>Return ER</text>
+            </name>
+        </transition>
+        <transition id="Release_D">
+            <name>
+                <text>Release D</text>
+            </name>
+        </transition>
+        <transition id="Release_E">
+            <name>
+                <text>Release E</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_C">
+            <name>
+                <text>Release C</text>
+            </name>
+        </transition>
+        <transition id="Release_C">
+            <name>
+                <text>Release C</text>
+            </name>
+        </transition>
+        <transition id="Release_D">
+            <name>
+                <text>Release D</text>
+            </name>
+        </transition>
+        <transition id="Release_E">
+            <name>
+                <text>Release E</text>
+            </name>
+        </transition>
+        <transition id="Release_A">
+            <name>
+                <text>Release A</text>
+            </name>
+        </transition>
+        <transition id="IV_Liquid">
+            <name>
+                <text>IV Liquid</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_D">
+            <name>
+                <text>Release D</text>
+            </name>
+        </transition>
+        <transition id="Release_E">
+            <name>
+                <text>Release E</text>
+            </name>
+        </transition>
+        <transition id="IV_Liquid">
+            <name>
+                <text>IV Liquid</text>
+            </name>
+        </transition>
+        <transition id="Release_A">
+            <name>
+                <text>Release A</text>
+            </name>
+        </transition>
+        <transition id="Release_B">
+            <name>
+                <text>Release B</text>
+            </name>
+        </transition>
+        <transition id="Release_C">
+            <name>
+                <text>Release C</text>
+            </name>
+        </transition>
+        <transition id="Return_ER">
+            <name>
+                <text>Return ER</text>
+            </name>
+        </transition>
+        <transition id="Release_D">
+            <name>
+                <text>Release D</text>
+            </name>
+        </transition>
+        <transition id="Release_A">
+            <name>
+                <text>Release A</text>
+            </name>
+        </transition>
+        <transition id="Release_E">
+            <name>
+                <text>Release E</text>
+            </name>
+        </transition>
+        <transition id="Release_C">
+            <name>
+                <text>Release C</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="ER_Registration">
+            <name>
+                <text>ER Registration</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="IV_Antibiotics">
+            <name>
+                <text>IV Antibiotics</text>
+            </name>
+        </transition>
+        <transition id="Admission_NC">
+            <name>
+                <text>Admission NC</text>
+            </name>
+        </transition>
+        <transition id="ER_Registration">
+            <name>
+                <text>ER Registration</text>
+            </name>
+        </transition>
+        <transition id="IV_Antibiotics">
+            <name>
+                <text>IV Antibiotics</text>
+            </name>
+        </transition>
+        <transition id="ER_Registration">
+            <name>
+                <text>ER Registration</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="Release_E">
+            <name>
+                <text>Release E</text>
+            </name>
+        </transition>
+        <transition id="W_Beoordelen_fraude">
+            <name>
+                <text>W_Beoordelen fraude</text>
+            </name>
+        </transition>
+        <transition id="W_Beoordelen_fraude">
+            <name>
+                <text>W_Beoordelen fraude</text>
+            </name>
+        </transition>
+        <transition id="W_Wijzigen_contractgegevens">
+            <name>
+                <text>W_Wijzigen contractgegevens</text>
+            </name>
+        </transition>
+        <transition id="W_Wijzigen_contractgegevens">
+            <name>
+                <text>W_Wijzigen contractgegevens</text>
+            </name>
+        </transition>
+        <transition id="Release_A">
+            <name>
+                <text>Release A</text>
+            </name>
+        </transition>
+        <transition id="O_CREATED">
+            <name>
+                <text>O_CREATED</text>
+            </name>
+        </transition>
+        <transition id="W_Nabellen_incomplete_dossiers">
+            <name>
+                <text>W_Nabellen incomplete dossiers</text>
+            </name>
+        </transition>
+        <transition id="W_Nabellen_offertes">
+            <name>
+                <text>W_Nabellen offertes</text>
+            </name>
+        </transition>
+        <transition id="W_Nabellen_offertes">
+            <name>
+                <text>W_Nabellen offertes</text>
+            </name>
+        </transition>
+        <transition id="W_Nabellen_incomplete_dossiers">
+            <name>
+                <text>W_Nabellen incomplete dossiers</text>
+            </name>
+        </transition>
+        <transition id="W_Completeren_aanvraag">
+            <name>
+                <text>W_Completeren aanvraag</text>
+            </name>
+        </transition>
+        <transition id="W_Completeren_aanvraag">
+            <name>
+                <text>W_Completeren aanvraag</text>
+            </name>
+        </transition>
+        <transition id="W_Completeren_aanvraag">
+            <name>
+                <text>W_Completeren aanvraag</text>
+            </name>
+        </transition>
+        <transition id="W_Completeren_aanvraag">
+            <name>
+                <text>W_Completeren aanvraag</text>
+            </name>
+        </transition>
+        <transition id="ER_Registration">
+            <name>
+                <text>ER Registration</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="ER_Sepsis_Triage">
+            <name>
+                <text>ER Sepsis Triage</text>
+            </name>
+        </transition>
+        <transition id="ER_Triage">
+            <name>
+                <text>ER Triage</text>
+            </name>
+        </transition>
+        <transition id="Admission_IC">
+            <name>
+                <text>Admission IC</text>
+            </name>
+        </transition>
+        <transition id="Accepted">
+            <name>
+                <text>Accepted</text>
+            </name>
+        </transition>
+        <transition id="W_Nabellen_offertes">
+            <name>
+                <text>W_Nabellen offertes</text>
+            </name>
+        </transition>
+        <transition id="W_Nabellen_offertes">
+            <name>
+                <text>W_Nabellen offertes</text>
+            </name>
+        </transition>
+        <transition id="W_Nabellen_offertes">
+            <name>
+                <text>W_Nabellen offertes</text>
+            </name>
+        </transition>
+        <transition id="W_Nabellen_offertes">
+            <name>
+                <text>W_Nabellen offertes</text>
+            </name>
+        </transition>
+        <transition id="A_SUBMITTED">
+            <name>
+                <text>A_SUBMITTED</text>
+            </name>
+        </transition>
+        <transition id="W_Nabellen_incomplete_dossiers">
+            <name>
+                <text>W_Nabellen incomplete dossiers</text>
+            </name>
+        </transition>
+        <transition id="W_Nabellen_offertes">
+            <name>
+                <text>W_Nabellen offertes</text>
+            </name>
+        </transition>
+        <transition id="W_Completeren_aanvraag">
+            <name>
+                <text>W_Completeren aanvraag</text>
+            </name>
+        </transition>
+        <transition id="W_Valideren_aanvraag">
+            <name>
+                <text>W_Valideren aanvraag</text>
+            </name>
+        </transition>
+        <transition id="W_Completeren_aanvraag">
+            <name>
+                <text>W_Completeren aanvraag</text>
+            </name>
+        </transition>
+        <transition id="W_Nabellen_offertes">
+            <name>
+                <text>W_Nabellen offertes</text>
+            </name>
+        </transition>
+        <transition id="W_Nabellen_incomplete_dossiers">
+            <name>
+                <text>W_Nabellen incomplete dossiers</text>
+            </name>
+        </transition>
+        <transition id="W_Completeren_aanvraag">
+            <name>
+                <text>W_Completeren aanvraag</text>
+            </name>
+        </transition>
+        <transition id="W_Nabellen_incomplete_dossiers">
+            <name>
+                <text>W_Nabellen incomplete dossiers</text>
+            </name>
+        </transition>
+        <transition id="W_Valideren_aanvraag">
+            <name>
+                <text>W_Valideren aanvraag</text>
+            </name>
+        </transition>
+        <transition id="W_Nabellen_incomplete_dossiers">
+            <name>
+                <text>W_Nabellen incomplete dossiers</text>
+            </name>
+        </transition>
+        <transition id="W_Valideren_aanvraag">
+            <name>
+                <text>W_Valideren aanvraag</text>
+            </name>
+        </transition>
+        <transition id="W_Nabellen_offertes">
+            <name>
+                <text>W_Nabellen offertes</text>
+            </name>
+        </transition>
+        <arc id="A1" source="Release_B" target="P1"></arc>
+        <arc id="A2" source="P2" target="Leucocytes"></arc>
+        <arc id="A3" source="Admission_NC" target="P2"></arc>
+        <arc id="A4" source="Admission_IC" target="P2"></arc>
+        <arc id="A5" source="ER_Sepsis_Triage" target="P2"></arc>
+        <arc id="A6" source="ER_Triage" target="P2"></arc>
+        <arc id="A7" source="P3" target="Leucocytes"></arc>
+        <arc id="A8" source="Admission_NC" target="P3"></arc>
+        <arc id="A9" source="ER_Sepsis_Triage" target="P3"></arc>
+        <arc id="A10" source="Admission_IC" target="P3"></arc>
+        <arc id="A11" source="P4" target="Leucocytes"></arc>
+        <arc id="A12" source="ER_Triage" target="P4"></arc>
+        <arc id="A13" source="Admission_IC" target="P4"></arc>
+        <arc id="A14" source="Admission_NC" target="P4"></arc>
+        <arc id="A15" source="Leucocytes" target="P5"></arc>
+        <arc id="A16" source="P5" target="Release_B"></arc>
+        <arc id="A17" source="P5" target="Release_C"></arc>
+        <arc id="A18" source="P5" target="Release_D"></arc>
+        <arc id="A19" source="P5" target="Release_E"></arc>
+        <arc id="A20" source="P5" target="Release_A"></arc>
+        <arc id="A21" source="Leucocytes" target="P6"></arc>
+        <arc id="A22" source="P6" target="Return_ER"></arc>
+        <arc id="A23" source="P6" target="Release_B"></arc>
+        <arc id="A24" source="P6" target="Leucocytes"></arc>
+        <arc id="A25" source="Leucocytes" target="P7"></arc>
+        <arc id="A26" source="P7" target="Release_A"></arc>
+        <arc id="A27" source="P7" target="Return_ER"></arc>
+        <arc id="A28" source="P7" target="Release_C"></arc>
+        <arc id="A29" source="P7" target="Release_D"></arc>
+        <arc id="A30" source="P7" target="Release_E"></arc>
+        <arc id="A31" source="P7" target="Leucocytes"></arc>
+        <arc id="A32" source="P7" target="Release_B"></arc>
+        <arc id="A33" source="Leucocytes" target="P8"></arc>
+        <arc id="A34" source="P8" target="Leucocytes"></arc>
+        <arc id="A35" source="P8" target="Release_E"></arc>
+        <arc id="A36" source="P8" target="Release_A"></arc>
+        <arc id="A37" source="P8" target="Release_B"></arc>
+        <arc id="A38" source="P8" target="Release_C"></arc>
+        <arc id="A39" source="P8" target="Release_D"></arc>
+        <arc id="A40" source="Leucocytes" target="P9"></arc>
+        <arc id="A41" source="P9" target="Leucocytes"></arc>
+        <arc id="A42" source="P9" target="Return_ER"></arc>
+        <arc id="A43" source="P9" target="Release_B"></arc>
+        <arc id="A44" source="P9" target="Release_C"></arc>
+        <arc id="A45" source="P9" target="Release_D"></arc>
+        <arc id="A46" source="P9" target="Release_E"></arc>
+        <arc id="A47" source="P10" target="A_DECLINED"></arc>
+        <arc id="A48" source="A_PARTLYSUBMITTED" target="P10"></arc>
+        <arc id="A49" source="A_ACCEPTED" target="P10"></arc>
+        <arc id="A50" source="A_DECLINED" target="P11"></arc>
+        <arc id="A51" source="A_CANCELLED" target="P12"></arc>
+        <arc id="A52" source="P13" target="O_CANCELLED"></arc>
+        <arc id="A53" source="W_Nabellen_offertes" target="P13"></arc>
+        <arc id="A54" source="W_Nabellen_incomplete_dossiers" target="P13"></arc>
+        <arc id="A55" source="IV_Liquid" target="P14"></arc>
+        <arc id="A56" source="P14" target="ER_Triage"></arc>
+        <arc id="A57" source="P14" target="IV_Antibiotics"></arc>
+        <arc id="A58" source="P14" target="Admission_NC"></arc>
+        <arc id="A59" source="P14" target="Release_A"></arc>
+        <arc id="A60" source="P14" target="Admission_IC"></arc>
+        <arc id="A61" source="P14" target="Release_B"></arc>
+        <arc id="A62" source="IV_Liquid" target="P15"></arc>
+        <arc id="A63" source="P15" target="Release_B"></arc>
+        <arc id="A64" source="P15" target="ER_Triage"></arc>
+        <arc id="A65" source="P15" target="IV_Antibiotics"></arc>
+        <arc id="A66" source="P15" target="Release_A"></arc>
+        <arc id="A67" source="P15" target="Admission_IC"></arc>
+        <arc id="A68" source="IV_Liquid" target="P16"></arc>
+        <arc id="A69" source="P16" target="Admission_NC"></arc>
+        <arc id="A70" source="P16" target="ER_Triage"></arc>
+        <arc id="A71" source="P17" target="ER_Triage"></arc>
+        <arc id="A72" source="ER_Registration" target="P17"></arc>
+        <arc id="A73" source="IV_Liquid" target="P17"></arc>
+        <arc id="A74" source="P18" target="ER_Triage"></arc>
+        <arc id="A75" source="Admission_NC" target="P18"></arc>
+        <arc id="A76" source="IV_Antibiotics" target="P18"></arc>
+        <arc id="A77" source="ER_Registration" target="P18"></arc>
+        <arc id="A78" source="IV_Liquid" target="P18"></arc>
+        <arc id="A79" source="P19" target="ER_Triage"></arc>
+        <arc id="A80" source="Admission_NC" target="P19"></arc>
+        <arc id="A81" source="ER_Registration" target="P19"></arc>
+        <arc id="A82" source="P20" target="ER_Triage"></arc>
+        <arc id="A83" source="IV_Antibiotics" target="P20"></arc>
+        <arc id="A84" source="ER_Registration" target="P20"></arc>
+        <arc id="A85" source="ER_Triage" target="P21"></arc>
+        <arc id="A86" source="P21" target="ER_Sepsis_Triage"></arc>
+        <arc id="A87" source="A_PARTLYSUBMITTED" target="P22"></arc>
+        <arc id="A88" source="P22" target="W_Beoordelen_fraude"></arc>
+        <arc id="A89" source="P22" target="A_DECLINED"></arc>
+        <arc id="A90" source="P22" target="A_PREACCEPTED"></arc>
+        <arc id="A91" source="A_PARTLYSUBMITTED" target="P23"></arc>
+        <arc id="A92" source="P23" target="W_Beoordelen_fraude"></arc>
+        <arc id="A93" source="P23" target="W_Afhandelen_leads"></arc>
+        <arc id="A94" source="A_PARTLYSUBMITTED" target="P24"></arc>
+        <arc id="A95" source="P24" target="W_Beoordelen_fraude"></arc>
+        <arc id="A96" source="P24" target="A_PREACCEPTED"></arc>
+        <arc id="A97" source="P24" target="A_DECLINED"></arc>
+        <arc id="A98" source="P24" target="W_Afhandelen_leads"></arc>
+        <arc id="A99" source="P25" target="LacticAcid"></arc>
+        <arc id="A100" source="ER_Sepsis_Triage" target="P25"></arc>
+        <arc id="A101" source="ER_Triage" target="P25"></arc>
+        <arc id="A102" source="Admission_IC" target="P25"></arc>
+        <arc id="A103" source="ER_Registration" target="P25"></arc>
+        <arc id="A104" source="P26" target="LacticAcid"></arc>
+        <arc id="A105" source="ER_Sepsis_Triage" target="P26"></arc>
+        <arc id="A106" source="Admission_IC" target="P26"></arc>
+        <arc id="A107" source="ER_Registration" target="P26"></arc>
+        <arc id="A108" source="P27" target="LacticAcid"></arc>
+        <arc id="A109" source="Admission_IC" target="P27"></arc>
+        <arc id="A110" source="ER_Triage" target="P27"></arc>
+        <arc id="A111" source="LacticAcid" target="P28"></arc>
+        <arc id="A112" source="P28" target="Admission_NC"></arc>
+        <arc id="A113" source="P28" target="Release_E"></arc>
+        <arc id="A114" source="LacticAcid" target="P29"></arc>
+        <arc id="A115" source="P29" target="IV_Antibiotics"></arc>
+        <arc id="A116" source="P29" target="Release_A"></arc>
+        <arc id="A117" source="P29" target="Release_E"></arc>
+        <arc id="A118" source="P29" target="Release_B"></arc>
+        <arc id="A119" source="P29" target="LacticAcid"></arc>
+        <arc id="A120" source="P29" target="IV_Liquid"></arc>
+        <arc id="A121" source="LacticAcid" target="P30"></arc>
+        <arc id="A122" source="P30" target="Release_B"></arc>
+        <arc id="A123" source="P30" target="Release_E"></arc>
+        <arc id="A124" source="P30" target="LacticAcid"></arc>
+        <arc id="A125" source="P30" target="IV_Liquid"></arc>
+        <arc id="A126" source="P30" target="IV_Antibiotics"></arc>
+        <arc id="A127" source="P30" target="Admission_NC"></arc>
+        <arc id="A128" source="P30" target="Release_A"></arc>
+        <arc id="A129" source="LacticAcid" target="P31"></arc>
+        <arc id="A130" source="P31" target="Release_A"></arc>
+        <arc id="A131" source="P31" target="Release_B"></arc>
+        <arc id="A132" source="P31" target="Release_E"></arc>
+        <arc id="A133" source="P31" target="LacticAcid"></arc>
+        <arc id="A134" source="LacticAcid" target="P32"></arc>
+        <arc id="A135" source="P32" target="Release_E"></arc>
+        <arc id="A136" source="P32" target="IV_Liquid"></arc>
+        <arc id="A137" source="P32" target="Release_A"></arc>
+        <arc id="A138" source="P32" target="Release_B"></arc>
+        <arc id="A139" source="LacticAcid" target="P33"></arc>
+        <arc id="A140" source="P33" target="IV_Antibiotics"></arc>
+        <arc id="A141" source="P33" target="Release_A"></arc>
+        <arc id="A142" source="P33" target="Release_B"></arc>
+        <arc id="A143" source="P33" target="Release_E"></arc>
+        <arc id="A144" source="W_Afhandelen_leads" target="P34"></arc>
+        <arc id="A145" source="P34" target="A_PREACCEPTED"></arc>
+        <arc id="A146" source="W_Afhandelen_leads" target="P35"></arc>
+        <arc id="A147" source="P35" target="W_Afhandelen_leads"></arc>
+        <arc id="A148" source="Admission_NC" target="P36"></arc>
+        <arc id="A149" source="P36" target="CRP"></arc>
+        <arc id="A150" source="P36" target="Release_B"></arc>
+        <arc id="A151" source="P36" target="Release_C"></arc>
+        <arc id="A152" source="P36" target="Release_D"></arc>
+        <arc id="A153" source="Admission_NC" target="P37"></arc>
+        <arc id="A154" source="P37" target="ER_Triage"></arc>
+        <arc id="A155" source="P37" target="Admission_NC"></arc>
+        <arc id="A156" source="P37" target="Release_A"></arc>
+        <arc id="A157" source="P37" target="Admission_IC"></arc>
+        <arc id="A158" source="P37" target="Release_B"></arc>
+        <arc id="A159" source="P37" target="Release_C"></arc>
+        <arc id="A160" source="P37" target="Release_D"></arc>
+        <arc id="A161" source="Admission_NC" target="P38"></arc>
+        <arc id="A162" source="P38" target="Admission_NC"></arc>
+        <arc id="A163" source="P38" target="ER_Triage"></arc>
+        <arc id="A164" source="P38" target="Release_B"></arc>
+        <arc id="A165" source="P38" target="Release_C"></arc>
+        <arc id="A166" source="P38" target="Release_D"></arc>
+        <arc id="A167" source="Admission_NC" target="P39"></arc>
+        <arc id="A168" source="P39" target="ER_Triage"></arc>
+        <arc id="A169" source="P39" target="Release_A"></arc>
+        <arc id="A170" source="P39" target="Release_B"></arc>
+        <arc id="A171" source="P39" target="Release_C"></arc>
+        <arc id="A172" source="P39" target="Release_D"></arc>
+        <arc id="A173" source="P39" target="Admission_IC"></arc>
+        <arc id="A174" source="Admission_NC" target="P40"></arc>
+        <arc id="A175" source="P40" target="Release_C"></arc>
+        <arc id="A176" source="P40" target="CRP"></arc>
+        <arc id="A177" source="P40" target="Release_A"></arc>
+        <arc id="A178" source="P40" target="Admission_NC"></arc>
+        <arc id="A179" source="P40" target="Admission_IC"></arc>
+        <arc id="A180" source="P40" target="Release_B"></arc>
+        <arc id="A181" source="P40" target="Leucocytes"></arc>
+        <arc id="A182" source="P40" target="Release_D"></arc>
+        <arc id="A183" source="P40" target="ER_Triage"></arc>
+        <arc id="A184" source="Admission_NC" target="P41"></arc>
+        <arc id="A185" source="P41" target="Leucocytes"></arc>
+        <arc id="A186" source="P41" target="Release_B"></arc>
+        <arc id="A187" source="P41" target="Release_C"></arc>
+        <arc id="A188" source="P41" target="Release_D"></arc>
+        <arc id="A189" source="ER_Sepsis_Triage" target="P42"></arc>
+        <arc id="A190" source="P42" target="IV_Liquid"></arc>
+        <arc id="A191" source="ER_Sepsis_Triage" target="P43"></arc>
+        <arc id="A192" source="P43" target="IV_Antibiotics"></arc>
+        <arc id="A193" source="ER_Sepsis_Triage" target="P44"></arc>
+        <arc id="A194" source="P44" target="Admission_NC"></arc>
+        <arc id="A195" source="IV_Antibiotics" target="P45"></arc>
+        <arc id="A196" source="P45" target="ER_Registration"></arc>
+        <arc id="A197" source="P45" target="Admission_NC"></arc>
+        <arc id="A198" source="P45" target="Release_A"></arc>
+        <arc id="A199" source="P45" target="Admission_IC"></arc>
+        <arc id="A200" source="P45" target="Release_B"></arc>
+        <arc id="A201" source="IV_Antibiotics" target="P46"></arc>
+        <arc id="A202" source="P46" target="Release_A"></arc>
+        <arc id="A203" source="P46" target="Admission_IC"></arc>
+        <arc id="A204" source="P46" target="Release_B"></arc>
+        <arc id="A205" source="P46" target="ER_Triage"></arc>
+        <arc id="A206" source="P46" target="Admission_NC"></arc>
+        <arc id="A207" source="IV_Antibiotics" target="P47"></arc>
+        <arc id="A208" source="P47" target="Admission_NC"></arc>
+        <arc id="A209" source="P47" target="ER_Registration"></arc>
+        <arc id="A210" source="P47" target="ER_Triage"></arc>
+        <arc id="A211" source="P47" target="Admission_IC"></arc>
+        <arc id="A212" source="P47" target="Release_B"></arc>
+        <arc id="A213" source="IV_Antibiotics" target="P48"></arc>
+        <arc id="A214" source="P48" target="Admission_IC"></arc>
+        <arc id="A215" source="P48" target="Release_B"></arc>
+        <arc id="A216" source="P48" target="Release_A"></arc>
+        <arc id="A217" source="P48" target="ER_Registration"></arc>
+        <arc id="A218" source="P48" target="ER_Triage"></arc>
+        <arc id="A219" source="IV_Antibiotics" target="P49"></arc>
+        <arc id="A220" source="P49" target="Release_B"></arc>
+        <arc id="A221" source="P49" target="ER_Registration"></arc>
+        <arc id="A222" source="P49" target="ER_Triage"></arc>
+        <arc id="A223" source="P49" target="Admission_NC"></arc>
+        <arc id="A224" source="P49" target="Release_A"></arc>
+        <arc id="A225" source="P49" target="Admission_IC"></arc>
+        <arc id="A226" source="A_PREACCEPTED" target="P50"></arc>
+        <arc id="A227" source="P50" target="W_Completeren_aanvraag"></arc>
+        <arc id="A228" source="P51" target="W_Nabellen_incomplete_dossiers"></arc>
+        <arc id="A229" source="W_Nabellen_incomplete_dossiers" target="P51"></arc>
+        <arc id="A230" source="O_SENT" target="P51"></arc>
+        <arc id="A231" source="A_REGISTERED" target="P51"></arc>
+        <arc id="A232" source="P52" target="W_Nabellen_incomplete_dossiers"></arc>
+        <arc id="A233" source="A_ACTIVATED" target="P52"></arc>
+        <arc id="A234" source="W_Nabellen_incomplete_dossiers" target="P52"></arc>
+        <arc id="A235" source="O_SENT" target="P52"></arc>
+        <arc id="A236" source="P53" target="W_Nabellen_incomplete_dossiers"></arc>
+        <arc id="A237" source="O_SENT" target="P53"></arc>
+        <arc id="A238" source="W_Nabellen_incomplete_dossiers" target="P53"></arc>
+        <arc id="A239" source="A_REGISTERED" target="P53"></arc>
+        <arc id="A240" source="A_ACTIVATED" target="P53"></arc>
+        <arc id="A241" source="W_Nabellen_incomplete_dossiers" target="P54"></arc>
+        <arc id="A242" source="P54" target="O_SELECTED"></arc>
+        <arc id="A243" source="P54" target="O_SENT_BACK"></arc>
+        <arc id="A244" source="P54" target="O_ACCEPTED"></arc>
+        <arc id="A245" source="P54" target="W_Nabellen_incomplete_dossiers"></arc>
+        <arc id="A246" source="W_Nabellen_incomplete_dossiers" target="P55"></arc>
+        <arc id="A247" source="P55" target="O_SELECTED"></arc>
+        <arc id="A248" source="P55" target="O_SENT_BACK"></arc>
+        <arc id="A249" source="P55" target="O_ACCEPTED"></arc>
+        <arc id="A250" source="P55" target="O_CANCELLED"></arc>
+        <arc id="A251" source="P55" target="W_Nabellen_incomplete_dossiers"></arc>
+        <arc id="A252" source="W_Nabellen_incomplete_dossiers" target="P56"></arc>
+        <arc id="A253" source="P56" target="O_CANCELLED"></arc>
+        <arc id="A254" source="P56" target="O_SENT_BACK"></arc>
+        <arc id="A255" source="P56" target="O_ACCEPTED"></arc>
+        <arc id="A256" source="P56" target="W_Nabellen_incomplete_dossiers"></arc>
+        <arc id="A257" source="Completed" target="P57"></arc>
+        <arc id="A258" source="P57" target="Unmatched"></arc>
+        <arc id="A259" source="P57" target="Queued"></arc>
+        <arc id="A260" source="P57" target="Completed"></arc>
+        <arc id="A261" source="P58" target="W_Valideren_aanvraag"></arc>
+        <arc id="A262" source="A_REGISTERED" target="P58"></arc>
+        <arc id="A263" source="O_SENT_BACK" target="P58"></arc>
+        <arc id="A264" source="P59" target="W_Valideren_aanvraag"></arc>
+        <arc id="A265" source="A_ACTIVATED" target="P59"></arc>
+        <arc id="A266" source="O_SENT_BACK" target="P59"></arc>
+        <arc id="A267" source="P60" target="W_Valideren_aanvraag"></arc>
+        <arc id="A268" source="A_REGISTERED" target="P60"></arc>
+        <arc id="A269" source="A_ACTIVATED" target="P60"></arc>
+        <arc id="A270" source="O_SENT_BACK" target="P60"></arc>
+        <arc id="A271" source="W_Valideren_aanvraag" target="P61"></arc>
+        <arc id="A272" source="P61" target="O_SELECTED"></arc>
+        <arc id="A273" source="P61" target="W_Valideren_aanvraag"></arc>
+        <arc id="A274" source="P61" target="O_ACCEPTED"></arc>
+        <arc id="A275" source="P61" target="W_Wijzigen_contractgegevens"></arc>
+        <arc id="A276" source="W_Valideren_aanvraag" target="P62"></arc>
+        <arc id="A277" source="P62" target="W_Valideren_aanvraag"></arc>
+        <arc id="A278" source="P62" target="O_SELECTED"></arc>
+        <arc id="A279" source="P62" target="O_CANCELLED"></arc>
+        <arc id="A280" source="P62" target="W_Wijzigen_contractgegevens"></arc>
+        <arc id="A281" source="W_Valideren_aanvraag" target="P63"></arc>
+        <arc id="A282" source="P63" target="O_ACCEPTED"></arc>
+        <arc id="A283" source="P63" target="O_SELECTED"></arc>
+        <arc id="A284" source="P63" target="O_CANCELLED"></arc>
+        <arc id="A285" source="P63" target="W_Wijzigen_contractgegevens"></arc>
+        <arc id="A286" source="W_Valideren_aanvraag" target="P64"></arc>
+        <arc id="A287" source="P64" target="O_CANCELLED"></arc>
+        <arc id="A288" source="P64" target="W_Valideren_aanvraag"></arc>
+        <arc id="A289" source="P64" target="O_ACCEPTED"></arc>
+        <arc id="A290" source="P64" target="W_Wijzigen_contractgegevens"></arc>
+        <arc id="A291" source="W_Valideren_aanvraag" target="P65"></arc>
+        <arc id="A292" source="P65" target="W_Wijzigen_contractgegevens"></arc>
+        <arc id="A293" source="P65" target="O_SELECTED"></arc>
+        <arc id="A294" source="P65" target="W_Valideren_aanvraag"></arc>
+        <arc id="A295" source="P65" target="O_ACCEPTED"></arc>
+        <arc id="A296" source="P65" target="O_CANCELLED"></arc>
+        <arc id="A297" source="P66" target="CRP"></arc>
+        <arc id="A298" source="Return_ER" target="P66"></arc>
+        <arc id="A299" source="Admission_IC" target="P66"></arc>
+        <arc id="A300" source="Admission_NC" target="P66"></arc>
+        <arc id="A301" source="ER_Sepsis_Triage" target="P66"></arc>
+        <arc id="A302" source="P67" target="CRP"></arc>
+        <arc id="A303" source="Return_ER" target="P67"></arc>
+        <arc id="A304" source="Admission_IC" target="P67"></arc>
+        <arc id="A305" source="Admission_NC" target="P67"></arc>
+        <arc id="A306" source="ER_Triage" target="P67"></arc>
+        <arc id="A307" source="P68" target="CRP"></arc>
+        <arc id="A308" source="Return_ER" target="P68"></arc>
+        <arc id="A309" source="Admission_IC" target="P68"></arc>
+        <arc id="A310" source="Admission_NC" target="P68"></arc>
+        <arc id="A311" source="CRP" target="P68"></arc>
+        <arc id="A312" source="ER_Sepsis_Triage" target="P68"></arc>
+        <arc id="A313" source="ER_Triage" target="P68"></arc>
+        <arc id="A314" source="P69" target="CRP"></arc>
+        <arc id="A315" source="Admission_NC" target="P69"></arc>
+        <arc id="A316" source="Return_ER" target="P69"></arc>
+        <arc id="A317" source="Admission_IC" target="P69"></arc>
+        <arc id="A318" source="ER_Sepsis_Triage" target="P69"></arc>
+        <arc id="A319" source="ER_Triage" target="P69"></arc>
+        <arc id="A320" source="P70" target="CRP"></arc>
+        <arc id="A321" source="CRP" target="P70"></arc>
+        <arc id="A322" source="Return_ER" target="P70"></arc>
+        <arc id="A323" source="CRP" target="P71"></arc>
+        <arc id="A324" source="P71" target="Release_D"></arc>
+        <arc id="A325" source="P71" target="Release_E"></arc>
+        <arc id="A326" source="P71" target="CRP"></arc>
+        <arc id="A327" source="P71" target="Release_B"></arc>
+        <arc id="A328" source="P71" target="Release_C"></arc>
+        <arc id="A329" source="CRP" target="P72"></arc>
+        <arc id="A330" source="P72" target="Release_C"></arc>
+        <arc id="A331" source="P72" target="Release_D"></arc>
+        <arc id="A332" source="P72" target="Release_E"></arc>
+        <arc id="A333" source="P72" target="Release_A"></arc>
+        <arc id="A334" source="P72" target="IV_Liquid"></arc>
+        <arc id="A335" source="P72" target="Release_B"></arc>
+        <arc id="A336" source="CRP" target="P73"></arc>
+        <arc id="A337" source="P73" target="Release_D"></arc>
+        <arc id="A338" source="P73" target="Release_E"></arc>
+        <arc id="A339" source="P73" target="CRP"></arc>
+        <arc id="A340" source="P73" target="IV_Liquid"></arc>
+        <arc id="A341" source="P73" target="Release_A"></arc>
+        <arc id="A342" source="P73" target="Release_B"></arc>
+        <arc id="A343" source="P73" target="Release_C"></arc>
+        <arc id="A344" source="P74" target="Return_ER"></arc>
+        <arc id="A345" source="Release_D" target="P74"></arc>
+        <arc id="A346" source="Release_A" target="P74"></arc>
+        <arc id="A347" source="Release_E" target="P74"></arc>
+        <arc id="A348" source="Release_C" target="P74"></arc>
+        <arc id="A349" source="P75" target="Admission_IC"></arc>
+        <arc id="A350" source="ER_Registration" target="P75"></arc>
+        <arc id="A351" source="Admission_NC" target="P75"></arc>
+        <arc id="A352" source="IV_Antibiotics" target="P75"></arc>
+        <arc id="A353" source="P76" target="Admission_IC"></arc>
+        <arc id="A354" source="Admission_NC" target="P76"></arc>
+        <arc id="A355" source="ER_Registration" target="P76"></arc>
+        <arc id="A356" source="P77" target="Admission_IC"></arc>
+        <arc id="A357" source="IV_Antibiotics" target="P77"></arc>
+        <arc id="A358" source="ER_Registration" target="P77"></arc>
+        <arc id="A359" source="Admission_IC" target="P78"></arc>
+        <arc id="A360" source="P78" target="Admission_IC"></arc>
+        <arc id="A361" source="Queued" target="P79"></arc>
+        <arc id="A362" source="P79" target="Queued"></arc>
+        <arc id="A363" source="W_Beoordelen_fraude" target="P80"></arc>
+        <arc id="A364" source="P80" target="W_Beoordelen_fraude"></arc>
+        <arc id="A365" source="W_Wijzigen_contractgegevens" target="P81"></arc>
+        <arc id="A366" source="P81" target="W_Wijzigen_contractgegevens"></arc>
+        <arc id="A367" source="P82" target="O_CREATED"></arc>
+        <arc id="A368" source="A_FINALIZED" target="P82"></arc>
+        <arc id="A369" source="O_CANCELLED" target="P82"></arc>
+        <arc id="A370" source="O_CREATED" target="P83"></arc>
+        <arc id="A371" source="P83" target="O_SENT"></arc>
+        <arc id="A372" source="O_ACCEPTED" target="P84"></arc>
+        <arc id="A373" source="P84" target="A_REGISTERED"></arc>
+        <arc id="A374" source="O_ACCEPTED" target="P85"></arc>
+        <arc id="A375" source="P85" target="A_ACTIVATED"></arc>
+        <arc id="A376" source="O_SENT" target="P86"></arc>
+        <arc id="A377" source="P86" target="W_Nabellen_incomplete_dossiers"></arc>
+        <arc id="A378" source="P86" target="W_Nabellen_offertes"></arc>
+        <arc id="A379" source="P87" target="O_SENT_BACK"></arc>
+        <arc id="A380" source="W_Nabellen_offertes" target="P87"></arc>
+        <arc id="A381" source="W_Nabellen_incomplete_dossiers" target="P87"></arc>
+        <arc id="A382" source="W_Completeren_aanvraag" target="P88"></arc>
+        <arc id="A383" source="P88" target="W_Completeren_aanvraag"></arc>
+        <arc id="A384" source="P88" target="A_FINALIZED"></arc>
+        <arc id="A385" source="W_Completeren_aanvraag" target="P89"></arc>
+        <arc id="A386" source="P89" target="W_Completeren_aanvraag"></arc>
+        <arc id="A387" source="P89" target="O_SELECTED"></arc>
+        <arc id="A388" source="P89" target="A_FINALIZED"></arc>
+        <arc id="A389" source="W_Completeren_aanvraag" target="P90"></arc>
+        <arc id="A390" source="P90" target="A_ACCEPTED"></arc>
+        <arc id="A391" source="W_Completeren_aanvraag" target="P91"></arc>
+        <arc id="A392" source="P91" target="O_SELECTED"></arc>
+        <arc id="A393" source="P91" target="W_Completeren_aanvraag"></arc>
+        <arc id="A394" source="ER_Registration" target="P92"></arc>
+        <arc id="A395" source="P92" target="ER_Triage"></arc>
+        <arc id="A396" source="P92" target="LacticAcid"></arc>
+        <arc id="A397" source="ER_Registration" target="P93"></arc>
+        <arc id="A398" source="P93" target="LacticAcid"></arc>
+        <arc id="A399" source="P93" target="Admission_IC"></arc>
+        <arc id="A400" source="P93" target="ER_Triage"></arc>
+        <arc id="A401" source="ER_Registration" target="P94"></arc>
+        <arc id="A402" source="P94" target="ER_Sepsis_Triage"></arc>
+        <arc id="A403" source="ER_Registration" target="P95"></arc>
+        <arc id="A404" source="P95" target="ER_Triage"></arc>
+        <arc id="A405" source="P95" target="Admission_IC"></arc>
+        <arc id="A406" source="P96" target="Accepted"></arc>
+        <arc id="A407" source="Unmatched" target="P96"></arc>
+        <arc id="A408" source="Accepted" target="P96"></arc>
+        <arc id="A409" source="Accepted" target="P97"></arc>
+        <arc id="A410" source="P97" target="Completed"></arc>
+        <arc id="A411" source="W_Nabellen_offertes" target="P98"></arc>
+        <arc id="A412" source="P98" target="O_SENT_BACK"></arc>
+        <arc id="A413" source="P98" target="O_SELECTED"></arc>
+        <arc id="A414" source="P98" target="W_Nabellen_offertes"></arc>
+        <arc id="A415" source="W_Nabellen_offertes" target="P99"></arc>
+        <arc id="A416" source="P99" target="O_SENT_BACK"></arc>
+        <arc id="A417" source="P99" target="O_SELECTED"></arc>
+        <arc id="A418" source="P99" target="W_Nabellen_offertes"></arc>
+        <arc id="A419" source="P99" target="O_CANCELLED"></arc>
+        <arc id="A420" source="W_Nabellen_offertes" target="P100"></arc>
+        <arc id="A421" source="P100" target="O_SENT_BACK"></arc>
+        <arc id="A422" source="P100" target="O_CANCELLED"></arc>
+        <arc id="A423" source="P100" target="W_Nabellen_offertes"></arc>
+        <arc id="A424" source="P0" target="A_SUBMITTED"></arc>
+        <arc id="A425" source="A_SUBMITTED" target="P101"></arc>
+        <arc id="A426" source="P101" target="A_PARTLYSUBMITTED"></arc>
+        <arc id="A427" source="P102" target="O_SELECTED"></arc>
+        <arc id="A428" source="A_ACCEPTED" target="P102"></arc>
+        <arc id="A429" source="W_Nabellen_incomplete_dossiers" target="P102"></arc>
+        <arc id="A430" source="W_Nabellen_offertes" target="P102"></arc>
+        <arc id="A431" source="W_Completeren_aanvraag" target="P102"></arc>
+        <arc id="A432" source="P103" target="O_SELECTED"></arc>
+        <arc id="A433" source="W_Valideren_aanvraag" target="P103"></arc>
+        <arc id="A434" source="W_Completeren_aanvraag" target="P103"></arc>
+        <arc id="A435" source="A_ACCEPTED" target="P103"></arc>
+        <arc id="A436" source="P104" target="O_SELECTED"></arc>
+        <arc id="A437" source="W_Nabellen_offertes" target="P104"></arc>
+        <arc id="A438" source="W_Nabellen_incomplete_dossiers" target="P104"></arc>
+        <arc id="A439" source="A_ACCEPTED" target="P104"></arc>
+        <arc id="A440" source="P105" target="O_SELECTED"></arc>
+        <arc id="A441" source="W_Completeren_aanvraag" target="P105"></arc>
+        <arc id="A442" source="W_Nabellen_incomplete_dossiers" target="P105"></arc>
+        <arc id="A443" source="W_Valideren_aanvraag" target="P105"></arc>
+        <arc id="A444" source="P106" target="O_SELECTED"></arc>
+        <arc id="A445" source="A_ACCEPTED" target="P106"></arc>
+        <arc id="A446" source="W_Nabellen_incomplete_dossiers" target="P106"></arc>
+        <arc id="A447" source="W_Valideren_aanvraag" target="P106"></arc>
+        <arc id="A448" source="W_Nabellen_offertes" target="P106"></arc>
+        <arc id="A449" source="O_SELECTED" target="P107"></arc>
+        <arc id="A450" source="P107" target="O_CREATED"></arc>
+        <arc id="A451" source="A_ACCEPTED" target="P108"></arc>
+        <arc id="A452" source="P108" target="A_CANCELLED"></arc>
+        <arc id="A453" source="P108" target="O_SELECTED"></arc>
+        <arc id="A454" source="P108" target="A_FINALIZED"></arc>
+        <arc id="A455" source="P108" target="A_DECLINED"></arc>
+        <arc id="A456" source="A_ACCEPTED" target="P109"></arc>
+        <arc id="A457" source="P109" target="O_SELECTED"></arc>
+        <arc id="A458" source="P109" target="A_DECLINED"></arc>
+        <arc id="A459" source="P109" target="A_CANCELLED"></arc>
+        <arc id="A460" source="A_ACCEPTED" target="P110"></arc>
+        <arc id="A461" source="P110" target="A_FINALIZED"></arc>
+        <arc id="A462" source="P110" target="A_DECLINED"></arc>
+        <arc id="A463" source="P110" target="A_CANCELLED"></arc>
+    </net>
+</pnml>

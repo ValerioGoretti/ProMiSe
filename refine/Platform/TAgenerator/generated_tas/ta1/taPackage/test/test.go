@@ -11,7 +11,7 @@ import (
 )
 
 var STOPMONITORING = false
-var TEST_MODE = false
+var TEE = true
 
 func PrintRamUsage() {
 	var ramList = []int{}
@@ -47,7 +47,8 @@ func WaitUntilStop() {
 }
 
 func saveToCSV(ramList []int, timestampList []int) error {
-	file, err := os.Create("/outputs/test/test" + time.Now().String() + ".csv")
+	testFileName := "/outputs/test/test_" + fmt.Sprint(time.Now().Unix()) + ".csv"
+	file, err := os.Create(testFileName)
 	if err != nil {
 		return err
 	}
@@ -67,6 +68,7 @@ func saveToCSV(ramList []int, timestampList []int) error {
 			return err
 		}
 	}
+	fmt.Println("[TEST SAVED] ", testFileName)
 	return nil
 }
 func getSize(path string) (int64, error) {
