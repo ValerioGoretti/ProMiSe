@@ -1,0 +1,18 @@
+{
+  "Admission IC": 11,
+  "Admission NC": 8,
+  "CRP": 2,
+  "ER Registration": 0,
+  "ER Sepsis Triage": 5,
+  "ER Triage": 4,
+  "IV Antibiotics": 7,
+  "IV Liquid": 6,
+  "LacticAcid": 3,
+  "Leucocytes": 1,
+  "Release A": 9,
+  "Release B": 12,
+  "Release C": 13,
+  "Release D": 14,
+  "Release E": 15,
+  "Return ER": 10
+}

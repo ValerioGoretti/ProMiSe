@@ -6,6 +6,8 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"runtime"
+	"runtime/debug"
 	"ta2/taPackage/test"
 
 	"net/http"
@@ -149,7 +151,14 @@ func HandleLogAccess(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func cleanMemory() {
+	runtime.GC()
+	debug.FreeOSMemory()
+	time.Sleep(3 * time.Second) // breve pausa per assicurare rilascio
+}
+
 func HandleProcessing(w http.ResponseWriter, r *http.Request) {
+	cleanMemory()
 	test.STOPMONITORING = false
 	go test.PrintRamUsage()
 	if r.Method != http.MethodPost {
