@@ -7,6 +7,8 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"runtime"
+	"runtime/debug"
 	"ta1/taPackage/test"
 
 	//"github.com/edgelesssys/ego/ecrypto"
@@ -156,7 +158,14 @@ func HandleLogAccess(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func cleanMemory() {
+	runtime.GC()
+	debug.FreeOSMemory()
+	time.Sleep(3 * time.Second) // breve pausa per assicurare rilascio
+}
+
 func HandleProcessing(w http.ResponseWriter, r *http.Request) {
+	cleanMemory()
 	test.STOPMONITORING = false
 	go test.PrintRamUsage()
 	if r.Method != http.MethodPost {

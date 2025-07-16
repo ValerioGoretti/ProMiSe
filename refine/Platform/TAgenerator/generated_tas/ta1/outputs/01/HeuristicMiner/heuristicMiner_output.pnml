@@ -20,9 +20,9 @@
                 <text>P4</text>
             </name>
         </place>
-        <transition id="Queued">
+        <transition id="Accepted">
             <name>
-                <text>Queued</text>
+                <text>Accepted</text>
             </name>
         </transition>
         <transition id="Unmatched">
@@ -30,26 +30,26 @@
                 <text>Unmatched</text>
             </name>
         </transition>
-        <transition id="Accepted">
-            <name>
-                <text>Accepted</text>
-            </name>
-        </transition>
         <transition id="Completed">
             <name>
                 <text>Completed</text>
             </name>
         </transition>
-        <arc id="A1" source="Queued" target="P1"></arc>
-        <arc id="A2" source="P1" target="Queued"></arc>
-        <arc id="A3" source="P2" target="Accepted"></arc>
-        <arc id="A4" source="Unmatched" target="P2"></arc>
-        <arc id="A5" source="Accepted" target="P2"></arc>
-        <arc id="A6" source="Accepted" target="P3"></arc>
-        <arc id="A7" source="P3" target="Completed"></arc>
-        <arc id="A8" source="Completed" target="P4"></arc>
-        <arc id="A9" source="P4" target="Unmatched"></arc>
-        <arc id="A10" source="P4" target="Queued"></arc>
-        <arc id="A11" source="P4" target="Completed"></arc>
+        <transition id="Queued">
+            <name>
+                <text>Queued</text>
+            </name>
+        </transition>
+        <arc id="A1" source="P1" target="Accepted"></arc>
+        <arc id="A2" source="Unmatched" target="P1"></arc>
+        <arc id="A3" source="Accepted" target="P1"></arc>
+        <arc id="A4" source="Accepted" target="P2"></arc>
+        <arc id="A5" source="P2" target="Completed"></arc>
+        <arc id="A6" source="Completed" target="P3"></arc>
+        <arc id="A7" source="P3" target="Queued"></arc>
+        <arc id="A8" source="P3" target="Completed"></arc>
+        <arc id="A9" source="P3" target="Unmatched"></arc>
+        <arc id="A10" source="Queued" target="P4"></arc>
+        <arc id="A11" source="P4" target="Queued"></arc>
     </net>
 </pnml>
