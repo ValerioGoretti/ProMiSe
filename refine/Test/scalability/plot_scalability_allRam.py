@@ -64,6 +64,11 @@ for log_name, folder in log_folders.items():
     # Salva risultati ordinati
     sorted_x = sorted(average_ram.keys())
     sorted_y = [average_ram[x] for x in sorted_x]
+
+    # Aggiungi il punto (0, 0)
+    sorted_x.insert(0, 0)
+    sorted_y.insert(0, 0.0)
+
     log_ram_data[log_name] = (sorted_x, sorted_y)
 
 # === PLOT ===
@@ -73,11 +78,11 @@ for log_name, (x_vals, y_vals) in log_ram_data.items():
     plt.plot(x_vals, y_vals, marker='o', linewidth=2, markersize=6,
              label=log_name, color=log_colors.get(log_name, None))
     # Aggiungi valori sopra i punti
-    for x, y in zip(x_vals, y_vals):
-        plt.text(x, y + 5, f"{y:.1f}", ha='center', va='bottom', fontsize=10)  # +5 per spaziarli
+    #for x, y in zip(x_vals, y_vals):
+    #    plt.text(x, y + 5, f"{y:.1f}", ha='center', va='bottom', fontsize=10)  # +5 per spaziarli
 
 plt.xlabel("Number of concurrent users")
-plt.ylabel("Average RAM usage (KB)")
+plt.ylabel("Average Memory Usage (KB)")
 plt.grid(True, alpha=0.3)
 plt.xticks(sorted(x_vals))
 
