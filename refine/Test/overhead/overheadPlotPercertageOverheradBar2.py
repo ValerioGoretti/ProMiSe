@@ -55,48 +55,68 @@ for group, files in categories.items():
 labels_display = ["BPIC 2012", "BPIC 2013", "Sepsis"]
 labels_data = ["BPIC12", "BPIC13", "SEPSIS"]
 
+# Valori per ciascun gruppo
 ram_no_tee = [avg_ram_by_group.get(log, 0) for log in labels_data]
 ram_tee = [avg_ram_by_group.get(f"{log}_TEE", 0) for log in labels_data]
 time_no_tee = [avg_time_by_group.get(log, 0) for log in labels_data]
 time_tee = [avg_time_by_group.get(f"{log}_TEE", 0) for log in labels_data]
 
+# Calcolo differenza assoluta e percentuale
+def absolute_overhead(base, tee):
+    return [t - b for b, t in zip(base, tee)]
+
+def percent_overhead(base, tee):
+    return [( (t - b) / b * 100 ) if b != 0 else 0 for b, t in zip(base, tee)]
+
+# Differenza assoluta per l'altezza delle barre
+overhead_ram_abs = absolute_overhead(ram_no_tee, ram_tee)
+overhead_time_abs = absolute_overhead(time_no_tee, time_tee)
+
+# Percentuale per le etichette
+overhead_ram_perc = percent_overhead(ram_no_tee, ram_tee)
+overhead_time_perc = percent_overhead(time_no_tee, time_tee)
+
 # Parametri per barre affiancate
 x = np.arange(len(labels_display))
 width = 0.2
 
-
-def add_bar_labels(bars, offset=0.2):
-    """Aggiunge etichette sopra le barre"""
-    for bar in bars:
+def add_bar_labels(bars, values_for_labels, offset=0.2, percent=False):
+    """Aggiunge etichette sopra le barre usando valori specifici per le etichette"""
+    for bar, value in zip(bars, values_for_labels):
         height = bar.get_height()
+        label = f'{value:.2f}%' if percent else f'{value:.2f}'
         plt.text(bar.get_x() + bar.get_width() / 2, height + offset,
-                 f'{height:.2f}', ha='center', va='bottom', fontsize=10)
+                 label, ha='center', va='bottom', fontsize=16)
 
+def create_comparison_plot(data_no_tee, data_tee, data_overhead_abs, data_overhead_perc,
+                           ylabel, filename, label_offset=0.2, percent_offset=0.2):
+    plt.figure(figsize=(10, 5))
 
-def create_comparison_plot(data_no_tee, data_tee, ylabel, filename, label_offset=0.2):
-    plt.figure(figsize=(8, 5))
+    bars1 = plt.bar(x - 1.3*width, data_no_tee, width, label='Baseline', color='lightblue')
+    bars2 = plt.bar(x, data_tee, width, label='TEE Enabled', color='orange')
+    bars3 = plt.bar(x + 1.3*width, data_overhead_abs, width, label='Overhead (%)', color='grey')
 
-    bars1 = plt.bar(x - width / 2, data_no_tee, width, label='Baseline', color='lightblue')
-    bars2 = plt.bar(x + width / 2, data_tee, width, label='TEE Enabled', color='orange')
-
-    plt.ylabel(ylabel)
+    plt.ylabel(ylabel, fontsize=18)
     plt.xticks(x, labels_display)
     plt.legend(fontsize=18)
     plt.grid(True, axis='y', linestyle='--', alpha=0.7)
 
-    # Aggiungi etichette
-    add_bar_labels(bars1, label_offset)
-    add_bar_labels(bars2, label_offset)
+    add_bar_labels(bars1, data_no_tee, label_offset)
+    add_bar_labels(bars2, data_tee, label_offset)
+    add_bar_labels(bars3, data_overhead_perc, percent_offset, percent=True)
     plt.tick_params(axis='x', labelsize=18)
     plt.tick_params(axis='y', labelsize=18)
     plt.tight_layout()
     plt.savefig(filename)
     plt.show()
 
-
 # Crea i grafici
-create_comparison_plot(ram_no_tee, ram_tee, "Average Memory Usage [Mb]",
-                       "./output/ramOverhead.pdf", 0.2)
+create_comparison_plot(ram_no_tee, ram_tee, overhead_ram_abs, overhead_ram_perc,
+                       "Average Memory Usage [Mb]", "./output/ramOverheadperc2.pdf", 0.2, 0.2)
+create_comparison_plot(ram_no_tee, ram_tee, overhead_ram_abs, overhead_ram_perc,
+                       "Average Memory Usage [Mb]", "./output/ramOverheadperc2.png", 0.2, 0.2)
 
-create_comparison_plot(time_no_tee, time_tee, "Average Duration [ms]",
-                       "./output/timeOverhead.pdf", 5)
+create_comparison_plot(time_no_tee, time_tee, overhead_time_abs, overhead_time_perc,
+                       "Average Duration [ms]", "./output/timeOverheadperc2.pdf", 50, 50)
+create_comparison_plot(time_no_tee, time_tee, overhead_time_abs, overhead_time_perc,
+                       "Average Duration [ms]", "./output/timeOverheadperc2.png", 50, 50)

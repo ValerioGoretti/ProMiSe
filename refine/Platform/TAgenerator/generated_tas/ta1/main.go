@@ -17,32 +17,12 @@ func main() {
 	flag.Parse()
 
 	// Converte la stringa in booleano
-	parsedTEE, errFlag := strconv.ParseBool(*teeStr)
-	if errFlag != nil {
-		fmt.Println("Errore: il valore di --tee deve essere 'true' o 'false'")
-		os.Exit(1)
-	}
-	test.TEE = parsedTEE
-
-	fmt.Println("TEE mode:", test.TEE)
-
-	err := config.LoadMappings("mapping.json")
-	if err != nil {
-		log.Fatal("Errore mapping:", err)
-	}
-
-	http.HandleFunc("/log", rpc.HandleLogAccess)
-	http.HandleFunc("/process", rpc.HandleProcessing)
-	http.HandleFunc("/output", rpc.HandleOutputAccess)
-	http.HandleFunc("/policy", rpc.HandlePolicyInfo)
-	http.HandleFunc("/monitoring", rpc.HandleMonitoring)
-
-	log.Println("Server in ascolto sulla porta 8080...")
-	errList := http.ListenAndServe(":8080", nil)
-	if errList != nil {
+	parsedTEE, errFlag := strconv.ParseBool(*teeStr)\n\tif errFlag != nil {\n\t\tfmt.Println(\"Errore: il valore di --tee deve essere 'true' o 'false'\")\n\t\tos.Exit(1)\n\t}\n\ttest.TEE = parsedTEE\n\n\tfmt.Println(\"TEE mode:\", test.TEE)\n\n\terr := config.LoadMappings(\"mapping.json\")\n\tif err != nil {\n\t\tlog.Fatal(\"Errore mapping:\", err)\n\t}\n\n\thttp.HandleFunc(\"/log\", rpc.HandleLogAccess)\n\thttp.HandleFunc(\"/process\", rpc.HandleProcessing)\n\thttp.HandleFunc(\"/output\", rpc.HandleOutputAccess)\n\thttp.HandleFunc(\"/policy\", rpc.HandlePolicyInfo)\n\thttp.HandleFunc(\"/monitoring\", rpc.HandleMonitoring)\n\n\tlog.Println(\"Server in ascolto sulla porta 8080...")
+		errList := http.ListenAndServe(":8080", nil)
+		if errList != nil{
 		log.Fatalf("Errore nell'avvio del server: %v", errList)
 	}
-}
+	}
 
-// quando inizo la call go test.PrintRamUsage
-//
+	// quando inizo la call go test.PrintRamUsage
+	//

@@ -78,36 +78,37 @@ def add_bar_labels(bars, offset=0.2, percent=False):
         height = bar.get_height()
         label = f'{height:.2f}%' if percent else f'{height:.2f}'
         plt.text(bar.get_x() + bar.get_width() / 2, height + offset,
-                 label, ha='center', va='bottom', fontsize=10)
+                 label, ha='center', va='bottom', fontsize=16)
 
 def create_comparison_plot(data_no_tee, data_tee, data_overhead, ylabel, filename,
                            label_offset=0.2, percent_offset=0.2):
     plt.figure(figsize=(10, 5))
 
-    bars1 = plt.bar(x - width, data_no_tee, width, label='Baseline', color='lightblue')
+    bars1 = plt.bar(x - 1.3*width, data_no_tee, width, label='Baseline', color='lightblue')
     bars2 = plt.bar(x, data_tee, width, label='TEE Enabled', color='orange')
-    bars3 = plt.bar(x + width, data_overhead, width, label='Overhead (%)', color='grey')
+    bars3 = plt.bar(x + 1.3*width, data_overhead, width, label='Overhead (%)', color='grey')
 
-    plt.ylabel(ylabel)
+    plt.ylabel(ylabel, fontsize=18)
     plt.xticks(x, labels_display)
-    plt.legend(fontsize=11)
+    plt.legend(fontsize=18)
     plt.grid(True, axis='y', linestyle='--', alpha=0.7)
 
     add_bar_labels(bars1, label_offset)
     add_bar_labels(bars2, label_offset)
     add_bar_labels(bars3, percent_offset, percent=True)
-
+    plt.tick_params(axis='x', labelsize=18)
+    plt.tick_params(axis='y', labelsize=18)
     plt.tight_layout()
     plt.savefig(filename)
     plt.show()
 
 # Crea i grafici
 create_comparison_plot(ram_no_tee, ram_tee, overhead_ram,
-                       "Average Memory Usage (MB)", "./output/ramOverheadperc.pdf", 0.2, 0.2)
+                       "Average Memory Usage [Mb]", "./output/ramOverheadperc.pdf", 0.2, 0.2)
 create_comparison_plot(ram_no_tee, ram_tee, overhead_ram,
-                       "Average Memory Usage (MB)", "./output/ramOverheadperc.png", 0.2, 0.2)
+                       "Average Memory Usage [Mb]", "./output/ramOverheadperc.png", 0.2, 0.2)
 
 create_comparison_plot(time_no_tee, time_tee, overhead_time,
-                       "Average Duration (ms)", "./output/timeOverheadperc.pdf", 50, 50)
+                       "Average Duration [ms]", "./output/timeOverheadperc.pdf", 50, 50)
 create_comparison_plot(time_no_tee, time_tee, overhead_time,
-                       "Average Duration (ms)", "./output/timeOverheadperc.png", 50, 50)
+                       "Average Duration [ms]", "./output/timeOverheadperc.png", 50, 50)

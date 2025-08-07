@@ -40,6 +40,9 @@ log_colors = {
 # Dizionario per memorizzare i dati di latenza per ogni log
 log_latency_data = {}
 
+# Dizionario per memorizzare i valori di beta hat
+beta_hat_values = {}
+
 for log_name, folder in log_folders.items():
     latency_per_users = defaultdict(list)
 
@@ -87,13 +90,8 @@ for log_name, folder in log_folders.items():
 
     log_latency_data[log_name] = (sorted_x, sorted_avg, sorted_q1, sorted_q3)
 
-# --- Preparo la tabella solo con Log e B̂₁ % decimale ---
-#lines = ["Log           β"]
-lines = []
-
-for log_name, data in log_latency_data.items():
-    x_vals, y_vals, _, _ = data
-
+    # Calcolo beta hat per questo log
+    x_vals, y_vals, _, _ = log_latency_data[log_name]
     x_np = np.array(x_vals[1:]).reshape(-1, 1)
     y_np = np.array(y_vals[1:])
 
@@ -101,10 +99,7 @@ for log_name, data in log_latency_data.items():
     y_pct = y_np / y_np[0]
     model_pct = LinearRegression().fit(x_np, y_pct)
     slope_pct = model_pct.coef_[0]
-    #lines.append(f"{log_name:<10} βhat={slope_pct:.4f}")
-    lines.append(f"{log_name:<10} $\\hat{{\\beta}}$={slope_pct:.4f}")
-
-box_text = "\n".join(lines)
+    beta_hat_values[log_name] = slope_pct
 
 # === PLOT ===
 plt.figure(figsize=(10, 6))
@@ -119,24 +114,20 @@ for log_name, (x_vals, avg_vals, q1_vals, q3_vals) in log_latency_data.items():
     # Banda Q1–Q3
     plt.fill_between(x_vals, q1_vals, q3_vals, color=color, alpha=0.2)
 
-# Box testuale con tabella (solo log e slope decimale)
-# --- Nel plot ---
-props = dict(boxstyle='round', facecolor='white', alpha=0.95, edgecolor='gray')
-plt.text(0.02, 0.46, box_text,
-         transform=plt.gca().transAxes,
-         fontsize=18, verticalalignment='bottom',
-         horizontalalignment='left', bbox=props)
-
-# Legenda linee + banda unica
+# Legenda con beta hat incorporato
 lines_legend = [plt.Line2D([], [], color=log_colors[log], marker='o', linestyle='-')
                 for log in log_latency_data]
-labels_legend = list(log_latency_data.keys())
 
+# Etichette con beta hat
+labels_legend = [f"{log} ($\\hat{{\\beta}}$ = {beta_hat_values[log]:.4f})"
+                 for log in log_latency_data]
+
+# Aggiunta della banda interquartile
 quartile_patch = mpatches.Patch(color='gray', alpha=0.2, label='Interquartile Range (Q1–Q3)')
 lines_legend.append(quartile_patch)
 labels_legend.append('Interquartile Range (Q1–Q3)')
 
-plt.legend(lines_legend, labels_legend, loc='upper left', fontsize=18)
+plt.legend(lines_legend, labels_legend, loc='upper left', fontsize=16)
 plt.xlabel("Number of concurrent users", fontsize=18)
 plt.ylabel("Average response time [ms]", fontsize=18)
 plt.grid(True, alpha=0.3)
@@ -150,6 +141,5 @@ plt.tick_params(axis='x', labelsize=18)  # Dimensione font numeri asse X
 plt.tick_params(axis='y', labelsize=18)  # Dimensione font numeri asse Y
 
 plt.tight_layout()
-#plt.savefig("latency_with_slope_table.pdf", dpi=300)
-plt.savefig("latency_with_slope_tableHat.pdf", dpi=300)
+plt.savefig("latency_with_slope_in_legendR3.pdf", dpi=300)
 plt.show()

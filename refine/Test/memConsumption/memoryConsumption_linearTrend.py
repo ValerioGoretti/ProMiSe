@@ -44,8 +44,8 @@ for i, file_path in enumerate(file_paths):
     plt.plot(df["PercentComplete"], trend_line, linestyle='--', color=colors[i], alpha=0.7)
 
 # Impostazioni del grafico
-plt.xlabel("Run completion percentage (%)")
-plt.ylabel("Memory usage (MB)")
+plt.xlabel("Run completion percentage [%]", fontsize=18)
+plt.ylabel("Memory usage [MB]", fontsize=18)
 #plt.title("Uso della RAM durante i Test + Trend Line")
 
 # Crea un handle fittizio per la trend line tratteggiata
@@ -57,8 +57,9 @@ handles.append(trend_legend)
 labels.append("Linear trend")
 
 # Legenda aggiornata
-plt.legend(handles=handles, labels=labels, fontsize=12)
-
+plt.legend(handles=handles, labels=labels, fontsize=18)
+plt.tick_params(axis='x', labelsize=18)  # Dimensione font numeri asse X
+plt.tick_params(axis='y', labelsize=18)  # Dimensione font numeri asse Y
 plt.grid(True)
 plt.tight_layout()
 plt.savefig("./output/memoryUsageTrend.pdf")

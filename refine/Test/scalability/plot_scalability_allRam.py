@@ -81,14 +81,14 @@ for log_name, (x_vals, y_vals) in log_ram_data.items():
     #for x, y in zip(x_vals, y_vals):
     #    plt.text(x, y + 5, f"{y:.1f}", ha='center', va='bottom', fontsize=10)  # +5 per spaziarli
 
-plt.xlabel("Number of concurrent users")
-plt.ylabel("Average Memory Usage (KB)")
+plt.xlabel("Number of concurrent users", fontsize=18)
+plt.ylabel("Average Memory Usage [Kb]",  fontsize=18)
 plt.grid(True, alpha=0.3)
 plt.xticks(sorted(x_vals))
 
-# Sposta la leggenda in alto a destra, leggermente fuori dal grafico
-plt.legend(loc='upper right', bbox_to_anchor=(1.0, 0.87), fontsize=12)
-
+plt.legend(loc='upper right', bbox_to_anchor=(1.0, 0.92), fontsize=18)
+plt.tick_params(axis='x', labelsize=18)
+plt.tick_params(axis='y', labelsize=18)
 plt.tight_layout()
 plt.savefig("scalabilityPromise.pdf", dpi=300, bbox_inches='tight')
 plt.show()
