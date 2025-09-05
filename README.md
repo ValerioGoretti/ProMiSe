@@ -5,56 +5,21 @@ This repository contains the prototype of **ProMiSe**, a software framework and 
 ProMiSe focuses on **process discovery** and enforces usage control rules expressed as policies.  
 These policies are executed within a **Trusted Execution Environment (TEE)** to guarantee confidentiality and privacy of sensitive event log data.  
 
+![PromiseArchitecture](architecture.png)
+
 ---
 # Project Structure
 
 ```text
-├───DataOwner 
-├───Platform 
-│   ├───PolicyDecoder
-│   ├───SecureAppComposer
-│   └───TAgenerator
-│       ├───algorithmRepository
-│       └───generated_tas
-│           ├───ta1
-│           └───ta2
-│              ├───configs
-│               │   └───01
-│               ├───data
-│               │   └───01
-│               └───taPackage
-│                  └───config
-└───Test
-    ├───memConsumption
-    │   └───output
-    ├───OldmemConsumption
-    │   ├───backup
-    │   ├───old
-    │   └───output
-    ├───oldOverhead
-    │   ├───overhead
-    │   │   ├───CSV
-    │   │   ├───newCSV
-    │   │   ├───OldCSV
-    │   │   └───output
-    │   └───overhead_sim
-    │       ├───newCSV
-    │       └───output
-    ├───overhead
-    │   ├───CSV
-    │   └───output
-    └───scalability
-        ├───bpic12Ram
-        ├───bpic13Ram
-        ├───NoRam
-        │   ├───FirstTest
-        │   ├───output
-        │   ├───testBpic12_1RL
-        │   ├───testBpic12_2RL
-        │   ├───testBpic13_1RL
-        │   ├───testBpic13_2RL_NotFinished
-        │   └───testSepsis_10RL
-        └───sepsisRam
+├───DataOwner | user application 
+├───Platform | process discovery service provider application
+│   ├───PolicyDecoder | policy decoder module 
+│   ├───SecureAppComposer | secure app composer module 
+│   └───TAgenerator | configuration layer generator
+└───Test | Test folder
+    ├───memConsumption | memory consumption test
+    ├───overhead | overhead tests
+    └───scalability | scalability test
 ```
 
 ## Setup  
