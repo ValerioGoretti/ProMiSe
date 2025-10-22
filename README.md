@@ -1,6 +1,6 @@
 # ProMiSe  
 
-**ProMiSe** (*P*olicy-aware p*ro*cess *M*ining *S*ervice) is a software framework and service that enables controlled information usage in process mining.  
+**ProMiSe** (*P*olicy-aware p*ro*cess *M*ining *Se*rvice) is a software framework and service that enables controlled information usage in process mining.  
 ProMiSe focuses on **process discovery** and enforces **usage control** rules expressed as policies.  
 These policies are executed within a **Trusted Execution Environment (TEE)** to guarantee confidentiality and privacy of sensitive event log data.  
 
