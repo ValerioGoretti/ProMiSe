@@ -40,7 +40,7 @@ To set up and run the project, you need to have the following dependencies insta
 
 ---
 
-## Running the Project  
+## Run  
 1. Clone this repository:  
    ```bash
    git clone https://github.com/ValerioGoretti/ProMise.git
