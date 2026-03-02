@@ -7,7 +7,7 @@ These policies are executed within a **Trusted Execution Environment (TEE)** to 
 ![PromiseArchitecture](architecture.png)
 
 ## Publication
-Our solution was presented at [ICSOC 2025](https://icsoc2025.hit.edu.cn/19959/list.htm). The slide deck is available on [SlideShare](https://www.slideshare.net/slideshow/usage-control-for-process-discovery-through-a-trusted-execution-environment/284554072).
+Our solution was presented at [ICSOC 2025](https://icsoc2025.hit.edu.cn/19959/list.htm).
 
 For further information, consult our paper:
 - Goretti, V., Kirrane, S., Di Ciccio, C.: Usage Control for Process Discovery through a Trusted Execution Environment. In: International Conference on Service-Oriented Computing (2025)
