@@ -10,8 +10,10 @@ These policies are executed within a **Trusted Execution Environment (TEE)** to 
 Our solution was presented at [ICSOC 2025](https://icsoc2025.hit.edu.cn/19959/list.htm). The slide deck is available on [SlideShare](https://www.slideshare.net/slideshow/usage-control-for-process-discovery-through-a-trusted-execution-environment/284554072).
 
 For further information, consult our paper:
-- Valerio Goretti, Sabrina Kirrane, Claudio Di Ciccio (2025). *Usage Control for Process Discovery through a Trusted Execution Environment*. [Service-Oriented Computing
-23rd International Conference, ICSOC 2025, Shenzhen, China, December 1–4, 2025, Proceedings](https://link.springer.com/book/9789819550111). Springer (to appear)
+- Goretti, V., Kirrane, S., Di Ciccio, C.: Usage Control for Process Discovery through a Trusted Execution Environment. In: International Conference on Service-Oriented Computing (2025)
+  - Paper (DOI): [10.1007/978-981-95-5015-9_20](https://doi.org/10.1007/978-981-95-5015-9_20)
+  - Paper (URL): [arxiv.org/abs/2602.04697](https://arxiv.org/abs/2602.04697)
+  - Presentation: [https://www.slideshare.net/slideshow/usage-control-for-process-discovery-through-a-trusted-execution-environment/284554072](https://www.slideshare.net/slideshow/usage-control-for-process-discovery-through-a-trusted-execution-environment/284554072)
 
 ---
 ## Project Structure
